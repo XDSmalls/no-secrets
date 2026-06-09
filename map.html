@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Map — No Secrets</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        :root {
+            --bg:           #fbfaf6;
+            --ink:          #0d0a08;
+            --ink-2:        #221d18;
+            --muted:        #5e544a;
+            --accent:       #c43a2d;
+            --accent-deep:  #8a261c;
+            --line:         rgba(13,10,8,0.10);
+            --line-soft:    rgba(13,10,8,0.05);
+            --line-strong:  rgba(13,10,8,0.20);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--ink-2);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; text-decoration: none; }
+        img { display: block; }
+
+        /* NAV */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 1rem 2.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(251,250,246,0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line);
+        }
+        .nav-logo { display: block; padding: 4px 0; }
+        .nav-logo img {
+            height: 72px;
+            width: auto;
+            display: block;
+            mix-blend-mode: multiply;
+            transition: transform 0.2s;
+        }
+        .nav-logo:hover img { transform: scale(1.04); }
+        .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--ink);
+            opacity: 0.78;
+            transition: opacity 0.2s, color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent); }
+        .nav-divider { width: 1px; height: 14px; background: var(--line-strong); }
+        .nav-off-menu a { display: block; padding: 4px 0; opacity: 1 !important; }
+        .nav-off-menu img {
+            height: 28px;
+            width: auto;
+            display: block;
+            transition: transform 0.2s;
+        }
+        .nav-off-menu a:hover img { transform: scale(1.05); }
+        .nav-menu-btn { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+        .nav-menu-btn span { display: block; width: 22px; height: 2px; background: var(--ink); }
+
+        /* MAP */
+        #map {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 0;
+            background: var(--bg);
+        }
+        /* Slight desaturation so flag fills pop */
+        .leaflet-tile-pane { filter: saturate(0.6) brightness(0.99) contrast(0.94); }
+
+        /* Country-fill paths: animation handled in JS via inline style.
+           These rules keep them visually clean. */
+        .country-shape {
+            stroke: #0d0a08;
+            stroke-width: 1.2;
+            stroke-opacity: 0.85;
+            fill-opacity: 0;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        /* TITLE CARD */
+        .map-title-card {
+            position: fixed;
+            bottom: 2.4rem;
+            left: 2.4rem;
+            z-index: 500;
+            background: rgba(251,250,246,0.96);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid var(--line);
+            padding: 1.6rem 1.9rem;
+            max-width: 280px;
+            box-shadow: 0 12px 38px rgba(13,10,8,0.10);
+            opacity: 0;
+            transform: translateY(12px);
+            animation: cardIn 0.9s ease 0.4s forwards;
+        }
+        @keyframes cardIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .map-title-card .eyebrow {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+        }
+        .map-title-card h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.7rem;
+        }
+        .map-title-card p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        .map-pin-count {
+            margin-top: 1.2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .map-pin-icon {
+            width: 13px; height: 13px;
+            background: var(--accent);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            flex-shrink: 0;
+        }
+        .map-pin-count span {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        /* MARKER */
+        .map-marker { cursor: pointer; transition: transform 0.2s; }
+        .map-marker:hover { transform: scale(1.15) translateY(-2px); }
+
+        /* POPUP OVERRIDES */
+        .leaflet-popup-content-wrapper {
+            background: var(--bg) !important;
+            border: 1px solid var(--line) !important;
+            border-radius: 0 !important;
+            box-shadow: 0 16px 48px rgba(13,10,8,0.18) !important;
+            padding: 0 !important;
+            overflow: hidden;
+        }
+        .leaflet-popup-tip-container { display: none !important; }
+        .leaflet-popup-content { margin: 0 !important; width: 300px !important; }
+        .leaflet-popup-close-button {
+            color: var(--muted) !important;
+            opacity: 0.7 !important;
+            font-size: 1.2rem !important;
+            padding: 8px 12px !important;
+            top: 6px !important;
+            right: 4px !important;
+            z-index: 10;
+            transition: opacity 0.2s, color 0.2s !important;
+        }
+        .leaflet-popup-close-button:hover { opacity: 1 !important; color: var(--accent) !important; }
+
+        .popup-photo {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(155deg, #d8c8a8 0%, #8a6a3a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .popup-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .popup-photo-placeholder {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .popup-photo-placeholder span {
+            font-family: 'Inter', sans-serif;
+            font-style: italic;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.78);
+        }
+        .popup-body { padding: 1.5rem 1.7rem 1.7rem; }
+        .popup-city {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .popup-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1.2;
+            letter-spacing: -0.025em;
+            margin-bottom: 0.85rem;
+        }
+        .popup-writeup {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.86rem;
+            font-style: italic;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* LEAFLET ZOOM CONTROL */
+        .leaflet-bar { box-shadow: 0 8px 24px rgba(13,10,8,0.12) !important; border: 1px solid var(--line) !important; }
+        .leaflet-bar a {
+            background: rgba(251,250,246,0.96) !important;
+            color: var(--ink) !important;
+            border-bottom: 1px solid var(--line) !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+        .leaflet-bar a:hover { background: var(--bg) !important; color: var(--accent) !important; }
+
+        /* Map markers hidden until country animation finishes */
+        .leaflet-marker-pane { opacity: 0; transition: opacity 0.8s ease; }
+        .markers-ready .leaflet-marker-pane { opacity: 1; }
+
+        /* RESPONSIVE */
+        @media (max-width: 700px) {
+            .nav { padding: 0.75rem 1.5rem; }
+            .nav-logo img { height: 60px; }
+            .nav-links {
+                display: none;
+                position: absolute; top: 100%; left: 0; right: 0;
+                background: rgba(251,250,246,0.97);
+                backdrop-filter: blur(14px);
+                flex-direction: column;
+                gap: 0;
+                border-bottom: 1px solid var(--line);
+                padding: 0;
+            }
+            .nav-links.open { display: flex; align-items: stretch; }
+            .nav-links li { width: 100%; }
+            .nav-links li a { display: block; padding: 1rem 1.5rem; text-align: center; }
+            .nav-divider { display: none; }
+            .nav-off-menu a { padding: 0.7rem 1.5rem; }
+            .nav-off-menu img { margin: 0 auto; height: 26px; }
+            .nav-menu-btn { display: flex; }
+            .map-title-card { bottom: 1.2rem; left: 1.2rem; right: 1.2rem; max-width: none; }
+            .leaflet-popup-content { width: 260px !important; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav" id="main-nav">
+    <a href="index.html" class="nav-logo" aria-label="No Secrets — home"><img src="nosecretsfinal.png" alt="No Secrets"></a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="map.html" class="active">The Map</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="nav-divider" aria-hidden="true"></li>
+        <li class="nav-off-menu"><a href="side-b/index.html"><img src="off-menu.png" alt="Off Menu"></a></li>
+    </ul>
+    <div class="nav-menu-btn" id="menu-btn">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+<div id="map"></div>
+
+<div class="map-title-card">
+    <span class="eyebrow">Personal recommendations</span>
+    <h1>The Map</h1>
+    <p>Places I've eaten that I'd send a friend to without hesitation.</p>
+    <div class="map-pin-count">
+        <div class="map-pin-icon"></div>
+        <span id="pin-count">— restaurants</span>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+
+// =====================================================================
+//  RESTAURANTS — your personal recommendations
+// =====================================================================
+
+const restaurants = [
+    { name: "Da Enzo al 29", city: "Rome, Italy", coords: [41.8879, 12.4777],
+      writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
+      photo: "" },
+    { name: "Figlmüller Bäckerstraße", city: "Vienna, Austria", coords: [48.2082, 16.3738],
+      writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
+      photo: "" },
+    { name: "The Test Kitchen", city: "Cape Town, South Africa", coords: [-33.9258, 18.4232],
+      writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
+      photo: "" },
+    { name: "Lola Bistro", city: "Cleveland, Ohio", coords: [41.4993, -81.6944],
+      writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
+      photo: "" },
+    { name: "Abou El Sid", city: "Cairo, Egypt", coords: [30.0626, 31.2497],
+      writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
+      photo: "" },
+];
+
+// =====================================================================
+//  COUNTRY → FLAG MAP (ISO 3166-1 alpha-3 → flagcdn code)
+// =====================================================================
+
+const FLAG_MAP = {
+    USA: 'us',
+    ITA: 'it',
+    AUT: 'at',
+    GBR: 'gb-eng',   // England flag (St George's Cross) for the UK polygon
+    SVK: 'sk',
+    EGY: 'eg',
+    ARE: 'ae',
+    ZAF: 'za',
+    IRL: 'ie'
+};
+const WANTED = new Set(Object.keys(FLAG_MAP));
+
+// =====================================================================
+//  MAP
+// =====================================================================
+
+const map = L.map('map', {
+    center: [25, 15],
+    zoom: 2,
+    zoomControl: false,
+    attributionControl: true,
+    minZoom: 2,
+    maxBoundsViscosity: 0.8,
+});
+
+L.control.zoom({ position: 'topright' }).addTo(map);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" style="color:#c43a2d">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" style="color:#c43a2d">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+}).addTo(map);
+
+// Style attribution
+const attribution = document.querySelector('.leaflet-control-attribution');
+if (attribution) {
+    attribution.style.cssText =
+        'background: rgba(251,250,246,0.85); color: rgba(94,84,74,0.85); font-size: 0.6rem; font-family: Inter, sans-serif; border-top: 1px solid rgba(13,10,8,0.08); backdrop-filter: blur(8px); padding: 2px 8px;';
+}
+
+// =====================================================================
+//  COUNTRY UNRAVEL — fetch borders, fill with flag patterns, animate
+// =====================================================================
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+const XLINK_NS = 'http://www.w3.org/1999/xlink';
+
+fetch('https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json')
+    .then(r => r.json())
+    .then(world => {
+        const filtered = {
+            type: 'FeatureCollection',
+            features: world.features.filter(f => WANTED.has(f.id))
+        };
+
+        // Add GeoJSON layer (transparent first; we'll set fills via patterns)
+        const geoLayer = L.geoJSON(filtered, {
+            style: () => ({
+                className: 'country-shape',
+                color: '#0d0a08',
+                weight: 1.2,
+                opacity: 0.85,
+                fill: true,
+                fillOpacity: 0
+            })
+        }).addTo(map);
+
+        // Grab leaflet's vector SVG and inject flag patterns into <defs>
+        const svg = document.querySelector('.leaflet-overlay-pane svg');
+        if (!svg) return;
+        const defs = document.createElementNS(SVG_NS, 'defs');
+        Object.entries(FLAG_MAP).forEach(([iso, code]) => {
+            const pattern = document.createElementNS(SVG_NS, 'pattern');
+            pattern.setAttribute('id', `flag-${code}`);
+            pattern.setAttribute('patternUnits', 'objectBoundingBox');
+            pattern.setAttribute('width', '1');
+            pattern.setAttribute('height', '1');
+
+            const image = document.createElementNS(SVG_NS, 'image');
+            const url = `https://flagcdn.com/w640/${code}.png`;
+            image.setAttribute('href', url);
+            image.setAttributeNS(XLINK_NS, 'xlink:href', url);
+            image.setAttribute('x', '0');
+            image.setAttribute('y', '0');
+            image.setAttribute('width', '1');
+            image.setAttribute('height', '1');
+            image.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+            pattern.appendChild(image);
+            defs.appendChild(pattern);
+        });
+        svg.insertBefore(defs, svg.firstChild);
+
+        // Apply unravel animation + flag fill to each country path
+        geoLayer.eachLayer(layer => {
+            const path = layer._path;
+            const iso = layer.feature.id;
+            const code = FLAG_MAP[iso];
+            if (!path || !code) return;
+
+            // Set the fill to the flag pattern (starts at fillOpacity 0)
+            path.setAttribute('fill', `url(#flag-${code})`);
+
+            // Stroke-draw animation
+            let len = 0;
+            try { len = path.getTotalLength(); } catch (e) { len = 5000; }
+            path.style.strokeDasharray = len;
+            path.style.strokeDashoffset = len;
+            path.style.fillOpacity = '0';
+            path.style.transition =
+                'stroke-dashoffset 2.2s cubic-bezier(0.45, 0, 0.4, 1), ' +
+                'fill-opacity 0.7s ease';
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                path.style.strokeDashoffset = '0';
+                setTimeout(() => { path.style.fillOpacity = '0.78'; }, 1500);
+            });
+
+            // After the unravel finishes, clear stroke-dasharray so the
+            // outline stays solid through zoom/pan (Leaflet redraws the
+            // path's `d` attribute and the old dasharray length no longer
+            // matches, which would otherwise cause broken-up strokes)
+            setTimeout(() => {
+                path.style.strokeDasharray = 'none';
+                path.style.strokeDashoffset = '0';
+                path.style.transition = 'fill-opacity 0.4s ease';
+            }, 2400);
+        });
+
+        // Re-assert fill and clean strokes on zoom (Leaflet may rebuild paths)
+        const reassertStyles = () => {
+            geoLayer.eachLayer(layer => {
+                const path = layer._path;
+                const iso = layer.feature.id;
+                const code = FLAG_MAP[iso];
+                if (!path || !code) return;
+                path.setAttribute('fill', `url(#flag-${code})`);
+                path.style.strokeDasharray = 'none';
+                path.style.strokeDashoffset = '0';
+            });
+        };
+        map.on('zoomend moveend', () => {
+            // Only re-assert after the unravel animation is past
+            setTimeout(reassertStyles, 50);
+        });
+
+        // Reveal markers once countries finish drawing
+        setTimeout(() => document.body.classList.add('markers-ready'), 2400);
+    })
+    .catch(err => {
+        console.warn('Country borders failed to load:', err);
+        // Markers should still appear even if the GeoJSON request fails
+        document.body.classList.add('markers-ready');
+    });
+
+// =====================================================================
+//  RESTAURANT PINS
+// =====================================================================
+
+function makeIcon() {
+    return L.divIcon({
+        className: 'map-marker',
+        html: `<svg width="26" height="36" viewBox="0 0 26 36" xmlns="http://www.w3.org/2000/svg">
+            <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+                <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(0,0,0,0.35)"/>
+            </filter>
+            <path d="M13 0C5.82 0 0 5.82 0 13c0 8.667 13 23 13 23S26 21.667 26 13C26 5.82 20.18 0 13 0z"
+                  fill="#c43a2d" filter="url(#shadow)"/>
+            <circle cx="13" cy="13" r="4.5" fill="#fbfaf6"/>
+        </svg>`,
+        iconSize: [26, 36],
+        iconAnchor: [13, 36],
+        popupAnchor: [0, -40]
+    });
+}
+
+function popupHTML(r) {
+    const photoHTML = r.photo
+        ? `<img src="${r.photo}" alt="${r.name}">`
+        : `<div class="popup-photo-placeholder"><span>add a photo</span></div>`;
+
+    return `
+        <div class="popup-photo">${photoHTML}</div>
+        <div class="popup-body">
+            <span class="popup-city">${r.city}</span>
+            <div class="popup-name">${r.name}</div>
+            <p class="popup-writeup">${r.writeup}</p>
+        </div>
+    `;
+}
+
+restaurants.forEach(r => {
+    const marker = L.marker(r.coords, { icon: makeIcon() });
+    marker.bindPopup(popupHTML(r), {
+        maxWidth: 300,
+        minWidth: 300,
+        className: 'no-secrets-popup',
+        autoPanPaddingTopLeft: L.point(60, 90),
+        autoPanPaddingBottomRight: L.point(60, 40),
+    });
+    marker.addTo(map);
+});
+
+document.getElementById('pin-count').textContent =
+    `${restaurants.length} restaurant${restaurants.length !== 1 ? 's' : ''}`;
+
+document.getElementById('menu-btn').addEventListener('click', () => {
+    document.getElementById('nav-links').classList.toggle('open');
+});
+
+// Nav fades out as the page scrolls down
+const navEl = document.getElementById('main-nav');
+const FADE_START = 80;
+const FADE_END = 360;
+window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    let op = 1;
+    if (y > FADE_START) op = Math.max(0, 1 - (y - FADE_START) / (FADE_END - FADE_START));
+    navEl.style.opacity = op;
+    navEl.style.pointerEvents = op < 0.08 ? 'none' : 'auto';
+}, { passive: true });
+
+// Safety: if all else fails, reveal markers after 4s
+setTimeout(() => document.body.classList.add('markers-ready'), 4000);
+
+</script>
+</body>
+</html>

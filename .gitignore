@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Claude Code internal state
+.claude/
+
+# Logs
+*.log
+
+# Environment / secrets (in case any are added later)
+.env
+.env.*
+
+# Editor / temp
+*.swp
+*.tmp
+.vscode/
+.idea/
+
+# Node (in case build tools get added later)
+node_modules/

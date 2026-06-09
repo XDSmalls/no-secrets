@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Off Menu — Samuele</title>
+    <link rel="stylesheet" href="side-b.css">
+    <style>
+        /* GIF SPLASH (parallel to Bourdain splash on main site) */
+        #om-splash {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #07070d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            animation: omSplashFade 3.4s ease forwards;
+        }
+        #om-splash img {
+            max-width: 96vw;
+            max-height: 92vh;
+            width: auto;
+            height: auto;
+            display: block;
+        }
+        @keyframes omSplashFade {
+            0%   { opacity: 0; }
+            10%  { opacity: 1; }
+            72%  { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        /* HUB MARK (OFF MENU image as the headline) */
+        .sb-hub-mark {
+            margin-top: 0;
+            max-width: min(640px, 80vw);
+            width: 100%;
+        }
+        .sb-hub-mark img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 12px 36px rgba(0,0,0,0.55));
+        }
+
+        /* Override the tagline so it's still subtle but more legible */
+        .sb-hub-tagline {
+            margin-top: 2.4rem;
+            font-family: var(--sans);
+            font-size: clamp(0.92rem, 1.4vw, 1.02rem);
+            color: rgba(229,229,240,0.78);
+            max-width: 560px;
+            line-height: 1.75;
+            font-weight: 400;
+            border-left: 2px solid rgba(200,255,0,0.35);
+            padding-left: 1.2rem;
+            letter-spacing: 0.005em;
+        }
+    </style>
+</head>
+<body>
+
+<div id="om-splash">
+    <img src="../208598.gif" alt="">
+</div>
+
+<nav class="sb-nav">
+    <a href="../index.html" class="sb-back">No Secrets</a>
+    <a href="index.html" class="sb-nav-id-img" aria-label="Off Menu — home"><img src="../off-menu.png" alt="Off Menu"></a>
+    <ul class="sb-nav-links">
+        <li><a href="drawing.html">Drawing</a></li>
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="photo-vid.html">Photo &amp; Vid</a></li>
+    </ul>
+</nav>
+
+<div class="sb-hub-wrap">
+    <div class="sb-hub-mark">
+        <img src="../off-menu.png" alt="Off Menu">
+    </div>
+    <p class="sb-hub-tagline">I love to draw, write, and (when I can afford it) take film photography pretty seriously. Nothing revolutionary, but I never had a place to display my work before, so this will function as a portfolio. Big fan of Japanese pop culture (if not already evident).</p>
+</div>
+
+<div class="sb-sections">
+    <a href="drawing.html" class="sb-card">
+        <span class="sb-card-num">01</span>
+        <h2 class="sb-card-name">Drawing</h2>
+        <p class="sb-card-desc">Sketchbook pages and finished pieces. Whatever made it off the paper.</p>
+        <span class="sb-card-arrow">→</span>
+    </a>
+    <a href="writing.html" class="sb-card">
+        <span class="sb-card-num">02</span>
+        <h2 class="sb-card-name">Writing</h2>
+        <p class="sb-card-desc">Non-food essays and observations. Things that needed to go somewhere other than the dinner table.</p>
+        <span class="sb-card-arrow">→</span>
+    </a>
+    <a href="photo-vid.html" class="sb-card">
+        <span class="sb-card-num">03</span>
+        <h2 class="sb-card-name">Photo &amp; Vid</h2>
+        <p class="sb-card-desc">A running visual document — photos and video of things worth looking at.</p>
+        <span class="sb-card-arrow">→</span>
+    </a>
+</div>
+
+<footer class="sb-footer">
+    <a href="../index.html">← Back to No Secrets</a>
+    <span class="sb-footer-copy">Samuele © 2026</span>
+</footer>
+
+</body>
+</html>

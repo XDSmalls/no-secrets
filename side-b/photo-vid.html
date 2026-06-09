@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo &amp; Vid — Side B</title>
+    <link rel="stylesheet" href="side-b.css">
+</head>
+<body>
+
+<nav class="sb-nav">
+    <a href="../index.html" class="sb-back">No Secrets</a>
+    <a href="index.html" class="sb-nav-id-img" aria-label="Off Menu — home"><img src="../off-menu.png" alt="Off Menu"></a>
+    <ul class="sb-nav-links">
+        <li><a href="drawing.html">Drawing</a></li>
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="photo-vid.html" class="active">Photo &amp; Vid</a></li>
+    </ul>
+</nav>
+
+<div class="sb-page-header">
+    <span class="sb-eyebrow">03 / Photo &amp; Vid</span>
+    <h1 class="sb-page-title">Photo<br>&amp; Vid</h1>
+    <p class="sb-page-desc">A visual document. Photos click to expand full size. Videos play inline when clicked.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MEDIA GRID — photos and videos share the same grid.
+
+     PHOTO ITEM:
+       • Add class "sb-is-photo" to .sb-media-item
+       • Set data-full to the full-size image path
+       • Uncomment the <img> tag, remove .sb-placeholder
+
+     VIDEO ITEM:
+       • Add class "sb-is-video" to .sb-media-item
+       • Set data-embed to your embed URL:
+           YouTube: https://www.youtube.com/embed/VIDEO_ID
+           Vimeo:   https://player.vimeo.com/video/VIDEO_ID
+       • Optionally add a real thumbnail <img> tag
+     ═══════════════════════════════════════════════════════════ -->
+<div class="sb-media-grid">
+
+    <!-- PHOTO 01 -->
+    <div class="sb-media-item sb-is-photo" data-full="images/photo-01-full.jpg">
+        <div class="sb-media-thumb">
+            <div class="sb-placeholder" style="background:#11111e;">[ Photo 01 ]</div>
+            <!-- <img src="images/photo-01.jpg" alt="Description"> -->
+        </div>
+        <div class="sb-media-cap">
+            <p class="sb-media-type">Photo</p>
+            <h3>Title or Location</h3>
+            <p>Short note, date, or context</p>
+        </div>
+    </div>
+
+    <!-- VIDEO 01 -->
+    <!-- Replace VIDEO_ID with your actual YouTube video ID -->
+    <div class="sb-media-item sb-is-video" data-embed="https://www.youtube.com/embed/VIDEO_ID">
+        <div class="sb-media-thumb">
+            <div class="sb-placeholder" style="background:#0d1118;">[ Video 01 ]</div>
+            <!-- <img src="images/video-01-thumb.jpg" alt="Video title"> -->
+            <div class="sb-play-btn" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="30" fill="rgba(0,0,0,0.55)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+                    <polygon points="27,20 49,32 27,44" fill="white"/>
+                </svg>
+            </div>
+            <div class="sb-video-embed"></div>
+        </div>
+        <div class="sb-media-cap">
+            <p class="sb-media-type">Video</p>
+            <h3>Video Title</h3>
+            <p>Short description or note</p>
+        </div>
+    </div>
+
+    <!-- PHOTO 02 -->
+    <div class="sb-media-item sb-is-photo" data-full="images/photo-02-full.jpg">
+        <div class="sb-media-thumb">
+            <div class="sb-placeholder" style="background:#181410;">[ Photo 02 ]</div>
+            <!-- <img src="images/photo-02.jpg" alt="Description"> -->
+        </div>
+        <div class="sb-media-cap">
+            <p class="sb-media-type">Photo</p>
+            <h3>Title or Location</h3>
+            <p>Short note, date, or context</p>
+        </div>
+    </div>
+
+    <!-- PHOTO 03 -->
+    <div class="sb-media-item sb-is-photo" data-full="images/photo-03-full.jpg">
+        <div class="sb-media-thumb">
+            <div class="sb-placeholder" style="background:#0d1814;">[ Photo 03 ]</div>
+            <!-- <img src="images/photo-03.jpg" alt="Description"> -->
+        </div>
+        <div class="sb-media-cap">
+            <p class="sb-media-type">Photo</p>
+            <h3>Title or Location</h3>
+            <p>Short note, date, or context</p>
+        </div>
+    </div>
+
+    <!-- VIDEO 02 -->
+    <!-- Replace VIDEO_ID with your actual Vimeo video ID -->
+    <div class="sb-media-item sb-is-video" data-embed="https://player.vimeo.com/video/VIDEO_ID">
+        <div class="sb-media-thumb">
+            <div class="sb-placeholder" style="background:#131318;">[ Video 02 ]</div>
+            <!-- <img src="images/video-02-thumb.jpg" alt="Video title"> -->
+            <div class="sb-play-btn" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="30" fill="rgba(0,0,0,0.55)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+                    <polygon points="27,20 49,32 27,44" fill="white"/>
+                </svg>
+            </div>
+            <div class="sb-video-embed"></div>
+        </div>
+        <div class="sb-media-cap">
+            <p class="sb-media-type">Video</p>
+            <h3>Video Title</h3>
+            <p>Short description or note</p>
+        </div>
+    </div>
+
+    <!-- PHOTO 04 -->
+    <div class="sb-media-item sb-is-photo" data-full="images/photo-04-full.jpg">
+        <div class="sb-media-thumb">
+            <div class="sb-placeholder" style="background:#181310;">[ Photo 04 ]</div>
+            <!-- <img src="images/photo-04.jpg" alt="Description"> -->
+        </div>
+        <div class="sb-media-cap">
+            <p class="sb-media-type">Photo</p>
+            <h3>Title or Location</h3>
+            <p>Short note, date, or context</p>
+        </div>
+    </div>
+
+    <!-- Duplicate items above to add more photos or videos -->
+
+</div>
+
+<!-- Lightbox (photos only) -->
+<div class="sb-lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Full-size photo">
+    <button class="sb-lightbox-close" id="lb-close">ESC / Close</button>
+    <img id="lb-img" src="" alt="">
+</div>
+
+<footer class="sb-footer">
+    <a href="writing.html">← Writing</a>
+    <a href="index.html">Side B Home</a>
+    <span class="sb-footer-copy">Samuele © 2026</span>
+</footer>
+
+<script>
+    /* ── Photo lightbox ── */
+    const lightbox = document.getElementById('lightbox');
+    const lbImg    = document.getElementById('lb-img');
+
+    document.querySelectorAll('.sb-is-photo').forEach(item => {
+        item.addEventListener('click', () => {
+            const img  = item.querySelector('img');
+            const full = item.dataset.full;
+            if (!img) return;
+            lbImg.src = full || img.src;
+            lbImg.alt = img.alt;
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    function closeLightbox() {
+        lightbox.classList.remove('open');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+    }
+    document.getElementById('lb-close').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+
+    /* ── Video embed on click ── */
+    document.querySelectorAll('.sb-is-video').forEach(item => {
+        item.addEventListener('click', () => {
+            const src   = item.dataset.embed;
+            const embed = item.querySelector('.sb-video-embed');
+
+            // skip if no real embed URL is set yet
+            if (!src || src.includes('VIDEO_ID')) return;
+
+            if (!embed.classList.contains('active')) {
+                const iframe = document.createElement('iframe');
+                iframe.src = src + '?autoplay=1';
+                iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+                iframe.allowFullscreen = true;
+                embed.appendChild(iframe);
+                embed.classList.add('active');
+
+                // hide placeholder and play button so iframe shows cleanly
+                const placeholder = item.querySelector('.sb-placeholder');
+                const thumb       = item.querySelector('.sb-media-thumb > img');
+                const playBtn     = item.querySelector('.sb-play-btn');
+                if (placeholder) placeholder.style.display = 'none';
+                if (thumb)       thumb.style.display = 'none';
+                if (playBtn)     playBtn.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — No Secrets</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:           #fbfaf6;
+            --bg-tint:      #f1ead8;
+            --bg-quote:     #ece2cb;
+            --ink:          #0d0a08;
+            --ink-2:        #221d18;
+            --muted:        #5e544a;
+            --accent:       #c43a2d;
+            --accent-deep:  #8a261c;
+            --line:         rgba(13,10,8,0.10);
+            --line-soft:    rgba(13,10,8,0.05);
+            --line-strong:  rgba(13,10,8,0.20);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--ink-2);
+            overflow-x: hidden;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; display: block; }
+
+        .eyebrow {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: 0.95rem 2rem;
+            background: transparent;
+            color: var(--ink);
+            border: 1px solid var(--ink);
+            cursor: pointer;
+            transition: background 0.25s, color 0.25s, border-color 0.25s;
+            margin: 0 0.4rem;
+        }
+        .btn:hover { background: var(--ink); color: #fff; }
+        .btn.btn-accent {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+        .btn.btn-accent:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
+
+        /* NAV */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1rem 2.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(251,250,246,0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line);
+        }
+        .nav-logo { display: block; padding: 4px 0; }
+        .nav-logo img {
+            height: 72px;
+            width: auto;
+            display: block;
+            mix-blend-mode: multiply;
+            transition: transform 0.2s;
+        }
+        .nav-logo:hover img { transform: scale(1.04); }
+        .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--ink);
+            opacity: 0.78;
+            transition: opacity 0.2s, color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent); }
+        .nav-divider { width: 1px; height: 14px; background: var(--line-strong); }
+        .nav-off-menu a { display: block; padding: 4px 0; opacity: 1 !important; }
+        .nav-off-menu img {
+            height: 28px;
+            width: auto;
+            display: block;
+            transition: transform 0.2s;
+        }
+        .nav-off-menu a:hover img { transform: scale(1.05); }
+        .nav-menu-btn { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+        .nav-menu-btn span { display: block; width: 22px; height: 2px; background: var(--ink); }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+            background: var(--bg);
+            border-bottom: 1px solid var(--line);
+        }
+        .page-hero .eyebrow { margin-bottom: 1.3rem; }
+        .page-hero h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(3rem, 7.5vw, 5.6rem);
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1;
+            letter-spacing: -0.04em;
+            margin-bottom: 0.2em;
+        }
+        .page-hero h1 em {
+            font-weight: 500;
+            font-style: italic;
+            color: var(--accent);
+        }
+        .page-hero-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1rem, 1.7vw, 1.15rem);
+            font-style: italic;
+            color: var(--muted);
+            line-height: 1.75;
+            max-width: 500px;
+            margin: 1.6rem auto 0;
+        }
+
+        /* INTRO WITH PORTRAIT */
+        .about-main { background: var(--bg); }
+        .about-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 1280px;
+            margin: 0 auto;
+            min-height: 540px;
+        }
+        .about-portrait {
+            position: relative;
+            overflow: hidden;
+            min-height: 480px;
+            background: linear-gradient(160deg, #d8c8a8 0%, #b89c70 40%, #6d5230 100%);
+            /* Replace with: background-image: url('your-portrait.jpg'); background-size: cover; background-position: center top; */
+        }
+        .about-portrait::after {
+            content: 'Your photo here';
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            font-family: 'Inter', sans-serif;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            pointer-events: none;
+        }
+        .about-intro-text {
+            padding: 5rem 4rem 5rem 3.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .about-intro-text .eyebrow { margin-bottom: 1rem; }
+        .about-intro-text h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.7rem, 3.3vw, 2.5rem);
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.8rem;
+        }
+        .about-intro-text p {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1rem, 1.6vw, 1.08rem);
+            line-height: 1.75;
+            color: var(--ink-2);
+            margin-bottom: 1.2rem;
+        }
+        .about-intro-text p:last-child { margin-bottom: 0; }
+        .about-intro-text em { color: var(--accent); font-style: italic; font-weight: 500; }
+
+        /* THE LONGER STORY */
+        .about-story {
+            padding: 8rem 2rem;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+        .about-story .section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 2.5rem;
+            display: block;
+            font-weight: 600;
+        }
+        .about-story h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+        .about-story p {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1rem, 1.7vw, 1.1rem);
+            line-height: 1.85;
+            color: var(--ink-2);
+            margin-bottom: 1.4rem;
+        }
+        .about-story p em { font-style: italic; color: var(--ink); font-weight: 500; }
+        .about-story p.pull {
+            font-size: clamp(1.18rem, 2.2vw, 1.45rem);
+            font-style: italic;
+            color: var(--ink);
+            border-left: 3px solid var(--accent);
+            padding-left: 1.6rem;
+            margin: 2.5rem 0;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* INFLUENCES — hover-reveal photo */
+        .about-influences {
+            background: var(--bg-tint);
+            padding: 8rem 2rem;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+        .about-influences .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .about-influences .section-header h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.03em;
+            margin-top: 0.7rem;
+            text-transform: lowercase;
+        }
+        .influences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 880px;
+            margin: 0 auto;
+        }
+        .influence-card {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4 / 5;
+            background: var(--bg);
+            border: 1px solid var(--line);
+            cursor: pointer;
+            isolation: isolate;
+        }
+        .influence-photo {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.55s ease, transform 6s ease-out;
+            z-index: 1;
+        }
+        .influence-card:hover .influence-photo {
+            opacity: 1;
+            transform: scale(1.06);
+        }
+        .influence-scrim {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0) 100%);
+            opacity: 0;
+            transition: opacity 0.55s ease;
+            z-index: 2;
+        }
+        .influence-card:hover .influence-scrim { opacity: 1; }
+        .influence-body {
+            position: absolute;
+            inset: 0;
+            padding: 2.4rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 3;
+            transition: color 0.4s ease;
+        }
+        .influence-card:hover .influence-body * { color: #fff !important; }
+        .influence-card:hover .influence-role { color: rgba(255,255,255,0.85) !important; }
+        .influence-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: rgba(13,10,8,0.35);
+            letter-spacing: 0.18em;
+            transition: color 0.4s;
+        }
+        .influence-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .influence-role {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            transition: color 0.4s;
+        }
+        .influence-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            transition: color 0.4s;
+        }
+        .influence-hint {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.62rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 500;
+            margin-top: 0.7rem;
+            opacity: 0.7;
+            transition: opacity 0.4s, color 0.4s;
+        }
+        .influence-card:hover .influence-hint { opacity: 0; }
+
+        /* FOOD MEMORIES — a memory lane */
+        .about-memories {
+            background: var(--bg);
+            padding: 8rem 2rem;
+        }
+        .memories-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .memories-header h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.03em;
+            margin-top: 0.7rem;
+            margin-bottom: 1rem;
+        }
+        .memories-header p {
+            font-family: 'Inter', sans-serif;
+            font-style: italic;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+        }
+        .memories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+        .memory {
+            background: var(--bg-tint);
+            border: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .memory:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(13,10,8,0.10);
+        }
+        .memory-photo {
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(160deg, #d8c8a8 0%, #b89c70 50%, #6d5230 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .memory-photo::after {
+            content: 'add photo';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            font-style: italic;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.55);
+            letter-spacing: 0.05em;
+            pointer-events: none;
+        }
+        .memory-photo img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .memory-cap {
+            padding: 1rem 1.1rem 1.2rem;
+            border-top: 1px solid var(--line);
+        }
+        .memory-cap .where {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            display: block;
+        }
+        .memory-cap p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-style: italic;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* CTA */
+        .about-cta {
+            background: var(--bg-quote);
+            padding: 8rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--line);
+        }
+        .about-cta-line {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.5rem, 3.6vw, 2.4rem);
+            font-weight: 500;
+            font-style: italic;
+            color: var(--ink);
+            line-height: 1.35;
+            letter-spacing: -0.018em;
+            margin: 0 auto 2.8rem;
+            max-width: 640px;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--bg);
+            border-top: 1px solid var(--line);
+            padding: 2.5rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .footer-logo img { height: 56px; width: auto; mix-blend-mode: multiply; transition: transform 0.2s; }
+        .footer-logo:hover img { transform: scale(1.04); }
+        .footer-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
+        .footer-links a {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-copy { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: var(--muted); }
+
+        /* RESPONSIVE */
+        @media (max-width: 860px) {
+            .about-intro { grid-template-columns: 1fr; }
+            .about-portrait { min-height: 380px; }
+            .about-intro-text { padding: 4rem 1.8rem; }
+            .influences-grid { grid-template-columns: 1fr; max-width: 380px; }
+            .memories-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 700px) {
+            .nav { padding: 0.75rem 1.5rem; }
+            .nav-logo img { height: 60px; }
+            .nav-links {
+                display: none;
+                position: absolute; top: 100%; left: 0; right: 0;
+                background: rgba(251,250,246,0.97);
+                backdrop-filter: blur(14px);
+                flex-direction: column;
+                gap: 0;
+                border-bottom: 1px solid var(--line);
+                padding: 0;
+            }
+            .nav-links.open { display: flex; align-items: stretch; }
+            .nav-links li { width: 100%; }
+            .nav-links li a { display: block; padding: 1rem 1.5rem; text-align: center; }
+            .nav-divider { display: none; }
+            .nav-off-menu a { padding: 0.7rem 1.5rem; }
+            .nav-off-menu img { margin: 0 auto; height: 26px; }
+            .nav-menu-btn { display: flex; }
+            .page-hero { padding: 7rem 1.5rem 4rem; }
+            .about-story { padding: 5rem 1.5rem; }
+            .about-influences, .about-memories, .about-cta { padding: 5rem 1.5rem; }
+            .memories-grid { grid-template-columns: 1fr; max-width: 360px; }
+            .footer { flex-direction: column; align-items: flex-start; padding: 2.2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav" id="main-nav">
+    <a href="index.html" class="nav-logo" aria-label="No Secrets — home"><img src="nosecretsfinal.png" alt="No Secrets"></a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="recipes.html">Recipes</a></li>
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="map.html">The Map</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li class="nav-divider" aria-hidden="true"></li>
+        <li class="nav-off-menu"><a href="side-b/index.html"><img src="off-menu.png" alt="Off Menu"></a></li>
+    </ul>
+    <div class="nav-menu-btn" id="menu-btn" aria-label="Menu" role="button" tabindex="0">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+    <div class="fade-up">
+        <span class="eyebrow">The person behind the recipes</span>
+        <h1>The Cook.<br><em>The Story.</em></h1>
+        <p class="page-hero-sub">
+            Why I started keeping secrets in the first place — and why I finally stopped.
+        </p>
+    </div>
+</div>
+
+
+<!-- INTRO + PORTRAIT -->
+<div class="about-main">
+    <div class="about-intro">
+        <div class="about-portrait"></div>
+        <div class="about-intro-text fade-up">
+            <span class="eyebrow">Who I am</span>
+            <h2>Hi. I'm Samuele, and I grew up in someone else's kitchen.</h2>
+            <p>
+                Not literally. But close enough. I spent more hours of my childhood
+                watching other people cook than most people spend eating. I was the
+                kid in the corner who kept asking questions nobody wanted to answer.
+            </p>
+            <p>
+                Why are you adding that now? How much of that is too much?
+                What does "a pinch" actually mean to you, specifically?
+            </p>
+            <p>
+                The answers were always the same: <em>"You'll know when it's ready."</em>
+                Or worse: <em>"I don't know, I just do it."</em>
+            </p>
+            <p>
+                I've spent a long time trying to figure out what they knew that they
+                couldn't say. This site is the result of that.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- THE LONGER STORY -->
+    <div class="about-story">
+        <div class="fade-up">
+            <span class="section-label">The longer version</span>
+
+            <h3>Food was never just food where I came from.</h3>
+
+            <p>
+                It was currency. It was memory. It was the thing you brought when
+                words ran out. Someone died — you brought a dish. Someone had a baby —
+                you brought something that could feed twelve. Someone needed forgiving —
+                you showed up with the recipe they'd been asking for for thirty years.
+            </p>
+
+            <p class="pull">
+                "A recipe is never just a recipe. It's an argument, a gift,
+                a peace offering, an inheritance."
+            </p>
+
+            <p>
+                I started cooking seriously in my twenties, the way most people do —
+                badly and alone in a small apartment with one good pan and too much
+                ambition. I made mistakes. I burned things. I oversalted, undercooked,
+                and once, famously, made a soup that still cannot be discussed at
+                family gatherings.
+            </p>
+
+            <p>
+                What saved me wasn't a cooking class or a cookbook. It was a
+                phone call to my grandmother where, for the first time, she actually told me.
+                The real amounts. The actual technique. The thing she'd been leaving out for years.
+            </p>
+
+            <p>
+                I wrote it all down. I kept writing. And eventually I had something
+                worth sharing.
+            </p>
+
+            <h3 style="margin-top: 3rem;">What this site is — and isn't.</h3>
+
+            <p>
+                No Secrets is not a cooking show. It's not aspirational content.
+                There are no perfect kitchens here, no immaculate cutting boards,
+                no recipes that come together in 30 minutes.
+            </p>
+
+            <p>
+                What there is: real recipes with real histories. The stories behind
+                them — who made them, what they meant, what was almost lost.
+                Personal notes on what I've changed, what I haven't, and why.
+                And occasionally, my opinions about food, which I have many of
+                and hold firmly.
+            </p>
+
+            <p>
+                If you're looking for quick weeknight dinners, there are a thousand
+                other sites. If you want to understand <em>why</em> something works
+                the way it does, and the person who figured it out first,
+                you're in the right place.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- INFLUENCES — hover to reveal portrait -->
+<section class="about-influences">
+    <div class="section-header fade-up">
+        <span class="eyebrow">Who shaped how I think about food</span>
+        <h2>influences</h2>
+    </div>
+    <div class="influences-grid">
+
+        <article class="influence-card fade-up">
+            <div class="influence-photo" style="background-image: url('original-compressed.webp'); background-position: center 30%;"></div>
+            <div class="influence-scrim"></div>
+            <div class="influence-body">
+                <div class="influence-number">01</div>
+                <div class="influence-bottom">
+                    <div class="influence-role">Writer &amp; Chef</div>
+                    <div class="influence-name">Anthony Bourdain</div>
+                    <div class="influence-hint">Hover to see</div>
+                </div>
+            </div>
+        </article>
+
+        <article class="influence-card fade-up">
+            <div class="influence-photo" style="background-image: url('tucci.jpg');"></div>
+            <div class="influence-scrim"></div>
+            <div class="influence-body">
+                <div class="influence-number">02</div>
+                <div class="influence-bottom">
+                    <div class="influence-role">On the importance of joy</div>
+                    <div class="influence-name">Stanley Tucci</div>
+                    <div class="influence-hint">Hover to see</div>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+
+<!-- FOOD MEMORIES — a memory lane -->
+<section class="about-memories">
+    <div class="memories-header fade-up">
+        <span class="eyebrow">A memory lane</span>
+        <h2>Food memories</h2>
+        <p>Notable stops on the road here — meals, moments, and the people on the other side of the table.</p>
+    </div>
+
+    <!--
+        ═════════════════════════════════════════════════════════
+        FOOD MEMORIES GRID
+        Add a memory: duplicate one .memory block, set the
+        background-image to your photo path, fill in caption text.
+        ═════════════════════════════════════════════════════════
+    -->
+    <div class="memories-grid">
+
+        <article class="memory fade-up">
+            <div class="memory-photo">
+                <!-- <img src="images/memory-01.jpg" alt=""> -->
+            </div>
+            <div class="memory-cap">
+                <span class="where">Place · Year</span>
+                <p>A short note about this moment — what was on the table, who was there.</p>
+            </div>
+        </article>
+
+        <article class="memory fade-up">
+            <div class="memory-photo"></div>
+            <div class="memory-cap">
+                <span class="where">Place · Year</span>
+                <p>A short note about this moment — what was on the table, who was there.</p>
+            </div>
+        </article>
+
+        <article class="memory fade-up">
+            <div class="memory-photo"></div>
+            <div class="memory-cap">
+                <span class="where">Place · Year</span>
+                <p>A short note about this moment — what was on the table, who was there.</p>
+            </div>
+        </article>
+
+        <article class="memory fade-up">
+            <div class="memory-photo"></div>
+            <div class="memory-cap">
+                <span class="where">Place · Year</span>
+                <p>A short note about this moment — what was on the table, who was there.</p>
+            </div>
+        </article>
+
+        <article class="memory fade-up">
+            <div class="memory-photo"></div>
+            <div class="memory-cap">
+                <span class="where">Place · Year</span>
+                <p>A short note about this moment — what was on the table, who was there.</p>
+            </div>
+        </article>
+
+        <article class="memory fade-up">
+            <div class="memory-photo"></div>
+            <div class="memory-cap">
+                <span class="where">Place · Year</span>
+                <p>A short note about this moment — what was on the table, who was there.</p>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+
+<!-- CTA -->
+<section class="about-cta">
+    <div class="fade-up">
+        <p class="about-cta-line">please enjoy my family's recipes</p>
+        <a href="recipes.html" class="btn btn-accent">The Goods</a>
+    </div>
+</section>
+
+<script>
+    const menuBtn = document.getElementById('menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Nav fades out as the page scrolls down
+    const nav = document.getElementById('main-nav');
+    const FADE_START = 80;
+    const FADE_END = 360;
+    window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        let op = 1;
+        if (y > FADE_START) op = Math.max(0, 1 - (y - FADE_START) / (FADE_END - FADE_START));
+        nav.style.opacity = op;
+        nav.style.pointerEvents = op < 0.08 ? 'none' : 'auto';
+    }, { passive: true });
+</script>
+
+</body>
+</html>
