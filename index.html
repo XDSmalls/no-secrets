@@ -70,30 +70,6 @@
         }
         .btn-outline:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
 
-        /* SPLASH */
-        #splash {
-            position: fixed;
-            inset: 0;
-            z-index: 999;
-            pointer-events: none;
-            animation: splashFade 3s ease forwards;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(13,10,8,0.92);
-        }
-        #splash img {
-            max-height: 70vh;
-            max-width: 65vw;
-            object-fit: contain;
-        }
-        @keyframes splashFade {
-            0%   { opacity: 0; }
-            14%  { opacity: 1; }
-            70%  { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
         .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
 
@@ -666,11 +642,6 @@
     </style>
 </head>
 <body>
-
-    <!-- SPLASH -->
-    <div id="splash">
-        <img src="original-compressed.webp" alt="">
-    </div>
 
     <!-- NAV — landing (no wordmark, centered) -->
     <nav class="nav" id="main-nav">
