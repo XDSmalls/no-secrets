@@ -231,11 +231,12 @@
             text-align: center;
         }
         .manifesto-inner { max-width: 680px; margin: 0 auto; }
-        .manifesto-symbol {
-            width: 76px;
+        .manifesto-divider {
+            width: 80px;
             height: auto;
-            margin: 0 auto 2.4rem;
-            opacity: 0.92;
+            display: block;
+            margin: 5rem auto;
+            opacity: 0.88;
         }
         .manifesto p {
             font-family: 'Inter', sans-serif;
@@ -253,8 +254,30 @@
             line-height: 1.35;
             letter-spacing: -0.015em;
         }
+        .manifesto-heading {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.55rem, 3.2vw, 2.2rem);
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 1.8rem;
+            line-height: 1.2;
+            letter-spacing: -0.025em;
+        }
+        .manifesto-qa {
+            margin: 0 auto 1.6rem;
+            max-width: 560px;
+            text-align: left;
+        }
+        .manifesto-qa p { margin-bottom: 0.3rem; }
+        .manifesto-qa p:last-child { margin-bottom: 0; }
+        .manifesto-link {
+            color: var(--accent);
+            border-bottom: 1px solid currentColor;
+            transition: opacity 0.2s;
+        }
+        .manifesto-link:hover { opacity: 0.7; }
         .manifesto-sig {
-            margin-top: 3rem;
+            margin-top: 2.5rem;
             font-family: 'Inter', sans-serif;
             font-style: italic;
             font-size: 1.05rem;
@@ -677,16 +700,48 @@
 
     <!-- MANIFESTO -->
     <section class="manifesto">
+
+        <!-- Part 1 — welcome -->
         <div class="manifesto-inner fade-up">
-            <img class="manifesto-symbol" src="no-secrets-placeholder.png" alt="">
             <p class="lead">You know that dish. The one that never tastes quite right when you try to make it yourself.</p>
             <p>There's a reason for that. It's not the recipe you were given.</p>
-            <p>For generations, certain recipes moved through families the way family stories do — changed in the telling, something always left out. Not out of malice. Out of love, maybe. Or just the quiet assumption that some things should stay where they are.</p>
-            <p>I'm deciding otherwise.</p>
-            <p>No Secrets is a collection of real recipes — the actual ones — with the parts people normally skip over. The ratios. The temperatures nobody admits to. The story of where it came from and why it still matters.</p>
-            <p style="margin-bottom:0">Pull up a chair. The kitchen's open.</p>
+            <p>For generations, certain recipes moved through families the way family stories do; changed in the telling, something always left out. Not out of malice. Out of love, maybe. Or just the quiet assumption that some things should stay where they are.</p>
+            <p style="margin-bottom:0">No Secrets is a collection of my family's recipes, the real ones, down to the ratios, temperatures, techniques, etc. + the epic Italian kitchen lore of where they come from and why they matter. Please enjoy them!</p>
             <div class="manifesto-sig">— Samuele</div>
         </div>
+
+        <!-- Divider image between parts -->
+        <img class="manifesto-divider fade-up" src="no-secrets-placeholder.png" alt="">
+
+        <!-- Part 2 — why I made this -->
+        <div class="manifesto-inner fade-up">
+            <h2 class="manifesto-heading">Why I made this</h2>
+            <p>If you ask me where I'm from, I'll tell you Italian, South African, or American, two of the three, or all of them, depending on the context. At some point I decided that it didn't really matter all that much where I'm from. I am a definite mix of all three, and in my heart, I don't know "where I'm from," but I was definitely raised in the kitchen.</p>
+
+            <p>I started this site to answer the FAQs of my life:</p>
+
+            <div class="manifesto-qa">
+                <p><strong>Q: "Can you give me your recipe for that?"</strong></p>
+                <p>A: "Sure." <em>then never remember to</em></p>
+            </div>
+            <div class="manifesto-qa">
+                <p><strong>Q: "Why doesn't it come out like when you made it for me?"</strong></p>
+                <p>A: I probably don't even know what I did differently</p>
+            </div>
+            <div class="manifesto-qa">
+                <p><strong>Q: "Please send me all of your food recommendations for Italy"</strong></p>
+                <p>A: I do, but it's never as complete as it could be.</p>
+            </div>
+            <div class="manifesto-qa">
+                <p><strong>Q: "You're being pretentious; if you like food so much why don't you become a chef or write about it?"</strong></p>
+                <p>A: "Boh"</p>
+            </div>
+
+            <p>My hope is that through this site I am able to answer all of these questions more completely through creating a one-stop shop for my passion for gastronomy, share it with others, and support a more open &amp; shared ecosystem of classical recipes, and hopefully cultivate a passion for food in others.</p>
+
+            <p style="margin-bottom:0">For more about why I care about any of this stuff, visit <a href="about.html" class="manifesto-link">this page</a>.</p>
+        </div>
+
     </section>
 
     <!-- RECIPES -->
@@ -749,37 +804,16 @@
             <h2>The Writing</h2>
         </div>
         <div class="writing-list">
+            <!-- Duplicate this block when you add a new piece -->
             <article class="writing-item fade-up">
                 <span class="writing-num" aria-hidden="true">01</span>
                 <div>
                     <div class="writing-meta">
-                        <span class="writing-date">May 2026</span>
+                        <span class="writing-date">Coming soon</span>
                         <span class="writing-tag">Essay</span>
                     </div>
-                    <h3 class="writing-title">What My Mother Never Told Me About Soffritto</h3>
-                    <p class="writing-excerpt">It's not about the vegetables. It never was. It's about time — specifically, about giving yourself more of it than you think you need, and then doubling that.</p>
-                </div>
-            </article>
-            <article class="writing-item fade-up">
-                <span class="writing-num" aria-hidden="true">02</span>
-                <div>
-                    <div class="writing-meta">
-                        <span class="writing-date">April 2026</span>
-                        <span class="writing-tag">Field Notes</span>
-                    </div>
-                    <h3 class="writing-title">In Defense of the Overcooked Onion</h3>
-                    <p class="writing-excerpt">Every recipe says "cook until translucent." Almost nobody tells you what happens if you just... keep going.</p>
-                </div>
-            </article>
-            <article class="writing-item fade-up">
-                <span class="writing-num" aria-hidden="true">03</span>
-                <div>
-                    <div class="writing-meta">
-                        <span class="writing-date">March 2026</span>
-                        <span class="writing-tag">Memory</span>
-                    </div>
-                    <h3 class="writing-title">The Meal I Will Never Be Able to Make Again</h3>
-                    <p class="writing-excerpt">She's been gone six years. The recipe lives in my hands now, not on paper. Some days I'm not sure I'm getting it right.</p>
+                    <h3 class="writing-title">Title of your essay</h3>
+                    <p class="writing-excerpt">A short excerpt or hook will go here. Replace this when you have something to share.</p>
                 </div>
             </article>
         </div>
