@@ -130,13 +130,22 @@
             margin-top: 100px; /* clear the fixed nav */
             overflow: hidden;
         }
+        /* Collage of three dishes behind the name */
         .about-hero-photo {
             position: absolute;
             inset: 0;
-            background: linear-gradient(160deg, #d8c8a8 0%, #b89c70 40%, #6d5230 100%);
-            /* Replace with: background-image: url('your-portrait.jpg');
-                            background-size: cover;
-                            background-position: center; */
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .about-hero-photo .tile {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(0.96) contrast(1.02);
+        }
+        .about-hero-photo .tile:not(:last-child) {
+            border-right: 2px solid var(--bg);
         }
         .about-hero::after {
             content: '';
@@ -158,10 +167,10 @@
         }
         .about-hero-name h1 {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(3.5rem, 9vw, 7rem);
+            font-size: clamp(1.17rem, 3vw, 2.33rem);
             font-weight: 800;
             color: #fff;
-            letter-spacing: -0.04em;
+            letter-spacing: -0.03em;
             line-height: 1;
             text-shadow: 0 2px 18px rgba(0,0,0,0.5);
         }
@@ -277,23 +286,20 @@
             inset: 0;
             background-size: cover;
             background-position: center;
-            opacity: 0;
-            transition: opacity 0.55s ease, transform 6s ease-out;
+            opacity: 1;
+            transition: transform 6s ease-out;
             z-index: 1;
         }
         .influence-card:hover .influence-photo {
-            opacity: 1;
             transform: scale(1.06);
         }
         .influence-scrim {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0) 100%);
-            opacity: 0;
-            transition: opacity 0.55s ease;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0) 100%);
+            opacity: 1;
             z-index: 2;
         }
-        .influence-card:hover .influence-scrim { opacity: 1; }
         .influence-body {
             position: absolute;
             inset: 0;
@@ -304,52 +310,26 @@
             z-index: 3;
             transition: color 0.4s ease;
         }
-        .influence-card:hover .influence-body * { color: #fff !important; }
-        .influence-card:hover .influence-role { color: rgba(255,255,255,0.85) !important; }
         .influence-number {
             font-family: 'Inter', sans-serif;
             font-size: 0.7rem;
             font-weight: 600;
-            color: rgba(13,10,8,0.35);
+            color: rgba(255,255,255,0.6);
             letter-spacing: 0.18em;
-            transition: color 0.4s;
         }
         .influence-bottom {
             display: flex;
             flex-direction: column;
             gap: 0.4rem;
         }
-        .influence-role {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.62rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-            transition: color 0.4s;
-        }
         .influence-name {
             font-family: 'Inter', sans-serif;
             font-size: 1.45rem;
             font-weight: 800;
-            color: var(--ink);
+            color: #fff;
             letter-spacing: -0.025em;
             line-height: 1.1;
-            transition: color 0.4s;
         }
-        .influence-hint {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.62rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--muted);
-            font-weight: 500;
-            margin-top: 0.6rem;
-            opacity: 0.7;
-            transition: opacity 0.4s, color 0.4s;
-        }
-        .influence-card:hover .influence-hint { opacity: 0; }
 
         /* RED LINE DIVIDER */
         .section-divider {
@@ -543,13 +523,15 @@
 </nav>
 
 
-<!-- ABOUT HERO — full-width photo with name overlay
-     To use a real photo: in CSS, change .about-hero-photo's `background` to
-     `background: url('your-portrait.jpg') center/cover no-repeat;` -->
+<!-- ABOUT HERO — collage of three dishes with name overlay -->
 <section class="about-hero">
-    <div class="about-hero-photo"></div>
+    <div class="about-hero-photo">
+        <img class="tile" src="pizza.jpeg" alt="">
+        <img class="tile" src="carne.jpeg" alt="">
+        <img class="tile" src="risotto-santa.jpeg" alt="">
+    </div>
     <div class="about-hero-name">
-        <h1>Samuele</h1>
+        <h1>Samuele Nusca-Dagon</h1>
     </div>
 </section>
 
@@ -618,7 +600,7 @@
 </section>
 
 
-<!-- INFLUENCES — hover to reveal portrait -->
+<!-- INFLUENCES — photos shown by default -->
 <section class="about-influences">
     <div class="section-header fade-up">
         <span class="eyebrow">Who shaped how I think about food</span>
@@ -632,9 +614,7 @@
             <div class="influence-body">
                 <div class="influence-number">01</div>
                 <div class="influence-bottom">
-                    <div class="influence-role">Writer &amp; Chef</div>
                     <div class="influence-name">Anthony Bourdain</div>
-                    <div class="influence-hint">Hover to see</div>
                 </div>
             </div>
         </article>
@@ -645,9 +625,7 @@
             <div class="influence-body">
                 <div class="influence-number">02</div>
                 <div class="influence-bottom">
-                    <div class="influence-role">On the importance of joy</div>
                     <div class="influence-name">Stanley Tucci</div>
-                    <div class="influence-hint">Hover to see</div>
                 </div>
             </div>
         </article>

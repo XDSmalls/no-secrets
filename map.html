@@ -19,8 +19,9 @@
             --accent:       #c43a2d;
             --accent-deep:  #8a261c;
             --pin-meal:     #c43a2d;
-            --pin-snack:    #d97e1f;
-            --pin-dessert:  #a23ca2;
+            --pin-snack:    #2e76d6;
+            --pin-dessert:  #e85d9c;
+            --star:         #c9962f;
             --line:         rgba(13,10,8,0.10);
             --line-soft:    rgba(13,10,8,0.05);
             --line-strong:  rgba(13,10,8,0.20);
@@ -120,30 +121,6 @@
             color: var(--muted);
             line-height: 1.4;
         }
-        .map-header .key-toggle {
-            margin-left: auto;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.66rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            font-weight: 600;
-            color: var(--ink);
-            background: transparent;
-            border: 1px solid var(--line-strong);
-            padding: 0.55rem 1rem;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s, border-color 0.2s;
-            flex-shrink: 0;
-        }
-        .map-header .key-toggle:hover {
-            background: var(--ink);
-            color: var(--bg);
-            border-color: var(--ink);
-        }
-        .map-header .key-toggle .show-when-open { display: none; }
-        .map-header .key-toggle.open .show-when-closed { display: none; }
-        .map-header .key-toggle.open .show-when-open { display: inline; }
-
         /* MAP BODY: flex with map + sidebar */
         .map-body {
             position: fixed;
@@ -195,7 +172,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 0.7rem;
+            gap: 0.6rem;
         }
         .key-panel-head h3 {
             font-family: 'Inter', sans-serif;
@@ -205,63 +182,93 @@
             color: var(--accent);
             font-weight: 600;
         }
-        .key-close {
-            font-size: 1.1rem;
+        /* In-key collapse toggle — just an upside-down triangle */
+        .key-toggle-btn {
+            font-size: 0.7rem;
             background: none;
             border: none;
             color: var(--muted);
             cursor: pointer;
             line-height: 1;
-            padding: 0 0.2rem;
-            transition: color 0.2s;
+            padding: 0.15rem 0.3rem;
+            transition: color 0.2s, transform 0.25s ease;
         }
-        .key-close:hover { color: var(--ink); }
+        .key-toggle-btn:hover { color: var(--ink); }
+        .key-panel.collapsed .key-toggle-btn { transform: rotate(180deg); }
+        .key-body {
+            overflow: hidden;
+            max-height: 320px;
+            opacity: 1;
+            margin-top: 0.7rem;
+            transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease;
+        }
+        .key-panel.collapsed .key-body {
+            max-height: 0;
+            opacity: 0;
+            margin-top: 0;
+        }
         .key-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 0.45rem;
+            gap: 0.5rem;
             margin-bottom: 0.85rem;
         }
         .key-list li {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.65rem;
             font-family: 'Inter', sans-serif;
             font-size: 0.78rem;
             color: var(--ink-2);
         }
-        .pin-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
-            flex-shrink: 0;
-        }
-        .pin-dot.pin-meal    { background: var(--pin-meal); }
-        .pin-dot.pin-snack   { background: var(--pin-snack); }
-        .pin-dot.pin-dessert { background: var(--pin-dessert); }
-        .key-shape { display: inline-block; flex-shrink: 0; }
+        .key-shape { display: inline-block; flex-shrink: 0; width: 13px; text-align: center; }
         .key-shape.sq-red {
             width: 12px;
             height: 12px;
-            background: #c43a2d;
+            background: var(--pin-meal);
         }
         .key-shape.tri-blue {
             width: 0;
             height: 0;
             border-left: 7px solid transparent;
             border-right: 7px solid transparent;
-            border-bottom: 12px solid #2e76d6;
+            border-bottom: 12px solid var(--pin-snack);
         }
-        .key-note {
+        .key-shape.circ-pink {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--pin-dessert);
+        }
+        .key-rating {
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--line);
+        }
+        .key-rating-label {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.58rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+        .key-stars {
+            font-size: 0.95rem;
+            color: var(--star);
+            letter-spacing: 0.05em;
+            line-height: 1;
+        }
+        .key-stars .dim { color: var(--line-strong); }
+        .key-rating-note {
             font-family: 'Inter', sans-serif;
             font-size: 0.7rem;
             font-style: italic;
             color: var(--muted);
             line-height: 1.5;
-            padding-top: 0.7rem;
-            border-top: 1px solid var(--line);
+            margin-top: 0.45rem;
         }
 
         /* RIGHT SIDEBAR — hierarchical menu */
@@ -363,17 +370,43 @@
         }
         .cat-group a::before {
             content: '';
-            width: 8px;
-            height: 8px;
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
             flex-shrink: 0;
         }
-        .cat-group .cat-meals   a::before { background: var(--pin-meal); }
-        .cat-group .cat-snacks  a::before { background: var(--pin-snack); }
-        .cat-group .cat-desserts a::before { background: var(--pin-dessert); }
+        .cat-group .cat-meals a::before {
+            width: 9px; height: 9px;
+            background: var(--pin-meal);
+        }
+        .cat-group .cat-snacks a::before {
+            width: 0; height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 9px solid var(--pin-snack);
+        }
+        .cat-group .cat-desserts a::before {
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            background: var(--pin-dessert);
+        }
         .cat-group a:hover { color: var(--accent); }
         .cat-group .empty {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.74rem;
+            font-style: italic;
+            color: var(--muted);
+            opacity: 0.7;
+        }
+        /* Flag next to each country in the guide */
+        .country-flag {
+            width: 20px;
+            height: 14px;
+            object-fit: cover;
+            border-radius: 2px;
+            box-shadow: 0 0 0 1px rgba(13,10,8,0.12);
+            flex-shrink: 0;
+        }
+        .country-block > summary .country-label { flex: 1; }
+        .country-empty {
+            padding: 0.4rem 1.2rem 0.8rem 2.6rem;
             font-family: 'Inter', sans-serif;
             font-size: 0.74rem;
             font-style: italic;
@@ -454,6 +487,14 @@
             letter-spacing: -0.025em;
             margin-bottom: 0.75rem;
         }
+        .popup-stars {
+            font-size: 0.95rem;
+            color: var(--star);
+            letter-spacing: 0.06em;
+            line-height: 1;
+            margin-bottom: 0.8rem;
+        }
+        .popup-stars .dim { color: var(--line-strong); }
         .popup-writeup {
             font-family: 'Inter', sans-serif;
             font-size: 0.84rem;
@@ -532,10 +573,6 @@
         <h1>The Map</h1>
         <span class="blurb">The best joints I've eaten at across the globe.</span>
     </div>
-    <button id="key-toggle" class="key-toggle open" type="button">
-        <span class="show-when-closed">Show key</span>
-        <span class="show-when-open">Hide key</span>
-    </button>
 </header>
 
 <div class="map-body">
@@ -543,19 +580,26 @@
         <div id="key-panel" class="key-panel open" role="dialog" aria-label="Map key">
             <div class="key-panel-head">
                 <h3>Key</h3>
-                <button id="key-close" class="key-close" aria-label="Close key">×</button>
+                <button id="key-toggle-btn" class="key-toggle-btn" type="button" aria-label="Hide key" title="Hide / show key">▾</button>
             </div>
-            <ul class="key-list">
-                <li><span class="key-shape sq-red" aria-hidden="true"></span> placeholder</li>
-                <li><span class="key-shape tri-blue" aria-hidden="true"></span> placeholder</li>
-            </ul>
-            <p class="key-note">Filler key — to be replaced once the categories are set.</p>
+            <div class="key-body" id="key-body">
+                <ul class="key-list">
+                    <li><span class="key-shape sq-red" aria-hidden="true"></span> Meal</li>
+                    <li><span class="key-shape tri-blue" aria-hidden="true"></span> Snack</li>
+                    <li><span class="key-shape circ-pink" aria-hidden="true"></span> Dessert</li>
+                </ul>
+                <div class="key-rating">
+                    <span class="key-rating-label">My rating</span>
+                    <div class="key-stars">★★★<span class="dim">★★</span></div>
+                    <p class="key-rating-note">Out of five — three stars is the lowest I'll bother posting.</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <aside class="map-sidebar">
         <header class="sidebar-head">
-            <h3>Browse</h3>
+            <h3>Guide</h3>
         </header>
         <div class="sidebar-tree" id="sidebar-tree"></div>
     </aside>
@@ -568,48 +612,48 @@
 // =====================================================================
 //  RESTAURANTS — your personal recommendations
 //
-//  Each entry now has:
+//  Each entry has:
 //    country   — top-level grouping in the sidebar
 //    city      — second-level grouping
-//    category  — "meals" | "snacks" | "desserts" (drives pin color)
+//    category  — "meals" | "snacks" | "desserts" (drives marker shape/color)
+//    rating    — your star rating, 3 to 5
 //    coords    — [lat, lng]
 //    writeup   — your personal note
 //    photo     — image path or "" for a placeholder
 // =====================================================================
 
 const restaurants = [
-    { name: "Da Enzo al 29", country: "Italy", city: "Rome", category: "meals",
-      coords: [41.8879, 12.4777],
-      writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
-      photo: "" },
-    { name: "Figlmüller Bäckerstraße", country: "Austria", city: "Vienna", category: "meals",
-      coords: [48.2082, 16.3738],
-      writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
-      photo: "" },
-    { name: "The Test Kitchen", country: "South Africa", city: "Cape Town", category: "meals",
-      coords: [-33.9258, 18.4232],
-      writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
-      photo: "" },
-    { name: "Lola Bistro", country: "USA", city: "Cleveland", category: "meals",
-      coords: [41.4993, -81.6944],
-      writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
-      photo: "" },
-    { name: "Abou El Sid", country: "Egypt", city: "Cairo", category: "meals",
-      coords: [30.0626, 31.2497],
-      writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
-      photo: "" },
+    // Photo: "Pizzeria Da Michele, Napoli.jpg" by Husky, CC BY 4.0 (Wikimedia Commons)
+    { name: "L'Antica Pizzeria da Michele", country: "Italy", city: "Naples", category: "meals",
+      rating: 5,
+      coords: [40.849982, 14.2632526],
+      writeup: "The pizza that ruins all other pizza. Open since 1870 and still run by the Condurro family, this Forcella institution makes exactly two pies — Margherita and Marinara — and refuses to do anything else. No frills, paper plates, a ticket-and-wait crowd spilling into the street. The dough is soft, blistered, faintly sour; the San Marzano and fior di latte do the rest. Yes, it's the one from Eat, Pray, Love. Order the Margherita, double mozzarella, and don't overthink it.",
+      photo: "da-michele.jpg" },
 ];
 
+// World-map country highlights + flag fills (flagcdn codes)
 const FLAG_MAP = {
-    USA: 'us', ITA: 'it', AUT: 'at', GBR: 'gb-eng', SVK: 'sk',
-    EGY: 'eg', ARE: 'ae', ZAF: 'za', IRL: 'ie'
+    ITA: 'it', AUT: 'at', ZAF: 'za', USA: 'us',
+    EGY: 'eg', SVK: 'sk', ARE: 'ae', GBR: 'gb'
 };
 const WANTED = new Set(Object.keys(FLAG_MAP));
 
+// Countries shown in the guide sidebar, in order, with their flags
+const GUIDE_COUNTRIES = [
+    { name: 'Italy',        flag: 'it' },
+    { name: 'Austria',      flag: 'at' },
+    { name: 'South Africa', flag: 'za' },
+    { name: 'USA',          flag: 'us' },
+    { name: 'Egypt',        flag: 'eg' },
+    { name: 'Slovakia',     flag: 'sk' },
+    { name: 'UAE',          flag: 'ae' },
+    { name: 'UK',           flag: 'gb' },
+];
+
 const PIN_COLORS = {
-    meals:    '#c43a2d',
-    snacks:   '#d97e1f',
-    desserts: '#a23ca2',
+    meals:    '#c43a2d',   // red square
+    snacks:   '#2e76d6',   // blue triangle
+    desserts: '#e85d9c',   // pink circle
 };
 
 // =====================================================================
@@ -736,22 +780,35 @@ fetch('https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.jso
 //  PINS
 // =====================================================================
 
+// Marker is the category's shape: red square (meal), blue triangle (snack), pink circle (dessert)
 function makeIcon(category) {
     const fill = PIN_COLORS[category] || PIN_COLORS.meals;
+    let shape;
+    if (category === 'snacks') {
+        shape = `<polygon points="13,3 23,22 3,22" fill="${fill}" filter="url(#ms)" stroke="#fbfaf6" stroke-width="1.5" stroke-linejoin="round"/>`;
+    } else if (category === 'desserts') {
+        shape = `<circle cx="13" cy="13" r="9.5" fill="${fill}" filter="url(#ms)" stroke="#fbfaf6" stroke-width="1.5"/>`;
+    } else {
+        shape = `<rect x="3.5" y="3.5" width="19" height="19" rx="2" fill="${fill}" filter="url(#ms)" stroke="#fbfaf6" stroke-width="1.5"/>`;
+    }
     return L.divIcon({
         className: 'map-marker',
-        html: `<svg width="26" height="36" viewBox="0 0 26 36" xmlns="http://www.w3.org/2000/svg">
+        html: `<svg width="26" height="26" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
             <filter id="ms" x="-40%" y="-40%" width="180%" height="180%">
-                <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(0,0,0,0.35)"/>
+                <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.35)"/>
             </filter>
-            <path d="M13 0C5.82 0 0 5.82 0 13c0 8.667 13 23 13 23S26 21.667 26 13C26 5.82 20.18 0 13 0z"
-                  fill="${fill}" filter="url(#ms)"/>
-            <circle cx="13" cy="13" r="4.5" fill="#fbfaf6"/>
+            ${shape}
         </svg>`,
-        iconSize: [26, 36],
-        iconAnchor: [13, 36],
-        popupAnchor: [0, -40]
+        iconSize: [26, 26],
+        iconAnchor: [13, 13],
+        popupAnchor: [0, -14]
     });
+}
+
+function starHTML(rating) {
+    const r = Math.max(3, Math.min(5, rating || 3));
+    const dim = 5 - r;
+    return '★'.repeat(r) + (dim ? `<span class="dim">${'★'.repeat(dim)}</span>` : '');
 }
 
 function popupHTML(r) {
@@ -765,6 +822,7 @@ function popupHTML(r) {
             <span class="popup-city">${r.city}, ${r.country}</span>
             <span class="popup-cat">${catLabel}</span>
             <div class="popup-name">${r.name}</div>
+            <div class="popup-stars" aria-label="${Math.max(3, Math.min(5, r.rating || 3))} out of 5 stars">${starHTML(r.rating)}</div>
             <p class="popup-writeup">${r.writeup}</p>
         </div>
     `;
@@ -796,21 +854,28 @@ function buildSidebar() {
 
     const container = document.getElementById('sidebar-tree');
     let html = '';
-    Object.entries(tree).forEach(([country, cities]) => {
-        html += `<details open class="country-block"><summary>${country}</summary>`;
-        Object.entries(cities).forEach(([city, cats]) => {
-            html += `<details open class="city-block"><summary>${city}</summary>`;
-            ['meals', 'snacks', 'desserts'].forEach(cat => {
-                if (cats[cat].length === 0) return;
-                const catTitle = cat.charAt(0).toUpperCase() + cat.slice(1);
-                html += `<div class="cat-group cat-${cat}"><h4>${catTitle}</h4><ul>`;
-                cats[cat].forEach(r => {
-                    html += `<li><a href="#" data-idx="${r.idx}">${r.name}</a></li>`;
+    GUIDE_COUNTRIES.forEach(({ name: country, flag }) => {
+        const cities = tree[country];
+        const hasEntries = cities && Object.keys(cities).length > 0;
+        const flagImg = `<img class="country-flag" src="https://flagcdn.com/40x30/${flag}.png" srcset="https://flagcdn.com/80x60/${flag}.png 2x" alt="" loading="lazy">`;
+        html += `<details ${hasEntries ? 'open' : ''} class="country-block"><summary>${flagImg}<span class="country-label">${country}</span></summary>`;
+        if (!hasEntries) {
+            html += `<p class="country-empty">to be filled</p>`;
+        } else {
+            Object.entries(cities).forEach(([city, cats]) => {
+                html += `<details open class="city-block"><summary>${city}</summary>`;
+                ['meals', 'snacks', 'desserts'].forEach(cat => {
+                    if (cats[cat].length === 0) return;
+                    const catTitle = cat.charAt(0).toUpperCase() + cat.slice(1);
+                    html += `<div class="cat-group cat-${cat}"><h4>${catTitle}</h4><ul>`;
+                    cats[cat].forEach(r => {
+                        html += `<li><a href="#" data-idx="${r.idx}">${r.name}</a></li>`;
+                    });
+                    html += `</ul></div>`;
                 });
-                html += `</ul></div>`;
+                html += `</details>`;
             });
-            html += `</details>`;
-        });
+        }
         html += `</details>`;
     });
     container.innerHTML = html;
@@ -834,14 +899,10 @@ buildSidebar();
 // =====================================================================
 
 const keyPanel = document.getElementById('key-panel');
-const keyToggle = document.getElementById('key-toggle');
-keyToggle.addEventListener('click', () => {
-    const open = keyPanel.classList.toggle('open');
-    keyToggle.classList.toggle('open', open);
-});
-document.getElementById('key-close').addEventListener('click', () => {
-    keyPanel.classList.remove('open');
-    keyToggle.classList.remove('open');
+const keyToggleBtn = document.getElementById('key-toggle-btn');
+keyToggleBtn.addEventListener('click', () => {
+    const collapsed = keyPanel.classList.toggle('collapsed');
+    keyToggleBtn.setAttribute('aria-label', collapsed ? 'Show key' : 'Hide key');
 });
 
 // =====================================================================
