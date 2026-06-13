@@ -241,6 +241,19 @@
         .pin-dot.pin-meal    { background: var(--pin-meal); }
         .pin-dot.pin-snack   { background: var(--pin-snack); }
         .pin-dot.pin-dessert { background: var(--pin-dessert); }
+        .key-shape { display: inline-block; flex-shrink: 0; }
+        .key-shape.sq-red {
+            width: 12px;
+            height: 12px;
+            background: #c43a2d;
+        }
+        .key-shape.tri-blue {
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 12px solid #2e76d6;
+        }
         .key-note {
             font-family: 'Inter', sans-serif;
             font-size: 0.7rem;
@@ -517,9 +530,9 @@
     <div class="info">
         <span class="eyebrow">Personal recommendations</span>
         <h1>The Map</h1>
-        <span class="blurb">Places I've eaten that I'd send a friend to without hesitation.</span>
+        <span class="blurb">The best joints I've eaten at across the globe.</span>
     </div>
-    <button id="key-toggle" class="key-toggle" type="button">
+    <button id="key-toggle" class="key-toggle open" type="button">
         <span class="show-when-closed">Show key</span>
         <span class="show-when-open">Hide key</span>
     </button>
@@ -527,17 +540,16 @@
 
 <div class="map-body">
     <div id="map">
-        <div id="key-panel" class="key-panel" role="dialog" aria-label="Map key">
+        <div id="key-panel" class="key-panel open" role="dialog" aria-label="Map key">
             <div class="key-panel-head">
                 <h3>Key</h3>
                 <button id="key-close" class="key-close" aria-label="Close key">×</button>
             </div>
             <ul class="key-list">
-                <li><span class="pin-dot pin-meal"></span> Meals</li>
-                <li><span class="pin-dot pin-snack"></span> Snacks</li>
-                <li><span class="pin-dot pin-dessert"></span> Desserts</li>
+                <li><span class="key-shape sq-red" aria-hidden="true"></span> placeholder</li>
+                <li><span class="key-shape tri-blue" aria-hidden="true"></span> placeholder</li>
             </ul>
-            <p class="key-note">Click a pin to view details. Use the right-hand menu to browse by country and city.</p>
+            <p class="key-note">Filler key — to be replaced once the categories are set.</p>
         </div>
     </div>
 

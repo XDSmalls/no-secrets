@@ -65,7 +65,6 @@
             border: 1px solid var(--ink);
             cursor: pointer;
             transition: background 0.25s, color 0.25s, border-color 0.25s;
-            margin: 0 0.4rem;
         }
         .btn:hover { background: var(--ink); color: #fff; }
         .btn.btn-accent {
@@ -122,95 +121,82 @@
         .nav-menu-btn { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
         .nav-menu-btn span { display: block; width: 22px; height: 2px; background: var(--ink); }
 
-        /* PAGE HERO */
-        .page-hero {
-            padding: 10rem 2rem 6rem;
-            text-align: center;
-            background: var(--bg);
-            border-bottom: 1px solid var(--line);
-        }
-        .page-hero .eyebrow { margin-bottom: 1.3rem; }
-        .page-hero h1 {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(3rem, 7.5vw, 5.6rem);
-            font-weight: 800;
-            color: var(--ink);
-            line-height: 1;
-            letter-spacing: -0.04em;
-            margin-bottom: 0.2em;
-        }
-        .page-hero h1 em {
-            font-weight: 500;
-            font-style: italic;
-            color: var(--accent);
-        }
-        .page-hero-sub {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1rem, 1.7vw, 1.15rem);
-            font-style: italic;
-            color: var(--muted);
-            line-height: 1.75;
-            max-width: 500px;
-            margin: 1.6rem auto 0;
-        }
-
-        /* INTRO WITH PORTRAIT */
-        .about-main { background: var(--bg); }
-        .about-intro {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            max-width: 1280px;
-            margin: 0 auto;
-            min-height: 540px;
-        }
-        .about-portrait {
+        /* ABOUT HERO — full-width photo with name overlay */
+        .about-hero {
             position: relative;
-            overflow: hidden;
+            width: 100%;
+            height: 70vh;
             min-height: 480px;
-            background: linear-gradient(160deg, #d8c8a8 0%, #b89c70 40%, #6d5230 100%);
-            /* Replace with: background-image: url('your-portrait.jpg'); background-size: cover; background-position: center top; */
+            margin-top: 100px; /* clear the fixed nav */
+            overflow: hidden;
         }
-        .about-portrait::after {
-            content: 'Your photo here';
+        .about-hero-photo {
             position: absolute;
-            bottom: 1.5rem;
-            left: 1.5rem;
-            font-family: 'Inter', sans-serif;
-            font-style: italic;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.6);
+            inset: 0;
+            background: linear-gradient(160deg, #d8c8a8 0%, #b89c70 40%, #6d5230 100%);
+            /* Replace with: background-image: url('your-portrait.jpg');
+                            background-size: cover;
+                            background-position: center; */
+        }
+        .about-hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                rgba(0,0,0,0) 35%,
+                rgba(0,0,0,0.35) 75%,
+                rgba(0,0,0,0.65) 100%);
             pointer-events: none;
         }
-        .about-intro-text {
-            padding: 5rem 4rem 5rem 3.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .about-hero-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2.6rem 3rem;
+            z-index: 2;
         }
-        .about-intro-text .eyebrow { margin-bottom: 1rem; }
-        .about-intro-text h2 {
+        .about-hero-name h1 {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(1.7rem, 3.3vw, 2.5rem);
+            font-size: clamp(3.5rem, 9vw, 7rem);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            text-shadow: 0 2px 18px rgba(0,0,0,0.5);
+        }
+
+        /* INTRO TEXT BLOCK */
+        .about-intro-block {
+            background: var(--bg);
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3.5rem 2rem 2.5rem;
+        }
+        .about-intro-block .eyebrow { margin-bottom: 1rem; }
+        .about-intro-block h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.7rem, 3.3vw, 2.4rem);
             font-weight: 800;
             color: var(--ink);
             line-height: 1.15;
             letter-spacing: -0.03em;
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.4rem;
         }
-        .about-intro-text p {
+        .about-intro-block p {
             font-family: 'Inter', sans-serif;
             font-size: clamp(1rem, 1.6vw, 1.08rem);
-            line-height: 1.75;
+            line-height: 1.7;
             color: var(--ink-2);
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
         }
-        .about-intro-text p:last-child { margin-bottom: 0; }
-        .about-intro-text em { color: var(--accent); font-style: italic; font-weight: 500; }
+        .about-intro-block p:last-child { margin-bottom: 0; }
+        .about-intro-block em { color: var(--accent); font-style: italic; font-weight: 500; }
 
-        /* THE LONGER STORY */
+        /* STORY */
         .about-story {
-            padding: 8rem 2rem;
-            max-width: 760px;
+            padding: 2.5rem 2rem 4rem;
+            max-width: 720px;
             margin: 0 auto;
         }
         .about-story .section-label {
@@ -219,63 +205,62 @@
             letter-spacing: 0.26em;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.8rem;
             display: block;
             font-weight: 600;
         }
         .about-story h3 {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-size: clamp(1.5rem, 2.8vw, 2rem);
             font-weight: 800;
             color: var(--ink);
             line-height: 1.2;
             letter-spacing: -0.03em;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
         .about-story p {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(1rem, 1.7vw, 1.1rem);
-            line-height: 1.85;
+            font-size: clamp(1rem, 1.6vw, 1.08rem);
+            line-height: 1.75;
             color: var(--ink-2);
-            margin-bottom: 1.4rem;
+            margin-bottom: 1.1rem;
         }
         .about-story p em { font-style: italic; color: var(--ink); font-weight: 500; }
         .about-story p.pull {
-            font-size: clamp(1.18rem, 2.2vw, 1.45rem);
+            font-size: clamp(1.15rem, 2.1vw, 1.4rem);
             font-style: italic;
             color: var(--ink);
             border-left: 3px solid var(--accent);
-            padding-left: 1.6rem;
-            margin: 2.5rem 0;
+            padding-left: 1.4rem;
+            margin: 2rem 0;
             line-height: 1.5;
             font-weight: 500;
         }
 
-        /* INFLUENCES — hover-reveal photo */
+        /* INFLUENCES — hover reveals portrait */
         .about-influences {
             background: var(--bg-tint);
-            padding: 8rem 2rem;
+            padding: 4rem 2rem;
             border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
         }
         .about-influences .section-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 2.6rem;
         }
         .about-influences .section-header h2 {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-size: clamp(2rem, 4.5vw, 2.8rem);
             font-weight: 800;
             color: var(--ink);
             letter-spacing: -0.03em;
-            margin-top: 0.7rem;
+            margin-top: 0.6rem;
             text-transform: lowercase;
         }
         .influences-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 880px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            max-width: 860px;
             margin: 0 auto;
         }
         .influence-card {
@@ -312,7 +297,7 @@
         .influence-body {
             position: absolute;
             inset: 0;
-            padding: 2.4rem 2rem 2rem;
+            padding: 2rem 1.8rem 1.8rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -346,7 +331,7 @@
         }
         .influence-name {
             font-family: 'Inter', sans-serif;
-            font-size: 1.55rem;
+            font-size: 1.45rem;
             font-weight: 800;
             color: var(--ink);
             letter-spacing: -0.025em;
@@ -360,45 +345,43 @@
             text-transform: uppercase;
             color: var(--muted);
             font-weight: 500;
-            margin-top: 0.7rem;
+            margin-top: 0.6rem;
             opacity: 0.7;
             transition: opacity 0.4s, color 0.4s;
         }
         .influence-card:hover .influence-hint { opacity: 0; }
 
-        /* FOOD MEMORIES — a memory lane */
+        /* RED LINE DIVIDER */
+        .section-divider {
+            max-width: 260px;
+            height: 1px;
+            background: var(--accent);
+            margin: 0 auto;
+            opacity: 0.65;
+        }
+
+        /* FOOD MEMORIES */
         .about-memories {
             background: var(--bg);
-            padding: 8rem 2rem;
+            padding: 4rem 2rem 4.5rem;
         }
-        .memories-header {
-            text-align: center;
-            margin-bottom: 4rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .memories-header h2 {
+        .memories-heading {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(2rem, 4.5vw, 3rem);
-            font-weight: 800;
-            color: var(--ink);
-            letter-spacing: -0.03em;
-            margin-top: 0.7rem;
-            margin-bottom: 1rem;
-        }
-        .memories-header p {
-            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.7rem, 3.6vw, 2.5rem);
+            font-weight: 600;
             font-style: italic;
-            color: var(--muted);
-            line-height: 1.7;
-            font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+            color: var(--ink);
+            letter-spacing: -0.025em;
+            line-height: 1.25;
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto 2.6rem;
         }
         .memories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
-            max-width: 1180px;
+            max-width: 880px;
             margin: 0 auto;
         }
         .memory {
@@ -413,7 +396,7 @@
             box-shadow: 0 10px 30px rgba(13,10,8,0.10);
         }
         .memory-photo {
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 4 / 3;
             background: linear-gradient(160deg, #d8c8a8 0%, #b89c70 50%, #6d5230 100%);
             position: relative;
             overflow: hidden;
@@ -427,8 +410,8 @@
             justify-content: center;
             font-family: 'Inter', sans-serif;
             font-style: italic;
-            font-size: 0.78rem;
-            color: rgba(255,255,255,0.55);
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
             letter-spacing: 0.05em;
             pointer-events: none;
         }
@@ -440,18 +423,8 @@
             object-fit: cover;
         }
         .memory-cap {
-            padding: 1rem 1.1rem 1.2rem;
+            padding: 0.9rem 1.1rem 1.1rem;
             border-top: 1px solid var(--line);
-        }
-        .memory-cap .where {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.6rem;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 0.35rem;
-            display: block;
         }
         .memory-cap p {
             font-family: 'Inter', sans-serif;
@@ -464,57 +437,63 @@
         /* CTA */
         .about-cta {
             background: var(--bg-quote);
-            padding: 8rem 2rem;
+            padding: 5rem 2rem;
             text-align: center;
             border-top: 1px solid var(--line);
         }
         .about-cta-line {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(1.5rem, 3.6vw, 2.4rem);
+            font-size: clamp(1.4rem, 3.4vw, 2.2rem);
             font-weight: 500;
             font-style: italic;
             color: var(--ink);
             line-height: 1.35;
             letter-spacing: -0.018em;
-            margin: 0 auto 2.8rem;
-            max-width: 640px;
+            margin: 0 auto 2.2rem;
+            max-width: 620px;
         }
 
-        /* FOOTER */
-        .footer {
+        /* MINI FOOTER */
+        .mini-footer {
             background: var(--bg);
             border-top: 1px solid var(--line);
-            padding: 2.5rem 3rem;
+            padding: 1.1rem 1.5rem;
+        }
+        .mini-footer-inner {
+            max-width: 900px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 1.6rem;
             flex-wrap: wrap;
-            gap: 1.5rem;
         }
-        .footer-logo img { height: 56px; width: auto; mix-blend-mode: multiply; transition: transform 0.2s; }
-        .footer-logo:hover img { transform: scale(1.04); }
-        .footer-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
-        .footer-links a {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            font-weight: 600;
+        .mini-footer .socials { display: flex; align-items: center; gap: 0.9rem; }
+        .mini-footer .social-link {
             color: var(--muted);
-            transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.2s, transform 0.15s;
         }
-        .footer-links a:hover { color: var(--accent); }
-        .footer-copy { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: var(--muted); }
+        .mini-footer .social-link:hover { color: var(--accent); transform: translateY(-1px); }
+        .mini-footer .social-link svg { width: 17px; height: 17px; display: block; fill: currentColor; }
+        .mini-footer .sep { width: 1px; height: 14px; background: var(--line-strong); }
+        .mini-footer .contact {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.74rem;
+            color: var(--muted);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+        .mini-footer .contact a {
+            color: var(--ink);
+            border-bottom: 1px solid var(--line-strong);
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .mini-footer .contact a:hover { color: var(--accent); border-color: var(--accent); }
 
         /* RESPONSIVE */
-        @media (max-width: 860px) {
-            .about-intro { grid-template-columns: 1fr; }
-            .about-portrait { min-height: 380px; }
-            .about-intro-text { padding: 4rem 1.8rem; }
-            .influences-grid { grid-template-columns: 1fr; max-width: 380px; }
-            .memories-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 700px) {
+        @media (max-width: 760px) {
             .nav { padding: 0.75rem 1.5rem; }
             .nav-logo img { height: 60px; }
             .nav-links {
@@ -534,11 +513,15 @@
             .nav-off-menu a { padding: 0.7rem 1.5rem; }
             .nav-off-menu img { margin: 0 auto; height: 26px; }
             .nav-menu-btn { display: flex; }
-            .page-hero { padding: 7rem 1.5rem 4rem; }
-            .about-story { padding: 5rem 1.5rem; }
-            .about-influences, .about-memories, .about-cta { padding: 5rem 1.5rem; }
+
+            .about-hero { margin-top: 85px; height: 60vh; min-height: 380px; }
+            .about-hero-name { padding: 1.8rem 1.5rem; }
+            .about-intro-block { padding: 3rem 1.5rem 2rem; }
+            .about-story { padding: 2rem 1.5rem 3rem; }
+            .about-influences, .about-memories, .about-cta { padding: 3.5rem 1.5rem; }
+            .influences-grid { grid-template-columns: 1fr; max-width: 360px; }
             .memories-grid { grid-template-columns: 1fr; max-width: 360px; }
-            .footer { flex-direction: column; align-items: flex-start; padding: 2.2rem 1.5rem; }
+            .mini-footer-inner { gap: 1rem; }
         }
     </style>
 </head>
@@ -560,109 +543,79 @@
 </nav>
 
 
-<!-- PAGE HERO -->
-<div class="page-hero">
+<!-- ABOUT HERO — full-width photo with name overlay
+     To use a real photo: in CSS, change .about-hero-photo's `background` to
+     `background: url('your-portrait.jpg') center/cover no-repeat;` -->
+<section class="about-hero">
+    <div class="about-hero-photo"></div>
+    <div class="about-hero-name">
+        <h1>Samuele</h1>
+    </div>
+</section>
+
+
+<!-- INTRO TEXT -->
+<section class="about-intro-block fade-up">
+    <span class="eyebrow">Who I am</span>
+    <h2>Hi. I'm Samuele, and I grew up in someone else's kitchen.</h2>
+    <p>Not literally. But close enough. I spent more hours of my childhood
+        watching other people cook than most people spend eating. I was the
+        kid in the corner who kept asking questions nobody wanted to answer.</p>
+    <p>Why are you adding that now? How much of that is too much?
+        What does "a pinch" actually mean to you, specifically?</p>
+    <p>The answers were always the same: <em>"You'll know when it's ready."</em>
+        Or worse: <em>"I don't know, I just do it."</em></p>
+    <p>I've spent a long time trying to figure out what they knew that they
+        couldn't say. This site is the result of that.</p>
+</section>
+
+
+<!-- STORY -->
+<section class="about-story">
     <div class="fade-up">
-        <span class="eyebrow">The person behind the recipes</span>
-        <h1>The Cook.<br><em>The Story.</em></h1>
-        <p class="page-hero-sub">
-            Why I started keeping secrets in the first place — and why I finally stopped.
-        </p>
+        <span class="section-label">The longer version</span>
+
+        <h3>Food was never just food where I came from.</h3>
+
+        <p>It was currency. It was memory. It was the thing you brought when
+            words ran out. Someone died — you brought a dish. Someone had a baby —
+            you brought something that could feed twelve. Someone needed forgiving —
+            you showed up with the recipe they'd been asking for for thirty years.</p>
+
+        <p class="pull">"A recipe is never just a recipe. It's an argument, a gift,
+            a peace offering, an inheritance."</p>
+
+        <p>I started cooking seriously in my twenties, the way most people do —
+            badly and alone in a small apartment with one good pan and too much
+            ambition. I made mistakes. I burned things. I oversalted, undercooked,
+            and once, famously, made a soup that still cannot be discussed at
+            family gatherings.</p>
+
+        <p>What saved me wasn't a cooking class or a cookbook. It was a
+            phone call to my grandmother where, for the first time, she actually told me.
+            The real amounts. The actual technique. The thing she'd been leaving out for years.</p>
+
+        <p>I wrote it all down. I kept writing. And eventually I had something
+            worth sharing.</p>
+
+        <h3 style="margin-top: 2.5rem;">What this site is — and isn't.</h3>
+
+        <p>No Secrets is not a cooking show. It's not aspirational content.
+            There are no perfect kitchens here, no immaculate cutting boards,
+            no recipes that come together in 30 minutes.</p>
+
+        <p>What there is: real recipes with real histories. The stories behind
+            them — who made them, what they meant, what was almost lost.
+            Personal notes on what I've changed, what I haven't, and why.
+            And occasionally, my opinions about food, which I have many of
+            and hold firmly.</p>
+
+        <p>If you're looking for quick weeknight dinners, there are a thousand
+            other sites. If you want to understand <em>why</em> something works
+            the way it does, and the person who figured it out first,
+            you're in the right place.</p>
     </div>
-</div>
-
-
-<!-- INTRO + PORTRAIT -->
-<div class="about-main">
-    <div class="about-intro">
-        <div class="about-portrait"></div>
-        <div class="about-intro-text fade-up">
-            <span class="eyebrow">Who I am</span>
-            <h2>Hi. I'm Samuele, and I grew up in someone else's kitchen.</h2>
-            <p>
-                Not literally. But close enough. I spent more hours of my childhood
-                watching other people cook than most people spend eating. I was the
-                kid in the corner who kept asking questions nobody wanted to answer.
-            </p>
-            <p>
-                Why are you adding that now? How much of that is too much?
-                What does "a pinch" actually mean to you, specifically?
-            </p>
-            <p>
-                The answers were always the same: <em>"You'll know when it's ready."</em>
-                Or worse: <em>"I don't know, I just do it."</em>
-            </p>
-            <p>
-                I've spent a long time trying to figure out what they knew that they
-                couldn't say. This site is the result of that.
-            </p>
-        </div>
-    </div>
-
-
-    <!-- THE LONGER STORY -->
-    <div class="about-story">
-        <div class="fade-up">
-            <span class="section-label">The longer version</span>
-
-            <h3>Food was never just food where I came from.</h3>
-
-            <p>
-                It was currency. It was memory. It was the thing you brought when
-                words ran out. Someone died — you brought a dish. Someone had a baby —
-                you brought something that could feed twelve. Someone needed forgiving —
-                you showed up with the recipe they'd been asking for for thirty years.
-            </p>
-
-            <p class="pull">
-                "A recipe is never just a recipe. It's an argument, a gift,
-                a peace offering, an inheritance."
-            </p>
-
-            <p>
-                I started cooking seriously in my twenties, the way most people do —
-                badly and alone in a small apartment with one good pan and too much
-                ambition. I made mistakes. I burned things. I oversalted, undercooked,
-                and once, famously, made a soup that still cannot be discussed at
-                family gatherings.
-            </p>
-
-            <p>
-                What saved me wasn't a cooking class or a cookbook. It was a
-                phone call to my grandmother where, for the first time, she actually told me.
-                The real amounts. The actual technique. The thing she'd been leaving out for years.
-            </p>
-
-            <p>
-                I wrote it all down. I kept writing. And eventually I had something
-                worth sharing.
-            </p>
-
-            <h3 style="margin-top: 3rem;">What this site is — and isn't.</h3>
-
-            <p>
-                No Secrets is not a cooking show. It's not aspirational content.
-                There are no perfect kitchens here, no immaculate cutting boards,
-                no recipes that come together in 30 minutes.
-            </p>
-
-            <p>
-                What there is: real recipes with real histories. The stories behind
-                them — who made them, what they meant, what was almost lost.
-                Personal notes on what I've changed, what I haven't, and why.
-                And occasionally, my opinions about food, which I have many of
-                and hold firmly.
-            </p>
-
-            <p>
-                If you're looking for quick weeknight dinners, there are a thousand
-                other sites. If you want to understand <em>why</em> something works
-                the way it does, and the person who figured it out first,
-                you're in the right place.
-            </p>
-        </div>
-    </div>
-</div>
+</section>
 
 
 <!-- INFLUENCES — hover to reveal portrait -->
@@ -703,21 +656,13 @@
 </section>
 
 
-<!-- FOOD MEMORIES — a memory lane -->
-<section class="about-memories">
-    <div class="memories-header fade-up">
-        <span class="eyebrow">A memory lane</span>
-        <h2>Food memories</h2>
-        <p>Notable stops on the road here — meals, moments, and the people on the other side of the table.</p>
-    </div>
+<!-- RED LINE DIVIDER (between influences and food memories) -->
+<div class="section-divider" aria-hidden="true"></div>
 
-    <!--
-        ═════════════════════════════════════════════════════════
-        FOOD MEMORIES GRID
-        Add a memory: duplicate one .memory block, set the
-        background-image to your photo path, fill in caption text.
-        ═════════════════════════════════════════════════════════
-    -->
+
+<!-- FOOD MEMORIES — moments with food that have shaped me -->
+<section class="about-memories">
+    <h2 class="memories-heading fade-up">moments with food that have shaped me</h2>
     <div class="memories-grid">
 
         <article class="memory fade-up">
@@ -725,48 +670,16 @@
                 <!-- <img src="images/memory-01.jpg" alt=""> -->
             </div>
             <div class="memory-cap">
-                <span class="where">Place · Year</span>
-                <p>A short note about this moment — what was on the table, who was there.</p>
+                <p>to be filled</p>
             </div>
         </article>
 
         <article class="memory fade-up">
-            <div class="memory-photo"></div>
-            <div class="memory-cap">
-                <span class="where">Place · Year</span>
-                <p>A short note about this moment — what was on the table, who was there.</p>
+            <div class="memory-photo">
+                <!-- <img src="images/memory-02.jpg" alt=""> -->
             </div>
-        </article>
-
-        <article class="memory fade-up">
-            <div class="memory-photo"></div>
             <div class="memory-cap">
-                <span class="where">Place · Year</span>
-                <p>A short note about this moment — what was on the table, who was there.</p>
-            </div>
-        </article>
-
-        <article class="memory fade-up">
-            <div class="memory-photo"></div>
-            <div class="memory-cap">
-                <span class="where">Place · Year</span>
-                <p>A short note about this moment — what was on the table, who was there.</p>
-            </div>
-        </article>
-
-        <article class="memory fade-up">
-            <div class="memory-photo"></div>
-            <div class="memory-cap">
-                <span class="where">Place · Year</span>
-                <p>A short note about this moment — what was on the table, who was there.</p>
-            </div>
-        </article>
-
-        <article class="memory fade-up">
-            <div class="memory-photo"></div>
-            <div class="memory-cap">
-                <span class="where">Place · Year</span>
-                <p>A short note about this moment — what was on the table, who was there.</p>
+                <p>to be filled</p>
             </div>
         </article>
 
@@ -782,6 +695,33 @@
     </div>
 </section>
 
+
+<!-- MINI FOOTER — socials + contact -->
+<footer class="mini-footer">
+    <div class="mini-footer-inner">
+        <div class="socials">
+            <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+                <svg viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647z"/></svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="Reddit">
+                <svg viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
+                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="Discord">
+                <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            </a>
+        </div>
+        <span class="sep" aria-hidden="true"></span>
+        <span class="contact">Contact: <a href="mailto:samuelenuscadagon@gmail.com">samuelenuscadagon@gmail.com</a></span>
+    </div>
+</footer>
+
+
 <script>
     const menuBtn = document.getElementById('menu-btn');
     const navLinks = document.getElementById('nav-links');
@@ -793,7 +733,7 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // Nav fades out as the page scrolls down
+    // Nav fades out as page scrolls down
     const nav = document.getElementById('main-nav');
     const FADE_START = 80;
     const FADE_END = 360;
