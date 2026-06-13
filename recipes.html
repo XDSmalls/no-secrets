@@ -265,6 +265,11 @@
             transition: color 0.2s, transform 0.2s;
             padding-left: 0.5rem;
         }
+        .recipe-row-empty .recipe-row-title {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--muted);
+        }
 
         /* FOOTER */
         .footer {
@@ -363,33 +368,18 @@
 
 <main class="collection">
 
+    <!-- Each category has one "to be filled" placeholder. Duplicate the
+         <li> within a category as recipes get added. -->
+
     <section class="category" id="antipasti">
         <header class="category-head">
             <h2 class="category-name">Antipasti <em>· Starters</em></h2>
-            <span class="category-count">three</span>
         </header>
         <ul class="recipe-list">
-            <li><a href="#" class="recipe-row">
+            <li><a href="#" class="recipe-row recipe-row-empty">
                 <span class="recipe-row-num">01</span>
                 <span class="recipe-row-body">
-                    <span class="recipe-row-title">Crostini di Fegatini</span>
-                    <span class="recipe-row-prov">Tuscany · Nonna Pia, 1948</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">02</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Caponata Siciliana</span>
-                    <span class="recipe-row-prov">Sicily · Zio Gino, 1962</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">03</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Bruschetta al Pomodoro</span>
-                    <span class="recipe-row-prov">Lazio · Family Recipe</span>
+                    <span class="recipe-row-title">to be filled</span>
                 </span>
                 <span class="recipe-row-arrow">→</span>
             </a></li>
@@ -399,38 +389,12 @@
     <section class="category" id="pasta">
         <header class="category-head">
             <h2 class="category-name">Pasta <em>· The main event</em></h2>
-            <span class="category-count">four</span>
         </header>
         <ul class="recipe-list">
-            <li><a href="#" class="recipe-row">
+            <li><a href="#" class="recipe-row recipe-row-empty">
                 <span class="recipe-row-num">01</span>
                 <span class="recipe-row-body">
-                    <span class="recipe-row-title">The Sunday Gravy Nobody Could Replicate</span>
-                    <span class="recipe-row-prov">Naples · Nonna Rosa, 1962</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">02</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Cacio e Pepe</span>
-                    <span class="recipe-row-prov">Rome · The Trattoria Method</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">03</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Carbonara, the Way It Was</span>
-                    <span class="recipe-row-prov">Lazio · Family Recipe, 1971</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">04</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Tagliatelle al Ragù</span>
-                    <span class="recipe-row-prov">Emilia-Romagna · Bologna, 1955</span>
+                    <span class="recipe-row-title">to be filled</span>
                 </span>
                 <span class="recipe-row-arrow">→</span>
             </a></li>
@@ -440,30 +404,12 @@
     <section class="category" id="risotti">
         <header class="category-head">
             <h2 class="category-name">Risotti <em>· Patience required</em></h2>
-            <span class="category-count">three</span>
         </header>
         <ul class="recipe-list">
-            <li><a href="#" class="recipe-row">
+            <li><a href="#" class="recipe-row recipe-row-empty">
                 <span class="recipe-row-num">01</span>
                 <span class="recipe-row-body">
-                    <span class="recipe-row-title">Risotto alla Milanese</span>
-                    <span class="recipe-row-prov">Lombardy · Zia Elena, 1968</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">02</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Risotto ai Funghi Porcini</span>
-                    <span class="recipe-row-prov">Piedmont · Family Recipe</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">03</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Risotto al Nero di Seppia</span>
-                    <span class="recipe-row-prov">Venice · Borrowed, 1989</span>
+                    <span class="recipe-row-title">to be filled</span>
                 </span>
                 <span class="recipe-row-arrow">→</span>
             </a></li>
@@ -473,30 +419,12 @@
     <section class="category" id="carne">
         <header class="category-head">
             <h2 class="category-name">Carne <em>· Meats</em></h2>
-            <span class="category-count">three</span>
         </header>
         <ul class="recipe-list">
-            <li><a href="#" class="recipe-row">
+            <li><a href="#" class="recipe-row recipe-row-empty">
                 <span class="recipe-row-num">01</span>
                 <span class="recipe-row-body">
-                    <span class="recipe-row-title">Osso Buco alla Milanese</span>
-                    <span class="recipe-row-prov">Lombardy · Nonna Pia, 1950</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">02</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Vitello Tonnato</span>
-                    <span class="recipe-row-prov">Piedmont · Family Recipe</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">03</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Pollo alla Cacciatora</span>
-                    <span class="recipe-row-prov">Tuscany · Nonno Beppe, 1958</span>
+                    <span class="recipe-row-title">to be filled</span>
                 </span>
                 <span class="recipe-row-arrow">→</span>
             </a></li>
@@ -506,22 +434,12 @@
     <section class="category" id="pesce">
         <header class="category-head">
             <h2 class="category-name">Pesce <em>· From the sea</em></h2>
-            <span class="category-count">two</span>
         </header>
         <ul class="recipe-list">
-            <li><a href="#" class="recipe-row">
+            <li><a href="#" class="recipe-row recipe-row-empty">
                 <span class="recipe-row-num">01</span>
                 <span class="recipe-row-body">
-                    <span class="recipe-row-title">Acqua Pazza</span>
-                    <span class="recipe-row-prov">Campania · Naples, 1970</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">02</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Sarde a Beccafico</span>
-                    <span class="recipe-row-prov">Sicily · Zio Gino, 1965</span>
+                    <span class="recipe-row-title">to be filled</span>
                 </span>
                 <span class="recipe-row-arrow">→</span>
             </a></li>
@@ -531,30 +449,12 @@
     <section class="category" id="contorni">
         <header class="category-head">
             <h2 class="category-name">Contorni <em>· Sides</em></h2>
-            <span class="category-count">three</span>
         </header>
         <ul class="recipe-list">
-            <li><a href="#" class="recipe-row">
+            <li><a href="#" class="recipe-row recipe-row-empty">
                 <span class="recipe-row-num">01</span>
                 <span class="recipe-row-body">
-                    <span class="recipe-row-title">Cicoria Ripassata</span>
-                    <span class="recipe-row-prov">Lazio · Family Recipe</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">02</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Melanzane alla Parmigiana</span>
-                    <span class="recipe-row-prov">Campania · Nonna Rosa, 1964</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">03</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Patate al Forno con Rosmarino</span>
-                    <span class="recipe-row-prov">Tuscany · Nonno Beppe</span>
+                    <span class="recipe-row-title">to be filled</span>
                 </span>
                 <span class="recipe-row-arrow">→</span>
             </a></li>
@@ -564,30 +464,12 @@
     <section class="category" id="dolci">
         <header class="category-head">
             <h2 class="category-name">Dolci <em>· Sweets</em></h2>
-            <span class="category-count">three</span>
         </header>
         <ul class="recipe-list">
-            <li><a href="#" class="recipe-row">
+            <li><a href="#" class="recipe-row recipe-row-empty">
                 <span class="recipe-row-num">01</span>
                 <span class="recipe-row-body">
-                    <span class="recipe-row-title">Tiramisù</span>
-                    <span class="recipe-row-prov">Veneto · Zia Elena, 1972</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">02</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Panna Cotta</span>
-                    <span class="recipe-row-prov">Piedmont · Family Recipe</span>
-                </span>
-                <span class="recipe-row-arrow">→</span>
-            </a></li>
-            <li><a href="#" class="recipe-row">
-                <span class="recipe-row-num">03</span>
-                <span class="recipe-row-body">
-                    <span class="recipe-row-title">Cantucci con Vin Santo</span>
-                    <span class="recipe-row-prov">Tuscany · Nonna Pia, 1955</span>
+                    <span class="recipe-row-title">to be filled</span>
                 </span>
                 <span class="recipe-row-arrow">→</span>
             </a></li>

@@ -18,6 +18,9 @@
             --muted:        #5e544a;
             --accent:       #c43a2d;
             --accent-deep:  #8a261c;
+            --pin-meal:     #c43a2d;
+            --pin-snack:    #d97e1f;
+            --pin-dessert:  #a23ca2;
             --line:         rgba(13,10,8,0.10);
             --line-soft:    rgba(13,10,8,0.05);
             --line-strong:  rgba(13,10,8,0.20);
@@ -34,7 +37,7 @@
         a { color: inherit; text-decoration: none; }
         img { display: block; }
 
-        /* NAV */
+        /* NAV (unchanged) */
         .nav {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -47,6 +50,7 @@
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             border-bottom: 1px solid var(--line);
+            height: 76px;
         }
         .nav-logo { display: block; padding: 4px 0; }
         .nav-logo img {
@@ -71,28 +75,90 @@
         .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent); }
         .nav-divider { width: 1px; height: 14px; background: var(--line-strong); }
         .nav-off-menu a { display: block; padding: 4px 0; opacity: 1 !important; }
-        .nav-off-menu img {
-            height: 28px;
-            width: auto;
-            display: block;
-            transition: transform 0.2s;
-        }
+        .nav-off-menu img { height: 28px; width: auto; display: block; transition: transform 0.2s; }
         .nav-off-menu a:hover img { transform: scale(1.05); }
         .nav-menu-btn { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
         .nav-menu-btn span { display: block; width: 22px; height: 2px; background: var(--ink); }
 
-        /* MAP */
-        #map {
+        /* MAP HEADER ROW (was bottom card; now top bar) */
+        .map-header {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 0;
+            top: 76px;
+            left: 0; right: 0;
+            z-index: 800;
+            background: rgba(251,250,246,0.96);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line);
+            padding: 0.85rem 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 1.6rem;
+            height: 64px;
+        }
+        .map-header .info { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+        .map-header .eyebrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .map-header h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.025em;
+            line-height: 1;
+        }
+        .map-header .blurb {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-style: italic;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+        .map-header .key-toggle {
+            margin-left: auto;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.66rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--ink);
+            background: transparent;
+            border: 1px solid var(--line-strong);
+            padding: 0.55rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            flex-shrink: 0;
+        }
+        .map-header .key-toggle:hover {
+            background: var(--ink);
+            color: var(--bg);
+            border-color: var(--ink);
+        }
+        .map-header .key-toggle .show-when-open { display: none; }
+        .map-header .key-toggle.open .show-when-closed { display: none; }
+        .map-header .key-toggle.open .show-when-open { display: inline; }
+
+        /* MAP BODY: flex with map + sidebar */
+        .map-body {
+            position: fixed;
+            top: 140px;        /* 76 nav + 64 header */
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+        }
+        #map {
+            position: relative;
+            flex: 1;
             background: var(--bg);
         }
-        /* Slight desaturation so flag fills pop */
         .leaflet-tile-pane { filter: saturate(0.6) brightness(0.99) contrast(0.94); }
-
-        /* Country-fill paths: animation handled in JS via inline style.
-           These rules keep them visually clean. */
         .country-shape {
             stroke: #0d0a08;
             stroke-width: 1.2;
@@ -102,81 +168,211 @@
             stroke-linecap: round;
         }
 
-        /* TITLE CARD */
-        .map-title-card {
-            position: fixed;
-            bottom: 2.4rem;
-            left: 2.4rem;
+        /* KEY PANEL (inside map, toggleable) */
+        .key-panel {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
             z-index: 500;
-            background: rgba(251,250,246,0.96);
+            width: 240px;
+            background: rgba(251,250,246,0.97);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             border: 1px solid var(--line);
-            padding: 1.6rem 1.9rem;
-            max-width: 280px;
-            box-shadow: 0 12px 38px rgba(13,10,8,0.10);
+            box-shadow: 0 12px 36px rgba(13,10,8,0.10);
+            padding: 1rem 1.1rem 1rem;
             opacity: 0;
-            transform: translateY(12px);
-            animation: cardIn 0.9s ease 0.4s forwards;
+            transform: translateY(-6px);
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
         }
-        @keyframes cardIn {
-            to { opacity: 1; transform: translateY(0); }
+        .key-panel.open {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
         }
-        .map-title-card .eyebrow {
-            display: block;
+        .key-panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.7rem;
+        }
+        .key-panel-head h3 {
             font-family: 'Inter', sans-serif;
-            font-size: 0.6rem;
+            font-size: 0.62rem;
             letter-spacing: 0.26em;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 0.6rem;
             font-weight: 600;
         }
-        .map-title-card h1 {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.7rem;
-            font-weight: 800;
-            color: var(--ink);
-            line-height: 1.05;
-            letter-spacing: -0.03em;
-            margin-bottom: 0.7rem;
-        }
-        .map-title-card p {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-style: italic;
+        .key-close {
+            font-size: 1.1rem;
+            background: none;
+            border: none;
             color: var(--muted);
-            line-height: 1.6;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 0.2rem;
+            transition: color 0.2s;
         }
-        .map-pin-count {
-            margin-top: 1.2rem;
-            padding-top: 1.2rem;
-            border-top: 1px solid var(--line);
+        .key-close:hover { color: var(--ink); }
+        .key-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            margin-bottom: 0.85rem;
+        }
+        .key-list li {
             display: flex;
             align-items: center;
-            gap: 0.7rem;
+            gap: 0.6rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            color: var(--ink-2);
         }
-        .map-pin-icon {
-            width: 13px; height: 13px;
-            background: var(--accent);
+        .pin-dot {
+            width: 12px;
+            height: 12px;
             border-radius: 50% 50% 50% 0;
             transform: rotate(-45deg);
             flex-shrink: 0;
         }
-        .map-pin-count span {
+        .pin-dot.pin-meal    { background: var(--pin-meal); }
+        .pin-dot.pin-snack   { background: var(--pin-snack); }
+        .pin-dot.pin-dessert { background: var(--pin-dessert); }
+        .key-note {
             font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
+            font-size: 0.7rem;
+            font-style: italic;
             color: var(--muted);
+            line-height: 1.5;
+            padding-top: 0.7rem;
+            border-top: 1px solid var(--line);
+        }
+
+        /* RIGHT SIDEBAR — hierarchical menu */
+        .map-sidebar {
+            width: 290px;
+            flex-shrink: 0;
+            background: rgba(251,250,246,0.98);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-left: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .sidebar-head {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid var(--line);
+            flex-shrink: 0;
+        }
+        .sidebar-head h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.62rem;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--accent);
             font-weight: 600;
+        }
+        .sidebar-tree {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.6rem 0;
+        }
+        .country-block {
+            border-bottom: 1px solid var(--line-soft);
+        }
+        .country-block:last-child { border-bottom: none; }
+        .country-block > summary,
+        .city-block > summary {
+            cursor: pointer;
+            list-style: none;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            transition: color 0.2s;
+        }
+        .country-block > summary::-webkit-details-marker,
+        .city-block > summary::-webkit-details-marker { display: none; }
+        .country-block > summary::before,
+        .city-block > summary::before {
+            content: '▸';
+            font-size: 0.65rem;
+            color: var(--muted);
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        .country-block[open] > summary::before,
+        .city-block[open] > summary::before { transform: rotate(90deg); }
+        .country-block > summary {
+            padding: 0.7rem 1.2rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--ink);
+        }
+        .country-block > summary:hover { color: var(--accent); }
+        .city-block > summary {
+            padding: 0.5rem 1.2rem 0.5rem 2rem;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--ink-2);
+        }
+        .city-block > summary:hover { color: var(--accent); }
+        .cat-group {
+            padding: 0.4rem 1.2rem 0.8rem 2.6rem;
+        }
+        .cat-group h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.58rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--muted);
+            margin-bottom: 0.4rem;
+        }
+        .cat-group ul { list-style: none; }
+        .cat-group li {
+            padding: 0.18rem 0;
+        }
+        .cat-group a {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: var(--ink-2);
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            transition: color 0.2s;
+        }
+        .cat-group a::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            flex-shrink: 0;
+        }
+        .cat-group .cat-meals   a::before { background: var(--pin-meal); }
+        .cat-group .cat-snacks  a::before { background: var(--pin-snack); }
+        .cat-group .cat-desserts a::before { background: var(--pin-dessert); }
+        .cat-group a:hover { color: var(--accent); }
+        .cat-group .empty {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.74rem;
+            font-style: italic;
+            color: var(--muted);
+            opacity: 0.7;
         }
 
         /* MARKER */
         .map-marker { cursor: pointer; transition: transform 0.2s; }
         .map-marker:hover { transform: scale(1.15) translateY(-2px); }
 
-        /* POPUP OVERRIDES */
+        /* POPUP OVERRIDES (unchanged from previous) */
         .leaflet-popup-content-wrapper {
             background: var(--bg) !important;
             border: 1px solid var(--line) !important;
@@ -198,7 +394,6 @@
             transition: opacity 0.2s, color 0.2s !important;
         }
         .leaflet-popup-close-button:hover { opacity: 1 !important; color: var(--accent) !important; }
-
         .popup-photo {
             width: 100%;
             height: 160px;
@@ -207,17 +402,14 @@
             overflow: hidden;
         }
         .popup-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .popup-photo-placeholder {
-            position: absolute; inset: 0;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .popup-photo-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
         .popup-photo-placeholder span {
             font-family: 'Inter', sans-serif;
             font-style: italic;
             font-size: 0.8rem;
             color: rgba(255,255,255,0.78);
         }
-        .popup-body { padding: 1.5rem 1.7rem 1.7rem; }
+        .popup-body { padding: 1.4rem 1.6rem 1.5rem; }
         .popup-city {
             display: block;
             font-family: 'Inter', sans-serif;
@@ -226,26 +418,37 @@
             text-transform: uppercase;
             color: var(--accent);
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.45rem;
+        }
+        .popup-cat {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.56rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            border: 1px solid var(--line-strong);
+            padding: 0.15em 0.5em;
+            margin-bottom: 0.7rem;
+            font-weight: 600;
         }
         .popup-name {
             font-family: 'Inter', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 800;
             color: var(--ink);
             line-height: 1.2;
             letter-spacing: -0.025em;
-            margin-bottom: 0.85rem;
+            margin-bottom: 0.75rem;
         }
         .popup-writeup {
             font-family: 'Inter', sans-serif;
-            font-size: 0.86rem;
+            font-size: 0.84rem;
             font-style: italic;
             color: var(--muted);
-            line-height: 1.7;
+            line-height: 1.65;
         }
 
-        /* LEAFLET ZOOM CONTROL */
         .leaflet-bar { box-shadow: 0 8px 24px rgba(13,10,8,0.12) !important; border: 1px solid var(--line) !important; }
         .leaflet-bar a {
             background: rgba(251,250,246,0.96) !important;
@@ -254,15 +457,13 @@
             font-family: 'Inter', sans-serif !important;
         }
         .leaflet-bar a:hover { background: var(--bg) !important; color: var(--accent) !important; }
-
-        /* Map markers hidden until country animation finishes */
         .leaflet-marker-pane { opacity: 0; transition: opacity 0.8s ease; }
         .markers-ready .leaflet-marker-pane { opacity: 1; }
 
         /* RESPONSIVE */
-        @media (max-width: 700px) {
-            .nav { padding: 0.75rem 1.5rem; }
-            .nav-logo img { height: 60px; }
+        @media (max-width: 760px) {
+            .nav { padding: 0.75rem 1.5rem; height: 60px; }
+            .nav-logo img { height: 50px; }
             .nav-links {
                 display: none;
                 position: absolute; top: 100%; left: 0; right: 0;
@@ -280,8 +481,18 @@
             .nav-off-menu a { padding: 0.7rem 1.5rem; }
             .nav-off-menu img { margin: 0 auto; height: 26px; }
             .nav-menu-btn { display: flex; }
-            .map-title-card { bottom: 1.2rem; left: 1.2rem; right: 1.2rem; max-width: none; }
-            .leaflet-popup-content { width: 260px !important; }
+            .map-header {
+                top: 60px;
+                padding: 0.7rem 1rem;
+                gap: 0.8rem;
+                height: auto;
+                flex-wrap: wrap;
+            }
+            .map-header h1 { font-size: 1.1rem; }
+            .map-header .blurb { display: none; }
+            .map-body { top: 130px; }
+            .map-sidebar { width: 200px; }
+            .key-panel { width: 200px; top: 0.6rem; left: 0.6rem; }
         }
     </style>
 </head>
@@ -302,16 +513,40 @@
     </div>
 </nav>
 
-<div id="map"></div>
-
-<div class="map-title-card">
-    <span class="eyebrow">Personal recommendations</span>
-    <h1>The Map</h1>
-    <p>Places I've eaten that I'd send a friend to without hesitation.</p>
-    <div class="map-pin-count">
-        <div class="map-pin-icon"></div>
-        <span id="pin-count">— restaurants</span>
+<header class="map-header">
+    <div class="info">
+        <span class="eyebrow">Personal recommendations</span>
+        <h1>The Map</h1>
+        <span class="blurb">Places I've eaten that I'd send a friend to without hesitation.</span>
     </div>
+    <button id="key-toggle" class="key-toggle" type="button">
+        <span class="show-when-closed">Show key</span>
+        <span class="show-when-open">Hide key</span>
+    </button>
+</header>
+
+<div class="map-body">
+    <div id="map">
+        <div id="key-panel" class="key-panel" role="dialog" aria-label="Map key">
+            <div class="key-panel-head">
+                <h3>Key</h3>
+                <button id="key-close" class="key-close" aria-label="Close key">×</button>
+            </div>
+            <ul class="key-list">
+                <li><span class="pin-dot pin-meal"></span> Meals</li>
+                <li><span class="pin-dot pin-snack"></span> Snacks</li>
+                <li><span class="pin-dot pin-dessert"></span> Desserts</li>
+            </ul>
+            <p class="key-note">Click a pin to view details. Use the right-hand menu to browse by country and city.</p>
+        </div>
+    </div>
+
+    <aside class="map-sidebar">
+        <header class="sidebar-head">
+            <h3>Browse</h3>
+        </header>
+        <div class="sidebar-tree" id="sidebar-tree"></div>
+    </aside>
 </div>
 
 
@@ -320,42 +555,50 @@
 
 // =====================================================================
 //  RESTAURANTS — your personal recommendations
+//
+//  Each entry now has:
+//    country   — top-level grouping in the sidebar
+//    city      — second-level grouping
+//    category  — "meals" | "snacks" | "desserts" (drives pin color)
+//    coords    — [lat, lng]
+//    writeup   — your personal note
+//    photo     — image path or "" for a placeholder
 // =====================================================================
 
 const restaurants = [
-    { name: "Da Enzo al 29", city: "Rome, Italy", coords: [41.8879, 12.4777],
+    { name: "Da Enzo al 29", country: "Italy", city: "Rome", category: "meals",
+      coords: [41.8879, 12.4777],
       writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
       photo: "" },
-    { name: "Figlmüller Bäckerstraße", city: "Vienna, Austria", coords: [48.2082, 16.3738],
+    { name: "Figlmüller Bäckerstraße", country: "Austria", city: "Vienna", category: "meals",
+      coords: [48.2082, 16.3738],
       writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
       photo: "" },
-    { name: "The Test Kitchen", city: "Cape Town, South Africa", coords: [-33.9258, 18.4232],
+    { name: "The Test Kitchen", country: "South Africa", city: "Cape Town", category: "meals",
+      coords: [-33.9258, 18.4232],
       writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
       photo: "" },
-    { name: "Lola Bistro", city: "Cleveland, Ohio", coords: [41.4993, -81.6944],
+    { name: "Lola Bistro", country: "USA", city: "Cleveland", category: "meals",
+      coords: [41.4993, -81.6944],
       writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
       photo: "" },
-    { name: "Abou El Sid", city: "Cairo, Egypt", coords: [30.0626, 31.2497],
+    { name: "Abou El Sid", country: "Egypt", city: "Cairo", category: "meals",
+      coords: [30.0626, 31.2497],
       writeup: "Replace this with your own note. What did you order? What made it memorable? Who were you with? This is your story to tell.",
       photo: "" },
 ];
 
-// =====================================================================
-//  COUNTRY → FLAG MAP (ISO 3166-1 alpha-3 → flagcdn code)
-// =====================================================================
-
 const FLAG_MAP = {
-    USA: 'us',
-    ITA: 'it',
-    AUT: 'at',
-    GBR: 'gb-eng',   // England flag (St George's Cross) for the UK polygon
-    SVK: 'sk',
-    EGY: 'eg',
-    ARE: 'ae',
-    ZAF: 'za',
-    IRL: 'ie'
+    USA: 'us', ITA: 'it', AUT: 'at', GBR: 'gb-eng', SVK: 'sk',
+    EGY: 'eg', ARE: 'ae', ZAF: 'za', IRL: 'ie'
 };
 const WANTED = new Set(Object.keys(FLAG_MAP));
+
+const PIN_COLORS = {
+    meals:    '#c43a2d',
+    snacks:   '#d97e1f',
+    desserts: '#a23ca2',
+};
 
 // =====================================================================
 //  MAP
@@ -369,7 +612,6 @@ const map = L.map('map', {
     minZoom: 2,
     maxBoundsViscosity: 0.8,
 });
-
 L.control.zoom({ position: 'topright' }).addTo(map);
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -378,7 +620,6 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     maxZoom: 19
 }).addTo(map);
 
-// Style attribution
 const attribution = document.querySelector('.leaflet-control-attribution');
 if (attribution) {
     attribution.style.cssText =
@@ -386,7 +627,7 @@ if (attribution) {
 }
 
 // =====================================================================
-//  COUNTRY UNRAVEL — fetch borders, fill with flag patterns, animate
+//  COUNTRY UNRAVEL + FLAG FILLS
 // =====================================================================
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -400,7 +641,6 @@ fetch('https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.jso
             features: world.features.filter(f => WANTED.has(f.id))
         };
 
-        // Add GeoJSON layer (transparent first; we'll set fills via patterns)
         const geoLayer = L.geoJSON(filtered, {
             style: () => ({
                 className: 'country-shape',
@@ -412,7 +652,6 @@ fetch('https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.jso
             })
         }).addTo(map);
 
-        // Grab leaflet's vector SVG and inject flag patterns into <defs>
         const svg = document.querySelector('.leaflet-overlay-pane svg');
         if (!svg) return;
         const defs = document.createElementNS(SVG_NS, 'defs');
@@ -422,7 +661,6 @@ fetch('https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.jso
             pattern.setAttribute('patternUnits', 'objectBoundingBox');
             pattern.setAttribute('width', '1');
             pattern.setAttribute('height', '1');
-
             const image = document.createElementNS(SVG_NS, 'image');
             const url = `https://flagcdn.com/w640/${code}.png`;
             image.setAttribute('href', url);
@@ -437,36 +675,24 @@ fetch('https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.jso
         });
         svg.insertBefore(defs, svg.firstChild);
 
-        // Apply unravel animation + flag fill to each country path
         geoLayer.eachLayer(layer => {
             const path = layer._path;
             const iso = layer.feature.id;
             const code = FLAG_MAP[iso];
             if (!path || !code) return;
-
-            // Set the fill to the flag pattern (starts at fillOpacity 0)
             path.setAttribute('fill', `url(#flag-${code})`);
 
-            // Stroke-draw animation
             let len = 0;
             try { len = path.getTotalLength(); } catch (e) { len = 5000; }
             path.style.strokeDasharray = len;
             path.style.strokeDashoffset = len;
             path.style.fillOpacity = '0';
             path.style.transition =
-                'stroke-dashoffset 2.2s cubic-bezier(0.45, 0, 0.4, 1), ' +
-                'fill-opacity 0.7s ease';
-
-            // Trigger animation
+                'stroke-dashoffset 2.2s cubic-bezier(0.45, 0, 0.4, 1), fill-opacity 0.7s ease';
             requestAnimationFrame(() => {
                 path.style.strokeDashoffset = '0';
                 setTimeout(() => { path.style.fillOpacity = '0.78'; }, 1500);
             });
-
-            // After the unravel finishes, clear stroke-dasharray so the
-            // outline stays solid through zoom/pan (Leaflet redraws the
-            // path's `d` attribute and the old dasharray length no longer
-            // matches, which would otherwise cause broken-up strokes)
             setTimeout(() => {
                 path.style.strokeDasharray = 'none';
                 path.style.strokeDashoffset = '0';
@@ -474,7 +700,6 @@ fetch('https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.jso
             }, 2400);
         });
 
-        // Re-assert fill and clean strokes on zoom (Leaflet may rebuild paths)
         const reassertStyles = () => {
             geoLayer.eachLayer(layer => {
                 const path = layer._path;
@@ -486,33 +711,29 @@ fetch('https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.jso
                 path.style.strokeDashoffset = '0';
             });
         };
-        map.on('zoomend moveend', () => {
-            // Only re-assert after the unravel animation is past
-            setTimeout(reassertStyles, 50);
-        });
+        map.on('zoomend moveend', () => setTimeout(reassertStyles, 50));
 
-        // Reveal markers once countries finish drawing
         setTimeout(() => document.body.classList.add('markers-ready'), 2400);
     })
     .catch(err => {
         console.warn('Country borders failed to load:', err);
-        // Markers should still appear even if the GeoJSON request fails
         document.body.classList.add('markers-ready');
     });
 
 // =====================================================================
-//  RESTAURANT PINS
+//  PINS
 // =====================================================================
 
-function makeIcon() {
+function makeIcon(category) {
+    const fill = PIN_COLORS[category] || PIN_COLORS.meals;
     return L.divIcon({
         className: 'map-marker',
         html: `<svg width="26" height="36" viewBox="0 0 26 36" xmlns="http://www.w3.org/2000/svg">
-            <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+            <filter id="ms" x="-40%" y="-40%" width="180%" height="180%">
                 <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="rgba(0,0,0,0.35)"/>
             </filter>
             <path d="M13 0C5.82 0 0 5.82 0 13c0 8.667 13 23 13 23S26 21.667 26 13C26 5.82 20.18 0 13 0z"
-                  fill="#c43a2d" filter="url(#shadow)"/>
+                  fill="${fill}" filter="url(#ms)"/>
             <circle cx="13" cy="13" r="4.5" fill="#fbfaf6"/>
         </svg>`,
         iconSize: [26, 36],
@@ -525,49 +746,101 @@ function popupHTML(r) {
     const photoHTML = r.photo
         ? `<img src="${r.photo}" alt="${r.name}">`
         : `<div class="popup-photo-placeholder"><span>add a photo</span></div>`;
-
+    const catLabel = r.category.charAt(0).toUpperCase() + r.category.slice(1);
     return `
         <div class="popup-photo">${photoHTML}</div>
         <div class="popup-body">
-            <span class="popup-city">${r.city}</span>
+            <span class="popup-city">${r.city}, ${r.country}</span>
+            <span class="popup-cat">${catLabel}</span>
             <div class="popup-name">${r.name}</div>
             <p class="popup-writeup">${r.writeup}</p>
         </div>
     `;
 }
 
-restaurants.forEach(r => {
-    const marker = L.marker(r.coords, { icon: makeIcon() });
+const markers = restaurants.map(r => {
+    const marker = L.marker(r.coords, { icon: makeIcon(r.category) });
     marker.bindPopup(popupHTML(r), {
         maxWidth: 300,
         minWidth: 300,
-        className: 'no-secrets-popup',
-        autoPanPaddingTopLeft: L.point(60, 90),
+        autoPanPaddingTopLeft: L.point(60, 160),
         autoPanPaddingBottomRight: L.point(60, 40),
     });
     marker.addTo(map);
+    return marker;
 });
 
-document.getElementById('pin-count').textContent =
-    `${restaurants.length} restaurant${restaurants.length !== 1 ? 's' : ''}`;
+// =====================================================================
+//  SIDEBAR TREE (Country > City > Category > Restaurant)
+// =====================================================================
+
+function buildSidebar() {
+    const tree = {};
+    restaurants.forEach((r, i) => {
+        tree[r.country] = tree[r.country] || {};
+        tree[r.country][r.city] = tree[r.country][r.city] || { meals: [], snacks: [], desserts: [] };
+        tree[r.country][r.city][r.category].push({ ...r, idx: i });
+    });
+
+    const container = document.getElementById('sidebar-tree');
+    let html = '';
+    Object.entries(tree).forEach(([country, cities]) => {
+        html += `<details open class="country-block"><summary>${country}</summary>`;
+        Object.entries(cities).forEach(([city, cats]) => {
+            html += `<details open class="city-block"><summary>${city}</summary>`;
+            ['meals', 'snacks', 'desserts'].forEach(cat => {
+                if (cats[cat].length === 0) return;
+                const catTitle = cat.charAt(0).toUpperCase() + cat.slice(1);
+                html += `<div class="cat-group cat-${cat}"><h4>${catTitle}</h4><ul>`;
+                cats[cat].forEach(r => {
+                    html += `<li><a href="#" data-idx="${r.idx}">${r.name}</a></li>`;
+                });
+                html += `</ul></div>`;
+            });
+            html += `</details>`;
+        });
+        html += `</details>`;
+    });
+    container.innerHTML = html;
+
+    container.addEventListener('click', e => {
+        const a = e.target.closest('a[data-idx]');
+        if (!a) return;
+        e.preventDefault();
+        const idx = parseInt(a.dataset.idx, 10);
+        const marker = markers[idx];
+        if (!marker) return;
+        const targetZoom = Math.max(map.getZoom(), 7);
+        map.flyTo(marker.getLatLng(), targetZoom, { duration: 0.9 });
+        setTimeout(() => marker.openPopup(), 950);
+    });
+}
+buildSidebar();
+
+// =====================================================================
+//  KEY TOGGLE
+// =====================================================================
+
+const keyPanel = document.getElementById('key-panel');
+const keyToggle = document.getElementById('key-toggle');
+keyToggle.addEventListener('click', () => {
+    const open = keyPanel.classList.toggle('open');
+    keyToggle.classList.toggle('open', open);
+});
+document.getElementById('key-close').addEventListener('click', () => {
+    keyPanel.classList.remove('open');
+    keyToggle.classList.remove('open');
+});
+
+// =====================================================================
+//  MOBILE NAV
+// =====================================================================
 
 document.getElementById('menu-btn').addEventListener('click', () => {
     document.getElementById('nav-links').classList.toggle('open');
 });
 
-// Nav fades out as the page scrolls down
-const navEl = document.getElementById('main-nav');
-const FADE_START = 80;
-const FADE_END = 360;
-window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    let op = 1;
-    if (y > FADE_START) op = Math.max(0, 1 - (y - FADE_START) / (FADE_END - FADE_START));
-    navEl.style.opacity = op;
-    navEl.style.pointerEvents = op < 0.08 ? 'none' : 'auto';
-}, { passive: true });
-
-// Safety: if all else fails, reveal markers after 4s
+// Safety reveal in case GeoJSON fails
 setTimeout(() => document.body.classList.add('markers-ready'), 4000);
 
 </script>
