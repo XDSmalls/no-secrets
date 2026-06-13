@@ -6,7 +6,7 @@
     <title>About — No Secrets</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -166,11 +166,11 @@
             z-index: 2;
         }
         .about-hero-name h1 {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
             font-size: clamp(1.17rem, 3vw, 2.33rem);
             font-weight: 800;
             color: #fff;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.02em;
             line-height: 1;
             text-shadow: 0 2px 18px rgba(0,0,0,0.5);
         }
@@ -244,6 +244,51 @@
             margin: 2rem 0;
             line-height: 1.5;
             font-weight: 500;
+        }
+        .about-story .coming-soon {
+            font-style: italic;
+            color: var(--muted);
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+        }
+        .about-story .is-label {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            color: var(--ink);
+            font-size: 1.02rem;
+            letter-spacing: 0.04em;
+            margin: 1.8rem 0 0.7rem;
+        }
+        .about-story ul.is-list,
+        .about-story ul.isnt-list {
+            list-style: none;
+            margin: 0 0 0.6rem;
+            padding: 0;
+        }
+        .about-story ul.is-list li,
+        .about-story ul.isnt-list li {
+            position: relative;
+            padding-left: 1.6rem;
+            margin-bottom: 0.55rem;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1rem, 1.6vw, 1.08rem);
+            line-height: 1.6;
+            color: var(--ink-2);
+        }
+        .about-story ul.is-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent);
+            font-weight: 800;
+        }
+        .about-story ul.isnt-list li::before {
+            content: '✕';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--muted);
+            font-weight: 800;
         }
 
         /* INFLUENCES — hover reveals portrait */
@@ -539,16 +584,16 @@
 <!-- INTRO TEXT -->
 <section class="about-intro-block fade-up">
     <span class="eyebrow">Who I am</span>
-    <h2>Hi. I'm Samuele, and I grew up in someone else's kitchen.</h2>
-    <p>Not literally. But close enough. I spent more hours of my childhood
-        watching other people cook than most people spend eating. I was the
-        kid in the corner who kept asking questions nobody wanted to answer.</p>
+    <h2>Ciao, I'm Samuele! I appreciate you visiting the site.</h2>
+    <p>I spent more hours of my childhood watching other people cook
+        (and drawing or playing videogames) than most people spend eating.
+        I was the kid in the corner who kept asking questions nobody wanted to answer.</p>
     <p>Why are you adding that now? How much of that is too much?
         What does "a pinch" actually mean to you, specifically?</p>
     <p>The answers were always the same: <em>"You'll know when it's ready."</em>
         Or worse: <em>"I don't know, I just do it."</em></p>
     <p>I've spent a long time trying to figure out what they knew that they
-        couldn't say. This site is the result of that.</p>
+        couldn't say, so this site is the result of that.</p>
 </section>
 
 
@@ -557,51 +602,31 @@
     <div class="fade-up">
         <span class="section-label">The longer version</span>
 
-        <h3>Food was never just food where I came from.</h3>
-
-        <p>It was currency. It was memory. It was the thing you brought when
-            words ran out. Someone died — you brought a dish. Someone had a baby —
-            you brought something that could feed twelve. Someone needed forgiving —
-            you showed up with the recipe they'd been asking for for thirty years.</p>
-
-        <p class="pull">"A recipe is never just a recipe. It's an argument, a gift,
-            a peace offering, an inheritance."</p>
-
-        <p>I started cooking seriously in my twenties, the way most people do —
-            badly and alone in a small apartment with one good pan and too much
-            ambition. I made mistakes. I burned things. I oversalted, undercooked,
-            and once, famously, made a soup that still cannot be discussed at
-            family gatherings.</p>
-
-        <p>What saved me wasn't a cooking class or a cookbook. It was a
-            phone call to my grandmother where, for the first time, she actually told me.
-            The real amounts. The actual technique. The thing she'd been leaving out for years.</p>
-
-        <p>I wrote it all down. I kept writing. And eventually I had something
-            worth sharing.</p>
+        <p class="coming-soon">Coming soon.</p>
 
         <h3 style="margin-top: 2.5rem;">What this site is — and isn't.</h3>
 
-        <p>No Secrets is not a cooking show. It's not aspirational content.
-            There are no perfect kitchens here, no immaculate cutting boards,
-            no recipes that come together in 30 minutes.</p>
+        <p class="is-label">What it IS:</p>
+        <ul class="is-list">
+            <li>Real recipes, with the amounts and temperatures actually written down.</li>
+            <li>The story behind each one — who made it, why it stuck with me.</li>
+            <li>Notes on what I changed, what I left alone, and why.</li>
+            <li>A fair number of strong opinions about food.</li>
+        </ul>
 
-        <p>What there is: real recipes with real histories. The stories behind
-            them — who made them, what they meant, what was almost lost.
-            Personal notes on what I've changed, what I haven't, and why.
-            And occasionally, my opinions about food, which I have many of
-            and hold firmly.</p>
-
-        <p>If you're looking for quick weeknight dinners, there are a thousand
-            other sites. If you want to understand <em>why</em> something works
-            the way it does, and the person who figured it out first,
-            you're in the right place.</p>
+        <p class="is-label">What it ISN'T:</p>
+        <ul class="isnt-list">
+            <li>A cooking show.</li>
+            <li>Spotless kitchens and styled plates.</li>
+            <li>A pile of 30-minute weeknight dinners.</li>
+            <li>Trying to sell you anything.</li>
+        </ul>
     </div>
 </section>
 
 
 <!-- INFLUENCES — photos shown by default -->
-<section class="about-influences">
+<section class="about-influences" id="influences">
     <div class="section-header fade-up">
         <span class="eyebrow">Who shaped how I think about food</span>
         <h2>influences</h2>
@@ -609,7 +634,7 @@
     <div class="influences-grid">
 
         <article class="influence-card fade-up">
-            <div class="influence-photo" style="background-image: url('original-compressed.webp'); background-position: center 30%;"></div>
+            <div class="influence-photo" style="background-image: url('bourdain.jpg'); background-position: center 30%;"></div>
             <div class="influence-scrim"></div>
             <div class="influence-body">
                 <div class="influence-number">01</div>

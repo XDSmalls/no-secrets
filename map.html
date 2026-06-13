@@ -502,6 +502,19 @@
             color: var(--muted);
             line-height: 1.65;
         }
+        .popup-writeup .read-more {
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.84rem;
+            font-style: italic;
+            font-weight: 700;
+            color: var(--accent);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .popup-writeup .read-more:hover { text-decoration: underline; }
 
         .leaflet-bar { box-shadow: 0 8px 24px rgba(13,10,8,0.12) !important; border: 1px solid var(--line) !important; }
         .leaflet-bar a {
@@ -811,6 +824,19 @@ function starHTML(rating) {
     return '★'.repeat(r) + (dim ? `<span class="dim">${'★'.repeat(dim)}</span>` : '');
 }
 
+// Show only the first ~third of the write-up, with a red "read more" toggle
+function writeupHTML(text) {
+    const target = Math.ceil(text.length / 3);
+    let cut = text.indexOf(' ', target);
+    if (cut === -1) cut = text.length;
+    if (cut >= text.length) return `<p class="popup-writeup">${text}</p>`;
+    const teaser = text.slice(0, cut).replace(/[\s,.;:]+$/, '');
+    return `<p class="popup-writeup">`
+        + `<span class="writeup-teaser">${teaser}… </span>`
+        + `<span class="writeup-full" hidden>${text}</span>`
+        + `<button type="button" class="read-more">read more</button></p>`;
+}
+
 function popupHTML(r) {
     const photoHTML = r.photo
         ? `<img src="${r.photo}" alt="${r.name}">`
@@ -823,7 +849,7 @@ function popupHTML(r) {
             <span class="popup-cat">${catLabel}</span>
             <div class="popup-name">${r.name}</div>
             <div class="popup-stars" aria-label="${Math.max(3, Math.min(5, r.rating || 3))} out of 5 stars">${starHTML(r.rating)}</div>
-            <p class="popup-writeup">${r.writeup}</p>
+            ${writeupHTML(r.writeup)}
         </div>
     `;
 }
@@ -838,6 +864,19 @@ const markers = restaurants.map(r => {
     });
     marker.addTo(map);
     return marker;
+});
+
+// "read more" expands the truncated write-up in place
+map.on('popupopen', (e) => {
+    const el = e.popup.getElement();
+    const btn = el && el.querySelector('.read-more');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+        el.querySelector('.writeup-teaser').hidden = true;
+        el.querySelector('.writeup-full').hidden = false;
+        btn.remove();
+        e.popup.update();
+    }, { once: true });
 });
 
 // =====================================================================
