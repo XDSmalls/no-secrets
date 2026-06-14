@@ -455,6 +455,27 @@
             font-size: 0.8rem;
             color: rgba(255,255,255,0.78);
         }
+        /* Photo-library thumbnail strip */
+        .popup-thumbs {
+            display: flex;
+            gap: 2px;
+            background: var(--bg);
+        }
+        .popup-thumb {
+            flex: 1 1 0;
+            height: 40px;
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+            overflow: hidden;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+            min-width: 0;
+        }
+        .popup-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .popup-thumb:hover { opacity: 0.85; }
+        .popup-thumb.active { opacity: 1; box-shadow: inset 0 -2px 0 var(--accent); }
         .popup-body { padding: 1.4rem 1.6rem 1.5rem; }
         .popup-city {
             display: block;
@@ -638,16 +659,71 @@
 //    rating    — your star rating, 3 to 5
 //    coords    — [lat, lng]
 //    writeup   — your personal note
-//    photo     — image path or "" for a placeholder
+//    photos    — array of image paths (a small gallery, 4–5 each).
+//                PUT A FOOD PHOTO FIRST. Empty array = placeholder.
 // =====================================================================
 
 const restaurants = [
-    // Photo: "Pizzeria Da Michele, Napoli.jpg" by Husky, CC BY 4.0 (Wikimedia Commons)
+    // Photo 1: "Pizzeria Da Michele, Napoli.jpg" by Husky, CC BY 4.0 (Wikimedia Commons)
     { name: "L'Antica Pizzeria da Michele", country: "Italy", city: "Naples", category: "meals",
       rating: 5,
       coords: [40.849982, 14.2632526],
       writeup: "The pizza that ruins all other pizza. Open since 1870 and still run by the Condurro family, this Forcella institution makes exactly two pies — Margherita and Marinara — and refuses to do anything else. No frills, paper plates, a ticket-and-wait crowd spilling into the street. The dough is soft, blistered, faintly sour; the San Marzano and fior di latte do the rest. Yes, it's the one from Eat, Pray, Love. Order the Margherita, double mozzarella, and don't overthink it.",
-      photo: "da-michele.jpg" },
+      photos: ["da-michele.jpg"] },
+
+    { name: "Gino Sorbillo (Lievito Madre)", country: "Italy", city: "Rome", category: "meals",
+      rating: 4,
+      coords: [41.905870, 12.476420],
+      writeup: "The Rome flagship of Naples legend Gino Sorbillo, right on Piazza Augusto Imperatore beside the Mausoleum of Augustus. The draw is true Neapolitan pizza on a soft, blistered cornicione built from lievito madre (natural mother yeast). Order the Margherita or the Marinara to taste the dough at its purest.",
+      photos: [] },
+
+    { name: "Gino Sorbillo (Prati)", country: "Italy", city: "Rome", category: "meals",
+      rating: 4,
+      coords: [41.906640, 12.464560],
+      writeup: "Sorbillo's Prati outpost, tucked between Via Cola di Rienzo and the Vatican, brings the same airy, naturally leavened Neapolitan pizza to a quieter, more residential corner of Rome. A reliable stop for a classic Margherita or fritti before or after the Vatican Museums.",
+      photos: [] },
+
+    { name: "La Renella", country: "Italy", city: "Rome", category: "snacks",
+      rating: 4,
+      coords: [41.890130, 12.469560],
+      writeup: "A historic Trastevere bakery whose wood-fired ovens have run for well over a century, beloved for its pizza al taglio sold by weight and cut to order. Point at the trays of focaccia, pizza bianca and rotating seasonal slices; the potato-and-rosemary and the simple pizza rossa are the ones to chase.",
+      photos: [] },
+
+    { name: "L'Elementare (Trastevere)", country: "Italy", city: "Rome", category: "meals",
+      rating: 4,
+      coords: [41.892470, 12.467890],
+      writeup: "Mirko Rizzo's original pizzeria, championing the rolled-out, paper-thin and crackly tonda romana cooked in a wood-fired oven. Come for the scrocchiarella-style base topped with classics or seasonal combinations, washed down with a well-chosen craft beer.",
+      photos: [] },
+
+    { name: "L'Elementare (Testaccio)", country: "Italy", city: "Rome", category: "meals",
+      rating: 4,
+      coords: [41.874780, 12.469440],
+      writeup: "The Testaccio location of L'Elementare, bringing Mirko Rizzo's signature thin, ultra-crispy Roman tonda to the city's great food district by the Tiber. Same philosophy as the Trastevere original (a featherweight, crackly crust) in a roomier, neighborhood-feeling room.",
+      photos: [] },
+
+    { name: "Felice a Testaccio", country: "Italy", city: "Rome", category: "meals",
+      rating: 4,
+      coords: [41.878260, 12.475380],
+      writeup: "A Testaccio institution founded in 1936, serving textbook Roman trattoria cooking in a warm, no-nonsense room. Its tonnarelli cacio e pepe (finished and tossed at your table) is the dish people travel for; book at least a day ahead, because it's always full.",
+      photos: [] },
+
+    { name: "Pastificio Guerra", country: "Italy", city: "Rome", category: "snacks",
+      rating: 4,
+      coords: [41.906320, 12.480010],
+      writeup: "A working fresh-pasta shop near the Spanish Steps that, each afternoon, cooks its handmade pasta into one of two daily dishes for a handful of euros. No real seats and no ceremony: you grab a plastic dish of pasta and eat standing on the street, which is half the charm. Arrive before the lunch rush.",
+      photos: [] },
+
+    { name: "L'Orso 80", country: "Italy", city: "Rome", category: "meals",
+      rating: 4,
+      coords: [41.900570, 12.472390],
+      writeup: "A long-running family trattoria on Via dell'Orso, a few steps from Piazza Navona, trading in generous Roman cooking and fresh fish. The legendary draw is the antipasto della casa, a parade of small plates from meatballs to marinated vegetables; follow it with a classic carbonara or amatriciana.",
+      photos: [] },
+
+    { name: "Osteria da Fortunata", country: "Italy", city: "Rome", category: "meals",
+      rating: 3,
+      coords: [41.896126, 12.471648],
+      writeup: "A bustling osteria near Campo de' Fiori known for the nonne rolling and cutting fresh pasta by hand in the front window. The move is the handmade pasta (fettuccine, tonnarelli and ravioli) dressed in Roman classics like cacio e pepe or amatriciana; expect a queue and aim to arrive early.",
+      photos: [] },
 ];
 
 // World-map country highlights + flag fills (flagcdn codes)
@@ -843,13 +919,24 @@ function writeupHTML(text) {
         + `<button type="button" class="read-more">read more</button></p>`;
 }
 
+// Photo library: main image + thumbnail strip (first photo should be food)
+function galleryHTML(r) {
+    const photos = (Array.isArray(r.photos) ? r.photos : (r.photo ? [r.photo] : [])).filter(Boolean);
+    if (!photos.length) {
+        return `<div class="popup-photo"><div class="popup-photo-placeholder"><span>photos coming soon</span></div></div>`;
+    }
+    const main = `<div class="popup-photo"><img class="popup-main" src="${photos[0]}" alt="${r.name}"></div>`;
+    if (photos.length === 1) return main;
+    const thumbs = photos.map((p, i) =>
+        `<button type="button" class="popup-thumb${i === 0 ? ' active' : ''}" data-src="${p}"><img src="${p}" alt=""></button>`
+    ).join('');
+    return main + `<div class="popup-thumbs">${thumbs}</div>`;
+}
+
 function popupHTML(r) {
-    const photoHTML = r.photo
-        ? `<img src="${r.photo}" alt="${r.name}">`
-        : `<div class="popup-photo-placeholder"><span>add a photo</span></div>`;
     const catLabel = r.category.charAt(0).toUpperCase() + r.category.slice(1);
     return `
-        <div class="popup-photo">${photoHTML}</div>
+        ${galleryHTML(r)}
         <div class="popup-body">
             <span class="popup-city">${r.city}, ${r.country}</span>
             <span class="popup-cat">${catLabel}</span>
@@ -872,17 +959,30 @@ const markers = restaurants.map(r => {
     return marker;
 });
 
-// "read more" expands the truncated write-up in place
+// Popup interactions: "read more" expand + photo-library thumbnails
 map.on('popupopen', (e) => {
     const el = e.popup.getElement();
-    const btn = el && el.querySelector('.read-more');
-    if (!btn) return;
-    btn.addEventListener('click', () => {
-        el.querySelector('.writeup-teaser').hidden = true;
-        el.querySelector('.writeup-full').hidden = false;
-        btn.remove();
-        e.popup.update();
-    }, { once: true });
+    if (!el) return;
+
+    const btn = el.querySelector('.read-more');
+    if (btn) {
+        btn.addEventListener('click', () => {
+            el.querySelector('.writeup-teaser').hidden = true;
+            el.querySelector('.writeup-full').hidden = false;
+            btn.remove();
+            e.popup.update();
+        }, { once: true });
+    }
+
+    const main = el.querySelector('.popup-main');
+    el.querySelectorAll('.popup-thumb').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+            if (!main) return;
+            main.src = thumb.dataset.src;
+            el.querySelectorAll('.popup-thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+        });
+    });
 });
 
 // =====================================================================
