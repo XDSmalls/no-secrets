@@ -6,6 +6,15 @@
     <title>Off Menu — Samuele</title>
     <link rel="stylesheet" href="side-b.css">
     <style>
+        /* P4 key art behind the top logo area only */
+        .sb-hub-wrap {
+            position: relative;
+            background:
+                linear-gradient(to bottom, rgba(7,7,13,0.62) 0%, rgba(7,7,13,0.74) 60%, rgba(7,7,13,0.96) 100%),
+                url('../p4r.jpg') center 30% / cover no-repeat;
+            border-bottom: 1px solid var(--border);
+        }
+
         /* HUB MARK (OFF MENU image as the headline) */
         .sb-hub-mark {
             margin-top: 0;
@@ -40,9 +49,11 @@
     <a href="../index.html" class="sb-back">No Secrets</a>
     <a href="index.html" class="sb-nav-id-img" aria-label="Off Menu — home"><img src="../off-menu.png" alt="Off Menu"></a>
     <ul class="sb-nav-links">
-        <li><a href="drawing.html">Drawing</a></li>
+        <li><a href="drawing.html">Drawings</a></li>
         <li><a href="writing.html">Writing</a></li>
         <li><a href="photo-vid.html">Photo &amp; Vid</a></li>
+        <li><a href="hall-of-fame.html">Hall of Fame</a></li>
+        <li><a href="contact.html">Contact</a></li>
     </ul>
 </nav>
 
@@ -56,23 +67,33 @@
 <div class="sb-sections">
     <a href="drawing.html" class="sb-card">
         <span class="sb-card-num">01</span>
-        <h2 class="sb-card-name">Drawing</h2>
-        <p class="sb-card-desc">Sketchbook pages and finished pieces. Whatever made it off the paper.</p>
+        <h2 class="sb-card-name">Drawings</h2>
+        <p class="sb-card-desc">Finished sketchbook pieces (coloured pencil, marker, on paper).</p>
         <span class="sb-card-arrow">→</span>
     </a>
     <a href="writing.html" class="sb-card">
         <span class="sb-card-num">02</span>
         <h2 class="sb-card-name">Writing</h2>
-        <p class="sb-card-desc">Non-food essays and observations. Things that needed to go somewhere other than the dinner table.</p>
+        <p class="sb-card-desc">Writing about media/art/fiction that I love.</p>
         <span class="sb-card-arrow">→</span>
     </a>
     <a href="photo-vid.html" class="sb-card">
         <span class="sb-card-num">03</span>
         <h2 class="sb-card-name">Photo &amp; Vid</h2>
-        <p class="sb-card-desc">A running visual document — photos and video of things worth looking at.</p>
+        <p class="sb-card-desc">My film and (tiny) digital photography portfolio and anime music videos.</p>
         <span class="sb-card-arrow">→</span>
     </a>
 </div>
+
+<!-- HALL OF FAME — separate from the art sections -->
+<a href="hall-of-fame.html" class="sb-hof-banner">
+    <div>
+        <span class="sb-hof-eyebrow">Outside the portfolio</span>
+        <h2 class="sb-hof-title">Hall of Fame</h2>
+        <p class="sb-hof-desc">Not my work, just my favorites. Games, anime, films, and the series that stuck.</p>
+    </div>
+    <span class="sb-hof-arrow" aria-hidden="true">→</span>
+</a>
 
 <footer class="sb-footer">
     <a href="../index.html">← Back to No Secrets</a>

@@ -6,7 +6,7 @@
     <title>No Secrets — Family Recipes, Finally Told</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -403,10 +403,10 @@
             position: absolute;
             top: -0.18em; left: 50%;
             transform: translateX(-50%);
-            font-family: 'Inter', sans-serif;
-            font-size: 20rem;
-            font-weight: 900;
-            color: rgba(13,10,8,0.08);
+            font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+            font-size: 18rem;
+            font-weight: 800;
+            color: rgba(196,58,45,0.13);
             line-height: 1;
             pointer-events: none;
         }
@@ -418,10 +418,10 @@
         }
         .pull-quote blockquote p {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(1.35rem, 2.8vw, 2.1rem);
+            font-size: clamp(1.2rem, 2.4vw, 1.8rem);
             font-weight: 500;
             color: var(--ink);
-            line-height: 1.4;
+            line-height: 1.45;
             letter-spacing: -0.02em;
             margin-bottom: 2rem;
         }
@@ -515,6 +515,13 @@
             .manifesto, .recipes-section { padding: 4rem 1.5rem; }
             .pull-quote { padding: 5rem 1.5rem; }
             .pull-quote::before { font-size: 14rem; }
+        }
+
+        /* Display titles in Bricolage Grotesque */
+        .manifesto-heading,
+        .section-header h2,
+        .card-title {
+            font-family: 'Bricolage Grotesque', 'Inter', sans-serif !important;
         }
     </style>
 </head>
@@ -619,7 +626,7 @@
     <!-- PULL QUOTE -->
     <section class="pull-quote">
         <blockquote class="fade-up">
-            <p>"Food is everything we are. It's an extension of nationalist feeling, ethnic feeling, your personal history, your province, your region, your tribe, your grandma. It's inseparable from those from the get-go."</p>
+            <p>Food is everything we are. It's an extension of nationalist feeling, your personal history, your province, your region, your tribe, your grandma. It's inseparable from those things from the get-go.</p>
             <cite>— Anthony Bourdain</cite>
         </blockquote>
     </section>

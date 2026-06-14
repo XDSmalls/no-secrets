@@ -151,18 +151,20 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom,
-                rgba(0,0,0,0) 35%,
-                rgba(0,0,0,0.35) 75%,
-                rgba(0,0,0,0.65) 100%);
+            background: radial-gradient(ellipse 75% 65% at 50% 50%,
+                rgba(0,0,0,0.52) 0%,
+                rgba(0,0,0,0.22) 55%,
+                rgba(0,0,0,0.45) 100%);
             pointer-events: none;
         }
         .about-hero-name {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 2.6rem 3rem;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
             z-index: 2;
         }
         .about-hero-name h1 {
@@ -307,8 +309,10 @@
             font-weight: 800;
             color: var(--ink);
             letter-spacing: -0.03em;
-            margin-top: 0.6rem;
             text-transform: lowercase;
+        }
+        .about-influences .section-header .eyebrow {
+            margin-top: 0.7rem;
         }
         .influences-grid {
             display: grid;
@@ -426,20 +430,6 @@
             position: relative;
             overflow: hidden;
         }
-        .memory-photo::after {
-            content: 'add photo';
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', sans-serif;
-            font-style: italic;
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.6);
-            letter-spacing: 0.05em;
-            pointer-events: none;
-        }
         .memory-photo img {
             position: absolute;
             inset: 0;
@@ -548,6 +538,14 @@
             .memories-grid { grid-template-columns: 1fr; max-width: 360px; }
             .mini-footer-inner { gap: 1rem; }
         }
+
+        /* Display titles in Bricolage Grotesque (name already set above) */
+        .about-intro-block h2,
+        .about-story h3,
+        .about-influences .section-header h2,
+        .memories-heading {
+            font-family: 'Bricolage Grotesque', 'Inter', sans-serif !important;
+        }
     </style>
 </head>
 <body>
@@ -602,24 +600,23 @@
     <div class="fade-up">
         <span class="section-label">The longer version</span>
 
-        <p class="coming-soon">Coming soon.</p>
+        <p class="coming-soon">coming soon.</p>
 
-        <h3 style="margin-top: 2.5rem;">What this site is — and isn't.</h3>
+        <h3 style="margin-top: 2.5rem;">What this site</h3>
 
-        <p class="is-label">What it IS:</p>
+        <p class="is-label">IS:</p>
         <ul class="is-list">
-            <li>Real recipes, with the amounts and temperatures actually written down.</li>
-            <li>The story behind each one — who made it, why it stuck with me.</li>
-            <li>Notes on what I changed, what I left alone, and why.</li>
-            <li>A fair number of strong opinions about food.</li>
+            <li>Real recipes, with the amounts and temperatures actually written down</li>
+            <li>The story behind each one, who made it and why it stuck with me</li>
+            <li>Notes on what I changed, what I left alone, and why</li>
+            <li>A fair number of strong opinions about food</li>
         </ul>
 
-        <p class="is-label">What it ISN'T:</p>
+        <p class="is-label">ISN'T:</p>
         <ul class="isnt-list">
-            <li>A cooking show.</li>
-            <li>Spotless kitchens and styled plates.</li>
-            <li>A pile of 30-minute weeknight dinners.</li>
-            <li>Trying to sell you anything.</li>
+            <li>A cooking show</li>
+            <li>Spotless kitchens and styled plates</li>
+            <li>Trying to sell you anything</li>
         </ul>
     </div>
 </section>
@@ -628,8 +625,8 @@
 <!-- INFLUENCES — photos shown by default -->
 <section class="about-influences" id="influences">
     <div class="section-header fade-up">
-        <span class="eyebrow">Who shaped how I think about food</span>
         <h2>influences</h2>
+        <span class="eyebrow">Who shaped how I think about food</span>
     </div>
     <div class="influences-grid">
 

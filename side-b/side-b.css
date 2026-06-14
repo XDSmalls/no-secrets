@@ -629,3 +629,163 @@ img { max-width: 100%; display: block; }
     .sb-writing-item { grid-template-columns: 36px 1fr; }
     .sb-writing-meta { display: none; }
 }
+
+
+/* ─── NEON GLOW — small accent text ───────────────────────── */
+.sb-eyebrow,
+.sb-nav-id,
+.sb-nav-links a.active,
+.sb-writing-tag,
+.sb-media-type,
+.sb-post-tag-inline,
+.sb-hof-eyebrow {
+    text-shadow: 0 0 6px rgba(200,255,0,0.6), 0 0 16px rgba(200,255,0,0.32);
+}
+
+
+/* ─── HALL OF FAME — hub banner ───────────────────────────── */
+.sb-hof-banner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2.8rem 2.4rem;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(90deg, rgba(200,255,0,0.06), rgba(7,7,13,0) 55%), var(--bg);
+    transition: background 0.2s;
+}
+.sb-hof-banner:hover { background: var(--surface); }
+.sb-hof-eyebrow {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+}
+.sb-hof-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 0.7rem;
+}
+.sb-hof-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 520px;
+}
+.sb-hof-arrow {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    color: var(--muted);
+    transition: color 0.2s, transform 0.25s;
+    flex-shrink: 0;
+}
+.sb-hof-banner:hover .sb-hof-arrow { color: var(--accent); transform: translateX(6px); }
+
+
+/* ─── HALL OF FAME — page grid ────────────────────────────── */
+.sb-hof-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2.4rem 1rem;
+}
+.sb-hof-inner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+}
+.sb-hof-cat {
+    background: var(--bg);
+    padding: 2rem 1.8rem;
+}
+.sb-hof-cat h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 1.1rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid var(--border);
+}
+.sb-hof-list { list-style: none; counter-reset: hof; }
+.sb-hof-list li {
+    counter-increment: hof;
+    display: flex;
+    gap: 0.9rem;
+    padding: 0.55rem 0;
+    font-size: 0.88rem;
+    color: rgba(229,229,240,0.82);
+    border-bottom: 1px solid var(--surface2);
+}
+.sb-hof-list li:last-child { border-bottom: none; }
+.sb-hof-list li::before {
+    content: counter(hof, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--accent);
+    padding-top: 0.22rem;
+    flex-shrink: 0;
+}
+.sb-hof-list li.empty { color: var(--muted); font-style: italic; opacity: 0.7; }
+
+
+/* ─── CONTACT PAGE ────────────────────────────────────────── */
+.sb-contact-wrap {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 5rem 2.4rem;
+}
+.sb-contact-intro {
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.85;
+    max-width: 460px;
+    margin-top: 1.6rem;
+}
+.sb-contact-list {
+    list-style: none;
+    margin-top: 2.8rem;
+    border-top: 1px solid var(--border);
+}
+.sb-contact-list li { border-bottom: 1px solid var(--border); }
+.sb-contact-list a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 0.3rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    transition: color 0.2s, padding 0.2s;
+}
+.sb-contact-list a:hover { color: var(--accent); padding-left: 1rem; }
+.sb-contact-label { display: flex; align-items: center; gap: 0.95rem; }
+.sb-contact-list svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+.sb-contact-mal {
+    font-weight: 700;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    border: 1px solid currentColor;
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+}
+.sb-contact-handle { color: var(--muted); }
+.sb-contact-list a:hover .sb-contact-handle { color: var(--accent); }
+
+
+@media (max-width: 760px) {
+    .sb-hof-inner { grid-template-columns: 1fr; }
+    .sb-hof-banner { flex-direction: column; align-items: flex-start; }
+}
