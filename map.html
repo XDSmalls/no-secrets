@@ -353,7 +353,27 @@
             text-transform: uppercase;
             font-weight: 600;
             color: var(--muted);
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        /* shape symbol next to each Meals / Snacks / Desserts label */
+        .cat-group h4::before { content: ''; flex-shrink: 0; }
+        .cat-group.cat-meals h4::before {
+            width: 10px; height: 10px;
+            background: var(--pin-meal);
+        }
+        .cat-group.cat-snacks h4::before {
+            width: 0; height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 11px solid var(--pin-snack);
+        }
+        .cat-group.cat-desserts h4::before {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--pin-dessert);
         }
         .cat-group ul { list-style: none; }
         .cat-group li {
@@ -363,29 +383,9 @@
             font-family: 'Inter', sans-serif;
             font-size: 0.8rem;
             color: var(--ink-2);
-            display: flex;
-            align-items: center;
-            gap: 0.55rem;
+            display: block;
+            padding-left: 1.5rem;
             transition: color 0.2s;
-        }
-        .cat-group a::before {
-            content: '';
-            flex-shrink: 0;
-        }
-        .cat-group .cat-meals a::before {
-            width: 9px; height: 9px;
-            background: var(--pin-meal);
-        }
-        .cat-group .cat-snacks a::before {
-            width: 0; height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-bottom: 9px solid var(--pin-snack);
-        }
-        .cat-group .cat-desserts a::before {
-            width: 9px; height: 9px;
-            border-radius: 50%;
-            background: var(--pin-dessert);
         }
         .cat-group a:hover { color: var(--accent); }
         .cat-group .empty {
@@ -536,6 +536,22 @@
             white-space: nowrap;
         }
         .popup-writeup .read-more:hover { text-decoration: underline; }
+        .popup-menu {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin-top: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.66rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--accent);
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 2px;
+            transition: opacity 0.2s;
+        }
+        .popup-menu:hover { opacity: 0.65; }
 
         .leaflet-bar { box-shadow: 0 8px 24px rgba(13,10,8,0.12) !important; border: 1px solid var(--line) !important; }
         .leaflet-bar a {
@@ -669,61 +685,71 @@ const restaurants = [
       rating: 5,
       coords: [40.849982, 14.2632526],
       writeup: "The pizza that ruins all other pizza. Open since 1870 and still run by the Condurro family, this Forcella institution makes exactly two pies — Margherita and Marinara — and refuses to do anything else. No frills, paper plates, a ticket-and-wait crowd spilling into the street. The dough is soft, blistered, faintly sour; the San Marzano and fior di latte do the rest. Yes, it's the one from Eat, Pray, Love. Order the Margherita, double mozzarella, and don't overthink it.",
-      photos: ["map-photos/da-michele-pizza.jpg", "da-michele.jpg"] },
+      photos: ["map-photos/da-michele-pizza.jpg", "da-michele.jpg"],
+      menu: "https://www.damichele.net/" },
 
     { name: "Gino Sorbillo (Lievito Madre)", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.905870, 12.476420],
       writeup: "The Rome flagship of Naples legend Gino Sorbillo, right on Piazza Augusto Imperatore beside the Mausoleum of Augustus. The draw is true Neapolitan pizza on a soft, blistered cornicione built from lievito madre (natural mother yeast). Order the Margherita or the Marinara to taste the dough at its purest.",
-      photos: ["map-photos/pizza-napoletana-pompei.jpg", "map-photos/pizza-oven.jpg"] },
+      photos: [],
+      menu: "https://www.sorbillo.it/" },
 
     { name: "Gino Sorbillo (Prati)", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.906640, 12.464560],
       writeup: "Sorbillo's Prati outpost, tucked between Via Cola di Rienzo and the Vatican, brings the same airy, naturally leavened Neapolitan pizza to a quieter, more residential corner of Rome. A reliable stop for a classic Margherita or fritti before or after the Vatican Museums.",
-      photos: ["map-photos/margherita-plate.jpg", "map-photos/pizza-oven.jpg"] },
+      photos: [],
+      menu: "https://www.sorbillo.it/" },
 
     { name: "La Renella", country: "Italy", city: "Rome", category: "snacks",
       rating: 4,
       coords: [41.890130, 12.469560],
       writeup: "A historic Trastevere bakery whose wood-fired ovens have run for well over a century, beloved for its pizza al taglio sold by weight and cut to order. Point at the trays of focaccia, pizza bianca and rotating seasonal slices; the potato-and-rosemary and the simple pizza rossa are the ones to chase.",
-      photos: ["map-photos/la-renella-pizza.jpg", "map-photos/la-renella-oven.jpg"] },
+      photos: ["map-photos/la-renella-pizza.jpg", "map-photos/la-renella-oven.jpg"],
+      menu: "https://www.facebook.com/LaRenella/" },
 
     { name: "L'Elementare (Trastevere)", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.892470, 12.467890],
       writeup: "Mirko Rizzo's original pizzeria, championing the rolled-out, paper-thin and crackly tonda romana cooked in a wood-fired oven. Come for the scrocchiarella-style base topped with classics or seasonal combinations, washed down with a well-chosen craft beer.",
-      photos: ["map-photos/pizza-napoletana.jpg", "map-photos/pizza-oven.jpg"] },
+      photos: [],
+      menu: "https://www.pizzerialelementare.it/" },
 
     { name: "L'Elementare (Testaccio)", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.874780, 12.469440],
       writeup: "The Testaccio location of L'Elementare, bringing Mirko Rizzo's signature thin, ultra-crispy Roman tonda to the city's great food district by the Tiber. Same philosophy as the Trastevere original (a featherweight, crackly crust) in a roomier, neighborhood-feeling room.",
-      photos: ["map-photos/pizza-neapolitan2.jpg", "map-photos/pizza-oven.jpg"] },
+      photos: [],
+      menu: "https://www.pizzerialelementare.it/" },
 
     { name: "Felice a Testaccio", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.878260, 12.475380],
       writeup: "A Testaccio institution founded in 1936, serving textbook Roman trattoria cooking in a warm, no-nonsense room. Its tonnarelli cacio e pepe (finished and tossed at your table) is the dish people travel for; book at least a day ahead, because it's always full.",
-      photos: ["map-photos/cacio-e-pepe-rome.jpg", "map-photos/tonnarelli-cacio.jpg"] },
+      photos: [],
+      menu: "https://feliceatestaccio.com/en/menu/" },
 
     { name: "Pastificio Guerra", country: "Italy", city: "Rome", category: "snacks",
       rating: 4,
       coords: [41.906320, 12.480010],
       writeup: "A working fresh-pasta shop near the Spanish Steps that, each afternoon, cooks its handmade pasta into one of two daily dishes for a handful of euros. No real seats and no ceremony: you grab a plastic dish of pasta and eat standing on the street, which is half the charm. Arrive before the lunch rush.",
-      photos: ["map-photos/fettuccine.jpg", "map-photos/carbonara.jpg"] },
+      photos: [],
+      menu: "https://www.instagram.com/pastificio_guerra1918/" },
 
     { name: "L'Orso 80", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.900570, 12.472390],
       writeup: "A long-running family trattoria on Via dell'Orso, a few steps from Piazza Navona, trading in generous Roman cooking and fresh fish. The legendary draw is the antipasto della casa, a parade of small plates from meatballs to marinated vegetables; follow it with a classic carbonara or amatriciana.",
-      photos: ["map-photos/crostini-antipasto.jpg", "map-photos/carbonara.jpg"] },
+      photos: [],
+      menu: "https://www.orso80.it/" },
 
     { name: "Osteria da Fortunata", country: "Italy", city: "Rome", category: "meals",
       rating: 3,
       coords: [41.896126, 12.471648],
       writeup: "A bustling osteria near Campo de' Fiori known for the nonne rolling and cutting fresh pasta by hand in the front window. The move is the handmade pasta (fettuccine, tonnarelli and ravioli) dressed in Roman classics like cacio e pepe or amatriciana; expect a queue and aim to arrive early.",
-      photos: ["map-photos/da-fortunata-strozza.jpg", "map-photos/da-fortunata-pasta.jpg"] },
+      photos: ["map-photos/da-fortunata-strozza.jpg", "map-photos/da-fortunata-pasta.jpg"],
+      menu: "https://osteriadafortunata.it/" },
 ];
 
 // World-map country highlights + flag fills (flagcdn codes)
@@ -943,6 +969,7 @@ function popupHTML(r) {
             <div class="popup-name">${r.name}</div>
             <div class="popup-stars" aria-label="${Math.max(3, Math.min(5, r.rating || 3))} out of 5 stars">${starHTML(r.rating)}</div>
             ${writeupHTML(r.writeup)}
+            ${r.menu ? `<a class="popup-menu" href="${r.menu}" target="_blank" rel="noopener">View menu &amp; site ↗</a>` : ''}
         </div>
     `;
 }
