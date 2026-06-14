@@ -836,3 +836,20 @@ img { max-width: 100%; display: block; }
     padding: 0.1em 0.3em;
     border-radius: 3px;
 }
+
+
+/* ─── "WORKING ON IT" MESSAGE (photo-vid) ─────────────────── */
+.sb-soon {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1rem 2.4rem 6rem;
+}
+.sb-soon p {
+    font-size: clamp(1.05rem, 1.9vw, 1.3rem);
+    line-height: 1.8;
+    color: var(--accent);
+    text-shadow: 0 0 5px rgba(200,255,0,0.35);
+    font-weight: 300;
+}
+.sb-soon a { border-bottom: 1px solid currentColor; font-weight: 500; }
+.sb-soon a:hover { opacity: 0.75; }
