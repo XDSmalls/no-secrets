@@ -1,16 +1,22 @@
-Map food photos — Wikimedia Commons, reused under their licenses.
+Map photos — reused under their Creative Commons licenses (with attribution).
 
-cacio-e-pepe-rome.jpg: "Cacio e pepe at trattoria in Rome.jpg" by Schellack — CC BY-SA 4.0 (via Wikimedia Commons)
-crostini-antipasto.jpg: "Crostini by Charles Haynes.jpg" by Charles Haynes — CC BY-SA 2.0 (via Wikimedia Commons)
-fettuccine.jpg: "Fettucine1.JPG" by LPLT — CC BY-SA 4.0 (via Wikimedia Commons)
-margherita-classic.jpg: "Margherita Originale.JPG" by Mario56 — CC BY-SA 3.0 (via Wikimedia Commons)
-margherita-plate.jpg: "Margherita pizza on plate.jpg" by Shisma — CC BY 4.0 (via Wikimedia Commons)
-pizza-neapolitan2.jpg: "Neapolitan pizza in Fort Lauderdale, Florida.jpg" by Gatorfan252525 — CC BY-SA 4.0 (via Wikimedia Commons)
-pizza-napoletana.jpg: "Pizza-napoletana.jpg" by Fabryx98 — CC BY-SA 4.0 (via Wikimedia Commons)
-pizza-napoletana-pompei.jpg: "Pizza Napoletana in Pompei, Italy.jpg" by Robot8A — CC BY-SA 4.0 (via Wikimedia Commons)
-pizza-al-taglio.jpg: "Pizza al taglio at Messukeskus.jpg" by JIP — CC BY-SA 4.0 (via Wikimedia Commons)
-carbonara.jpg: "Spaghetti alla Carbonara (Madrid).JPG" by Tamorlan — CC BY-SA 3.0 (via Wikimedia Commons)
-pasta-chitarra.jpg: "Spaghetti alla chitarra con pallottine (Teramo).jpg" by Horcrux — CC BY-SA 4.0 (via Wikimedia Commons)
-cacio-e-pepe-rome2.jpg: "Spaghetto cacio e pepe Roma 2018.jpg" by Blackcat — CC BY-SA 4.0 (via Wikimedia Commons)
-tonnarelli-cacio.jpg: "Tonnarelli cacio e pepe.jpg" by Camelia.boban — CC BY-SA 4.0 (via Wikimedia Commons)
-pizza-oven.jpg: "Wood fire brick oven for baking pizza.jpg" by Basheer Tome — CC BY 2.0 (via Wikimedia Commons)
+ACTUAL-PLACE PHOTOS (the real restaurants):
+da-michele.jpg          : "Pizzeria Da Michele, Napoli" by Husky — CC BY 4.0 (Wikimedia Commons)
+da-michele-pizza.jpg    : "La vera pizza Napolitana" by Leandro's World Tour — CC BY 2.0 (Flickr)
+la-renella-pizza.jpg    : "La Renella Pizza" by daryl_mitchell — CC BY-SA 2.0 (Flickr)
+la-renella-oven.jpg     : "Pizza Oven 3" by daryl_mitchell — CC BY-SA 2.0 (Flickr)
+da-fortunata-pasta.jpg  : "Pasta - Osteria da Fortunata - Roma" by juanfratic — CC BY-NC-SA 2.0 (Flickr, non-commercial)
+da-fortunata-strozza.jpg: "Strozzapreti freschi fatti al momento alla carbonara" by juanfratic — CC BY-NC-SA 2.0 (Flickr, non-commercial)
+
+REPRESENTATIVE DISH PHOTOS (NOT the actual restaurant — illustrative of the signature dish;
+used for spots with no openly-licensed real photos. Replace with your own when possible):
+pizza-napoletana-pompei.jpg : "Pizza Napoletana in Pompei, Italy" by Robot8A — CC BY-SA 4.0 (Wikimedia)
+margherita-plate.jpg        : "Margherita pizza on plate" by Shisma — CC BY 4.0 (Wikimedia)
+pizza-napoletana.jpg        : "Pizza-napoletana" by Fabryx98 — CC BY-SA 4.0 (Wikimedia)
+pizza-neapolitan2.jpg       : "Neapolitan pizza in Fort Lauderdale, Florida" by Gatorfan252525 — CC BY-SA 4.0 (Wikimedia)
+pizza-oven.jpg              : "Wood fire brick oven for baking pizza" by Basheer Tome — CC BY 2.0 (Wikimedia)
+cacio-e-pepe-rome.jpg       : "Cacio e pepe at trattoria in Rome" by Schellack — CC BY-SA 4.0 (Wikimedia)
+tonnarelli-cacio.jpg        : "Tonnarelli cacio e pepe" by Camelia.boban — CC BY-SA 4.0 (Wikimedia)
+fettuccine.jpg              : "Fettucine1" by LPLT — CC BY-SA 4.0 (Wikimedia)
+carbonara.jpg               : "Spaghetti alla Carbonara (Madrid)" by Tamorlan — CC BY-SA 3.0 (Wikimedia)
+crostini-antipasto.jpg      : "Crostini" by Charles Haynes — CC BY-SA 2.0 (Wikimedia)
