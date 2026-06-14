@@ -631,16 +631,42 @@ img { max-width: 100%; display: block; }
 }
 
 
-/* ─── NEON GLOW — small accent text ───────────────────────── */
+/* ─── NEON — all small/secondary text glows the accent green ─ */
 .sb-eyebrow,
 .sb-nav-id,
-.sb-nav-links a.active,
+.sb-nav-links a,
+.sb-back,
 .sb-writing-tag,
 .sb-media-type,
 .sb-post-tag-inline,
-.sb-hof-eyebrow {
-    text-shadow: 0 0 6px rgba(200,255,0,0.6), 0 0 16px rgba(200,255,0,0.32);
+.sb-post-date,
+.sb-hof-eyebrow,
+.sb-card-num,
+.sb-card-arrow,
+.sb-page-desc,
+.sb-hub-tagline,
+.sb-card-desc,
+.sb-gallery-cap h3,
+.sb-gallery-cap p,
+.sb-media-cap h3,
+.sb-media-cap p,
+.sb-writing-num,
+.sb-writing-title,
+.sb-writing-excerpt,
+.sb-writing-meta,
+.sb-footer a,
+.sb-footer-copy,
+.sb-hof-desc,
+.sb-hof-list li,
+.sb-contact-intro,
+.sb-contact-list a,
+.sb-contact-handle,
+.sb-placeholder {
+    color: var(--accent);
+    text-shadow: 0 0 5px rgba(200,255,0,0.5), 0 0 14px rgba(200,255,0,0.28);
 }
+/* keep the leading rank numbers in the HoF list readable, still glowing */
+.sb-hof-list li::before { color: var(--accent); text-shadow: 0 0 6px rgba(200,255,0,0.55); }
 
 
 /* ─── HALL OF FAME — hub banner ───────────────────────────── */

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasta Ricotta Salata — No Secrets</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:           #fbfaf6;
+            --bg-tint:      #f1ead8;
+            --bg-quote:     #ece2cb;
+            --ink:          #0d0a08;
+            --ink-2:        #221d18;
+            --muted:        #5e544a;
+            --accent:       #c43a2d;
+            --accent-deep:  #8a261c;
+            --star:         #c9962f;
+            --line:         rgba(13,10,8,0.10);
+            --line-soft:    rgba(13,10,8,0.05);
+            --line-strong:  rgba(13,10,8,0.20);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--ink-2);
+            overflow-x: hidden;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; display: block; }
+
+        .eyebrow {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.26em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* NAV */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1rem 2.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(251,250,246,0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line);
+        }
+        .nav-logo { display: block; padding: 4px 0; }
+        .nav-logo img { height: 72px; width: auto; display: block; mix-blend-mode: multiply; transition: transform 0.2s; }
+        .nav-logo:hover img { transform: scale(1.04); }
+        .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--ink);
+            opacity: 0.78;
+            transition: opacity 0.2s, color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent); }
+        .nav-divider { width: 1px; height: 14px; background: var(--line-strong); }
+        .nav-off-menu a { display: block; padding: 4px 0; opacity: 1 !important; }
+        .nav-off-menu img { height: 28px; width: auto; display: block; transition: transform 0.2s; }
+        .nav-off-menu a:hover img { transform: scale(1.05); }
+        .nav-menu-btn { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+        .nav-menu-btn span { display: block; width: 22px; height: 2px; background: var(--ink); }
+
+        /* ARTICLE */
+        .recipe {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 9rem 2rem 4rem;
+        }
+        .recipe-back {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-bottom: 2.4rem;
+            transition: color 0.2s, gap 0.2s;
+        }
+        .recipe-back::before { content: '←'; }
+        .recipe-back:hover { color: var(--accent); gap: 0.7rem; }
+
+        .recipe-title {
+            font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1.02;
+            letter-spacing: -0.04em;
+            margin: 0.8rem 0 0.5rem;
+        }
+        .recipe-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            font-style: italic;
+            color: var(--muted);
+            margin-bottom: 1.4rem;
+        }
+        .recipe-lede {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.02rem, 1.7vw, 1.15rem);
+            line-height: 1.7;
+            color: var(--ink-2);
+            max-width: 620px;
+        }
+
+        /* META BAR */
+        .recipe-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.6rem 2.6rem;
+            margin: 2.4rem 0;
+            padding: 1.4rem 0;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+        .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+        .meta-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+        }
+        .meta-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+        .meta-value .stars { color: var(--star); letter-spacing: 0.08em; }
+        .meta-value .stars .dim { color: var(--line-strong); }
+
+        /* SECTIONS */
+        .recipe-section { margin-top: 3rem; }
+        .recipe-section h2 {
+            font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+            font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.025em;
+            margin-bottom: 1.3rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .ingredients {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.7rem 2rem;
+        }
+        .ingredients li {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--ink-2);
+            padding-left: 1.4rem;
+            position: relative;
+            line-height: 1.5;
+        }
+        .ingredients li::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0.55em;
+            width: 7px; height: 7px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .steps { list-style: none; counter-reset: step; }
+        .steps li {
+            counter-increment: step;
+            position: relative;
+            padding: 0 0 1.6rem 3.2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1rem, 1.6vw, 1.07rem);
+            line-height: 1.75;
+            color: var(--ink-2);
+        }
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0; top: -0.1em;
+            width: 2rem; height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: #fff;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+        .steps li:last-child { padding-bottom: 0; }
+        .steps strong { color: var(--ink); font-weight: 700; }
+
+        /* MINI FOOTER */
+        .mini-footer { background: var(--bg); border-top: 1px solid var(--line); padding: 1.1rem 1.5rem; margin-top: 4rem; }
+        .mini-footer-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 1.6rem; flex-wrap: wrap; }
+        .mini-footer .socials { display: flex; align-items: center; gap: 0.9rem; }
+        .mini-footer .social-link { color: var(--muted); display: inline-flex; align-items: center; transition: color 0.2s, transform 0.15s; }
+        .mini-footer .social-link:hover { color: var(--accent); transform: translateY(-1px); }
+        .mini-footer .social-link svg { width: 17px; height: 17px; display: block; fill: currentColor; }
+        .mini-footer .sep { width: 1px; height: 14px; background: var(--line-strong); }
+        .mini-footer .contact { font-family: 'Inter', sans-serif; font-size: 0.74rem; color: var(--muted); font-weight: 500; letter-spacing: 0.02em; }
+        .mini-footer .contact a { color: var(--ink); border-bottom: 1px solid var(--line-strong); transition: color 0.2s, border-color 0.2s; }
+        .mini-footer .contact a:hover { color: var(--accent); border-color: var(--accent); }
+
+        /* RESPONSIVE */
+        @media (max-width: 760px) {
+            .nav { padding: 0.75rem 1.5rem; }
+            .nav-logo img { height: 60px; }
+            .nav-links {
+                display: none;
+                position: absolute; top: 100%; left: 0; right: 0;
+                background: rgba(251,250,246,0.97);
+                backdrop-filter: blur(14px);
+                flex-direction: column; gap: 0;
+                border-bottom: 1px solid var(--line); padding: 0;
+            }
+            .nav-links.open { display: flex; align-items: stretch; }
+            .nav-links li { width: 100%; }
+            .nav-links li a { display: block; padding: 1rem 1.5rem; text-align: center; }
+            .nav-divider { display: none; }
+            .nav-off-menu a { padding: 0.7rem 1.5rem; }
+            .nav-off-menu img { margin: 0 auto; height: 26px; }
+            .nav-menu-btn { display: flex; }
+            .recipe { padding: 6.5rem 1.5rem 3rem; }
+            .ingredients { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav" id="main-nav">
+    <a href="index.html" class="nav-logo" aria-label="No Secrets — home"><img src="nosecretsfinal.png" alt="No Secrets"></a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="recipes.html" class="active">Recipes</a></li>
+        <li><a href="writing.html">Writing</a></li>
+        <li><a href="map.html">The Map</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="nav-divider" aria-hidden="true"></li>
+        <li class="nav-off-menu"><a href="side-b/index.html"><img src="off-menu.png" alt="Off Menu"></a></li>
+    </ul>
+    <div class="nav-menu-btn" id="menu-btn" aria-label="Menu" role="button" tabindex="0">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+<article class="recipe">
+    <a href="recipes.html#pasta" class="recipe-back">All recipes</a>
+
+    <span class="eyebrow">Pasta</span>
+    <h1 class="recipe-title">Pasta Ricotta Salata</h1>
+    <p class="recipe-sub">Pasta salad</p>
+    <p class="recipe-lede">A no-cook summer sauce built on sharp, salty ricotta salata and ripe cherry tomatoes, cut with peppery arugula and finished with basil. Almost nothing to it once the pasta's on — the trick is in how gently you handle the cheese.</p>
+
+    <div class="recipe-meta">
+        <div class="meta-item">
+            <span class="meta-label">Cook time</span>
+            <span class="meta-value">30 min</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Serves</span>
+            <span class="meta-value">6</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Difficulty</span>
+            <span class="meta-value">2 / 5</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Cost</span>
+            <span class="meta-value"><span class="stars">★★<span class="dim">★★★</span></span></span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Popularity</span>
+            <span class="meta-value"><span class="stars">★★★★★</span></span>
+        </div>
+    </div>
+
+    <section class="recipe-section">
+        <h2>Ingredients</h2>
+        <ul class="ingredients">
+            <li>Dry ricotta salata (one block)</li>
+            <li>Cherry tomatoes, heirloom if you can find them</li>
+            <li>Arugula</li>
+            <li>Fresh basil</li>
+            <li>Pasta (a single shape)</li>
+            <li>Olive oil</li>
+            <li>Salt</li>
+            <li>Black pepper</li>
+        </ul>
+    </section>
+
+    <section class="recipe-section">
+        <h2>Method</h2>
+        <ol class="steps">
+            <li>Bring a large pot of water to a boil for the pasta. The moment it hits a rolling boil, salt it generously and add your pasta. Stick to a single shape here — it keeps the texture of the finished dish consistent. While the pasta cooks, prep the salad components below.</li>
+            <li><strong>The cheese.</strong> Grate the whole block of dry ricotta salata into a bowl and sprinkle in about 2 teaspoons of black pepper. Finely chop the arugula — fine, but not too fine, or its flavor disappears into the dish's other strong flavors. Add the arugula to the cheese and fold them together no more than six times; any more and the cheese starts to clump, which throws off the texture.</li>
+            <li><strong>The tomatoes.</strong> In a separate bowl, quarter the cherry tomatoes. Add 2 teaspoons each of salt and pepper and about a cup of oil, scaling those amounts up for every two boxes of tomatoes you use. Mix once, just to distribute the salt, pepper, and oil, then let it sit for 10 minutes. Don't combine it with the cheese until the pasta is cooked.</li>
+            <li><strong>Bring it together.</strong> Once the pasta is done, tip the tomato mixture into the bowl of cheese and arugula and stir to combine. Drain the pasta, add it to a large empty bowl, and pour the cheese-and-tomato mixture over the top. Toss with a utensil of your choice until the cheese and tomatoes are evenly distributed throughout.</li>
+            <li><strong>Finish.</strong> Finely chop six large basil leaves into very small pieces and scatter them over the bowl. Toss three more times, and your pasta salad is ready to enjoy.</li>
+        </ol>
+    </section>
+</article>
+
+<footer class="mini-footer">
+    <div class="mini-footer-inner">
+        <div class="socials">
+            <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
+                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="Discord">
+                <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            </a>
+        </div>
+        <span class="sep" aria-hidden="true"></span>
+        <span class="contact">Contact: <a href="mailto:samuelenuscadagon@gmail.com">samuelenuscadagon@gmail.com</a></span>
+    </div>
+</footer>
+
+<script>
+    document.getElementById('menu-btn').addEventListener('click', () => {
+        document.getElementById('nav-links').classList.toggle('open');
+    });
+    document.querySelectorAll('#nav-links a').forEach(l => {
+        l.addEventListener('click', () => document.getElementById('nav-links').classList.remove('open'));
+    });
+</script>
+
+</body>
+</html>
