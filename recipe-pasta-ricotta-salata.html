@@ -222,6 +222,24 @@
         .steps li:last-child { padding-bottom: 0; }
         .steps strong { color: var(--ink); font-weight: 700; }
 
+        /* IN-RECIPE PHOTOS */
+        .recipe-photo { margin: 2.4rem 0; }
+        .recipe-photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(13,10,8,0.10);
+        }
+        .recipe-photo figcaption {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-style: italic;
+            color: var(--muted);
+            margin-top: 0.65rem;
+            text-align: center;
+        }
+
         /* MINI FOOTER */
         .mini-footer { background: var(--bg); border-top: 1px solid var(--line); padding: 1.1rem 1.5rem; margin-top: 4rem; }
         .mini-footer-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 1.6rem; flex-wrap: wrap; }
@@ -306,6 +324,11 @@
         </div>
     </div>
 
+    <figure class="recipe-photo">
+        <img src="ricotta-1.jpg" alt="Prepped components: grated ricotta salata, chopped arugula, and seasoned cherry tomatoes">
+        <figcaption>Everything prepped: grated ricotta salata, chopped arugula, and the seasoned tomatoes.</figcaption>
+    </figure>
+
     <section class="recipe-section">
         <h2>Ingredients</h2>
         <ul class="ingredients">
@@ -320,6 +343,11 @@
         </ul>
     </section>
 
+    <figure class="recipe-photo">
+        <img src="ricotta-2.jpg" alt="Folding the grated cheese through the dressed cherry tomatoes">
+        <figcaption>Folding the grated cheese through the dressed tomatoes.</figcaption>
+    </figure>
+
     <section class="recipe-section">
         <h2>Method</h2>
         <ol class="steps">
@@ -330,6 +358,11 @@
             <li><strong>Finish.</strong> Finely chop six large basil leaves into very small pieces and scatter them over the bowl. Toss three more times, and your pasta salad is ready to enjoy.</li>
         </ol>
     </section>
+
+    <figure class="recipe-photo">
+        <img src="ricotta-3.jpg" alt="The finished pasta ricotta salata">
+        <figcaption>The finished pasta salad, ready warm or cold.</figcaption>
+    </figure>
 </article>
 
 <footer class="mini-footer">

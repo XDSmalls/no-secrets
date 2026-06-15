@@ -609,14 +609,18 @@
             <h2>Recipes</h2>
         </div>
         <div class="recipes-grid">
-            <!-- Single placeholder card — duplicate this block when adding real recipes -->
-            <article class="recipe-card fade-up">
-                <div class="card-photo"></div>
+            <!-- Recipe card pattern: a clickable card linking to the recipe's own page.
+                 Duplicate this block for each new recipe (set the photo, title, stats, and href). -->
+            <a href="recipe-pasta-ricotta-salata.html" class="recipe-card fade-up">
+                <div class="card-photo" style="background-image: url('ricotta-3.jpg'); background-size: cover; background-position: center;"></div>
                 <div class="card-overlay"></div>
                 <div class="card-body">
-                    <p class="card-empty">to be filled</p>
+                    <p class="card-provenance">Pasta · Pasta salad</p>
+                    <h3 class="card-title">Pasta Ricotta Salata</h3>
+                    <p class="card-tease">30 min · serves 6 · a no-cook Italian summer staple.</p>
+                    <span class="card-link">View recipe</span>
                 </div>
-            </article>
+            </a>
         </div>
         <div class="recipes-cta fade-up">
             <a href="recipes.html" class="btn btn-outline">More Recipes</a>

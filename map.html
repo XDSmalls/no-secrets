@@ -536,6 +536,21 @@
             margin-bottom: 0.8rem;
         }
         .popup-stars .dim { color: var(--line-strong); }
+        .popup-address {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.74rem;
+            font-weight: 500;
+            color: var(--ink-2);
+            line-height: 1.45;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--line);
+        }
+        .popup-address::before {
+            content: '📍';
+            margin-right: 0.35rem;
+            font-size: 0.78rem;
+        }
         .popup-writeup {
             font-family: 'Inter', sans-serif;
             font-size: 0.84rem;
@@ -706,149 +721,172 @@ const restaurants = [
     { name: "L'Antica Pizzeria da Michele", country: "Italy", city: "Naples", category: "meals",
       rating: 5,
       coords: [40.849982, 14.2632526],
-      writeup: "The pizza that ruins all other pizza. Open since 1870 and still run by the Condurro family, this Forcella institution makes exactly two pies — Margherita and Marinara — and refuses to do anything else. No frills, paper plates, a ticket-and-wait crowd spilling into the street. The dough is soft, blistered, faintly sour; the San Marzano and fior di latte do the rest. Yes, it's the one from Eat, Pray, Love. Order the Margherita, double mozzarella, and don't overthink it.",
+      address: "Via Cesare Sersale 1/3, 80139 Napoli",
+      writeup: "The pizza that ruins all other pizza. Open since 1870 and still run by the Condurro family, this Forcella institution makes exactly two pies, Margherita and Marinara, and refuses to do anything else. No frills, paper plates, and a ticket-and-wait crowd spilling into the street. The dough is soft, blistered and faintly sour; the San Marzano and fior di latte do the rest. Yes, it's the one from Eat, Pray, Love. Order the Margherita, double mozzarella, and don't overthink it.",
       photos: ["map-photos/da-michele-pizza.jpg", "da-michele.jpg"],
       menu: "https://www.damichele.net/" },
 
     { name: "Gino Sorbillo (Lievito Madre)", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.905870, 12.476420],
-      writeup: "The Rome flagship of Naples legend Gino Sorbillo, right on Piazza Augusto Imperatore beside the Mausoleum of Augustus. The draw is true Neapolitan pizza on a soft, blistered cornicione built from lievito madre (natural mother yeast). Order the Margherita or the Marinara to taste the dough at its purest.",
+      address: "Piazza Augusto Imperatore 46/48, 00186 Roma",
+      writeup: "The Rome flagship of Naples legend Gino Sorbillo, right on Piazza Augusto Imperatore beside the Mausoleum of Augustus. The draw is true Neapolitan pizza on a soft, blistered cornicione built from lievito madre (natural mother yeast). Order the Margherita or the Marinara to taste the dough at its purest. Expect a buzzy room and a wait at peak hours; lunch is the calmer bet.",
       photos: [],
       menu: "https://www.sorbillo.it/" },
 
     { name: "Gino Sorbillo (Prati)", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.906640, 12.464560],
-      writeup: "Sorbillo's Prati outpost, tucked between Via Cola di Rienzo and the Vatican, brings the same airy, naturally leavened Neapolitan pizza to a quieter, more residential corner of Rome. A reliable stop for a classic Margherita or fritti before or after the Vatican Museums.",
+      address: "Via Terenzio 12, 00193 Roma",
+      writeup: "Sorbillo's Prati outpost, tucked between Via Cola di Rienzo and the Vatican, runs the Pizza Gourmand concept built around regional Italian ingredients. Same airy, naturally leavened base as the rest of the family, in a quieter, residential corner. A reliable Margherita or fritti stop before or after the Vatican Museums.",
       photos: [],
       menu: "https://www.sorbillo.it/" },
 
     { name: "La Renella", country: "Italy", city: "Rome", category: "meals-snacks",
       rating: 4,
       coords: [41.890130, 12.469560],
-      writeup: "A historic Trastevere bakery whose wood-fired ovens have run for well over a century, beloved for its pizza al taglio sold by weight and cut to order. Point at the trays of focaccia, pizza bianca and rotating seasonal slices; the potato-and-rosemary and the simple pizza rossa are the ones to chase.",
+      address: "Via del Moro 15, 00153 Roma",
+      writeup: "A historic Trastevere bakery whose wood-fired ovens have run for well over a century, beloved for its pizza al taglio sold by weight and cut to order. Point at the trays of focaccia, pizza bianca and rotating seasonal slices; the potato-and-rosemary and the simple pizza rossa are the ones to chase. They also turn out proper bread and biscotti, so it works as a quick snack stop or a full lunch on the go.",
       photos: ["map-photos/la-renella-pizza.jpg", "map-photos/la-renella-oven.jpg"],
       menu: "https://www.facebook.com/LaRenella/" },
 
     { name: "L'Elementare (Trastevere)", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.892470, 12.467890],
-      writeup: "Mirko Rizzo's original pizzeria, championing the rolled-out, paper-thin and crackly tonda romana cooked in a wood-fired oven. Come for the scrocchiarella-style base topped with classics or seasonal combinations, washed down with a well-chosen craft beer.",
+      address: "Via Benedetta 23, 00153 Roma",
+      writeup: "Mirko Rizzo's original pizzeria, championing the rolled-out, paper-thin and crackly tonda romana cooked in a wood-fired oven. Come for the scrocchiarella-style base topped with classics or seasonal combinations, washed down with a well-chosen craft beer. Small and lively, with a young Trastevere crowd; go early or be ready to wait.",
       photos: [],
       menu: "https://www.pizzerialelementare.it/" },
 
     { name: "L'Elementare (Testaccio)", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.874780, 12.469440],
-      writeup: "The Testaccio location of L'Elementare, bringing Mirko Rizzo's signature thin, ultra-crispy Roman tonda to the city's great food district by the Tiber. Same philosophy as the Trastevere original (a featherweight, crackly crust) in a roomier, neighborhood-feeling room.",
+      address: "Via degli Stradivari 25, 00153 Roma",
+      writeup: "The Testaccio location of L'Elementare, bringing Mirko Rizzo's signature thin, ultra-crispy Roman tonda to the city's great food district by the Tiber. Same philosophy as the Trastevere original (a featherweight, crackly crust) in a roomier, neighborhood-feeling room. A good pick if you want the pizza without the Trastevere crush.",
       photos: [],
       menu: "https://www.pizzerialelementare.it/" },
 
     { name: "Felice a Testaccio", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.878260, 12.475380],
-      writeup: "A Testaccio institution founded in 1936, serving textbook Roman trattoria cooking in a warm, no-nonsense room. Its tonnarelli cacio e pepe (finished and tossed at your table) is the dish people travel for; book at least a day ahead, because it's always full.",
+      address: "Via Mastro Giorgio 29, 00153 Roma",
+      writeup: "A Testaccio institution founded in 1936, serving textbook Roman trattoria cooking in a warm, no-nonsense room. Its tonnarelli cacio e pepe, finished and tossed at your table, is the dish people travel for. Save room for the Roman classics that follow, like abbacchio or a proper tiramisu. Book at least a day ahead, because it's always full.",
       photos: [],
       menu: "https://feliceatestaccio.com/en/menu/" },
 
     { name: "Pastificio Guerra", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.906320, 12.480010],
-      writeup: "A working fresh-pasta shop near the Spanish Steps that, each afternoon, cooks its handmade pasta into one of two daily dishes for a handful of euros. No real seats and no ceremony: you grab a plastic dish of pasta and eat standing on the street, which is half the charm. Arrive before the lunch rush.",
+      address: "Via della Croce 8, 00187 Roma",
+      writeup: "A working fresh-pasta shop near the Spanish Steps that, each afternoon, cooks its handmade pasta into one of two daily dishes for a handful of euros. There are no real seats and no ceremony: you grab a plastic dish of pasta and eat standing on the street, which is half the charm. Cash-friendly and quick. Arrive before the lunch rush, because when it's gone it's gone.",
       photos: [],
       menu: "https://www.instagram.com/pastificio_guerra1918/" },
 
     { name: "L'Orso 80", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.900570, 12.472390],
-      writeup: "A long-running family trattoria on Via dell'Orso, a few steps from Piazza Navona, trading in generous Roman cooking and fresh fish. The legendary draw is the antipasto della casa, a parade of small plates from meatballs to marinated vegetables; follow it with a classic carbonara or amatriciana.",
+      address: "Via dell'Orso 33, 00186 Roma",
+      writeup: "A long-running family trattoria on Via dell'Orso, a few steps from Piazza Navona, trading in generous Roman cooking and fresh fish. The legendary draw is the antipasto della casa, a parade of small plates from meatballs to marinated vegetables, easily a meal in itself. Follow it with a classic carbonara or amatriciana. Old-school service and a comfortable, slightly throwback dining room.",
       photos: [],
       menu: "https://www.orso80.it/" },
 
     { name: "Osteria da Fortunata", country: "Italy", city: "Rome", category: "meals",
       rating: 3,
       coords: [41.896126, 12.471648],
-      writeup: "A bustling osteria near Campo de' Fiori known for the nonne rolling and cutting fresh pasta by hand in the front window. The move is the handmade pasta (fettuccine, tonnarelli and ravioli) dressed in Roman classics like cacio e pepe or amatriciana; expect a queue and aim to arrive early.",
+      address: "Via del Pellegrino 11, 00186 Roma",
+      writeup: "A bustling osteria near Campo de' Fiori known for the nonne rolling and cutting fresh pasta by hand in the front window. The move is the handmade pasta (fettuccine, tonnarelli and ravioli) dressed in Roman classics like cacio e pepe or amatriciana. It has become very popular, so expect a queue and aim to arrive early or off-peak. Casual, lively, and fairly priced for the area.",
       photos: ["map-photos/da-fortunata-strozza.jpg", "map-photos/da-fortunata-pasta.jpg"],
       menu: "https://osteriadafortunata.it/" },
 
     { name: "AQLA", country: "Italy", city: "Rome", category: "meals-snacks",
       rating: 4,
       coords: [41.882704, 12.456793],
-      writeup: "A tiny Middle Eastern street-food spot in residential Monteverde Vecchio, opened in 2023 by Nada alongside her mother Aqla, after whom it's named, drawing on Yemeni and Ethiopian cooking. Expect generous wraps and plates built around slow-spiced meats, fresh-baked flatbread and house sauces rather than the usual Roman fare. A neighborhood favorite for an affordable, fragrant lunch.",
+      address: "Via Andrea Busiri Vici 13, 00152 Roma",
+      writeup: "A tiny Middle Eastern street-food spot in residential Monteverde Vecchio, opened in 2023 by Nada alongside her mother Aqla, after whom it's named, drawing on Yemeni and Ethiopian cooking. Expect generous wraps and plates built around slow-spiced meats, fresh-baked flatbread and house sauces rather than the usual Roman fare. Portions are big and prices are gentle. A warm, family-run spot the neighborhood has quietly adopted.",
       photos: [], menu: "https://www.instagram.com/aqla_streetfood/" },
 
     { name: "La Baotique", country: "Italy", city: "Rome", category: "meals-snacks",
       rating: 4,
       coords: [41.9128, 12.4569],
-      writeup: "A small Prati spot near the Vatican specializing in handmade bao buns and Chinese dumplings made fresh in-house. Order the fluffy steamed bao stuffed with braised pork, plus a plate of the pan-fried or steamed dumplings. Casual, counter-style, and great for takeaway.",
+      address: "Via Barletta 7, 00192 Roma",
+      writeup: "A small Prati spot near the Vatican specializing in handmade bao buns and Chinese dumplings made fresh in-house. Order the fluffy steamed bao stuffed with braised pork, plus a plate of the pan-fried or steamed dumplings. Casual and counter-style, great for a quick, cheap bite or takeaway between sights.",
       photos: [], menu: "https://www.instagram.com/labaotique/" },
 
     { name: "Il Bar Sotto il Mare", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.9086, 12.4559],
-      writeup: "Despite 'Bar' in the name, this is a long-running, family-run seafood trattoria in Prati a short walk from the Vatican, all nautical blue-and-white. Come for the raw appetizers like gambero rosso and oysters, and seafood pastas such as spaghetti alle vongole. Generous portions at fair prices.",
+      address: "Via Tunisi 27, 00192 Roma",
+      writeup: "Despite 'Bar' in the name, this is a long-running, family-run seafood trattoria in Prati a short walk from the Vatican, all nautical blue-and-white. Come for the raw appetizers like gambero rosso and oysters, and seafood pastas such as spaghetti alle vongole. Portions are generous and the fish is fresh, at prices fairer than the tourist traps nearby. Book ahead on weekends.",
       photos: [], menu: "https://ilbarsottoilmare.it/" },
 
     { name: "All'Antico Vinaio (Via del Corso)", country: "Italy", city: "Rome", category: "meals",
       rating: 4,
       coords: [41.906, 12.4783],
-      writeup: "The Florentine schiacciata phenomenon's main central-Rome flagship, a two-floor shop with an open kitchen near the top of Via del Corso by Piazza del Popolo. Order a signature stuffed schiacciata like La Favolosa (porchetta, pecorino cream, artichoke and spicy aubergine), pressed warm on house-made flatbread. There are other Rome branches, but this is the principal one.",
+      address: "Via del Corso 510, 00186 Roma",
+      writeup: "The Florentine schiacciata phenomenon's main central-Rome flagship, a two-floor shop with an open kitchen near the top of Via del Corso by Piazza del Popolo. Order a signature stuffed schiacciata like La Favolosa (porchetta, pecorino cream, artichoke and spicy aubergine), pressed warm on house-made flatbread. They're huge, cheap and easily shareable. The line moves fast; there are other Rome branches if this one is mobbed.",
       photos: [], menu: "https://www.allanticovinaio.com/roma-via-del-corso/" },
 
     { name: "Dagnino", country: "Italy", city: "Rome", category: "dessert-cafes",
       rating: 4,
       coords: [41.90348, 12.4952],
-      writeup: "A 1950s Sicilian pasticceria tucked inside the Galleria Esedra near Piazza della Repubblica, its mid-century interior a time capsule of vintage Rome. This is the place for proper Sicilian sweets: cannoli filled to order, cassata, and excellent granita with brioche in summer. A classic stop for breakfast or an afternoon dolce.",
+      address: "Galleria Esedra, Via Vittorio Emanuele Orlando 75, 00185 Roma",
+      writeup: "A 1950s Sicilian pasticceria tucked inside the Galleria Esedra near Piazza della Repubblica, its mid-century interior a genuine time capsule of vintage Rome. This is the place for proper Sicilian sweets: cannoli filled to order, cassata, and excellent granita with brioche in summer. Good coffee too, at a classic stand-up bar. A lovely stop for breakfast or an afternoon dolce.",
       photos: [], menu: "https://www.dagnino.com/" },
 
     { name: "Ciampini", country: "Italy", city: "Rome", category: "dessert-cafes",
       rating: 4,
       coords: [41.903417, 12.478694],
-      writeup: "A historic Roman cafe-bistrot on the elegant pedestrian Piazza San Lorenzo in Lucina, polished for a morning espresso and pastry or an aperitivo at the outdoor tables. The Ciampini name is also famous for its gelato. (A sister location sits near Trinita dei Monti; this is the San Lorenzo in Lucina cafe.)",
+      address: "Piazza di San Lorenzo in Lucina 29, 00186 Roma",
+      writeup: "A historic Roman cafe-bistrot on the elegant pedestrian Piazza San Lorenzo in Lucina, polished for a morning espresso and pastry or an aperitivo at the outdoor tables. The Ciampini name is also famous for its gelato, and the people-watching is half the appeal. (A separate sister location sits near Trinita dei Monti; this is the San Lorenzo in Lucina cafe.)",
       photos: [], menu: "https://ciampini.com/" },
 
     { name: "Pasticceria Parenti", country: "Italy", city: "Rome", category: "cafes",
       rating: 4,
       coords: [41.907225, 12.45773],
-      writeup: "A Prati bar-pasticceria-gelateria on Via Ottaviano near the Ottaviano metro and the Vatican. A reliable neighborhood stop for breakfast cornetti and espresso, classic Italian pastries, and gelato. Easy to fold into a Vatican-area morning.",
+      address: "Via Ottaviano 33, 00192 Roma",
+      writeup: "A Prati bar-pasticceria-gelateria on Via Ottaviano near the Ottaviano metro and the Vatican. A reliable neighborhood stop for breakfast cornetti and espresso, classic Italian pastries, and gelato. Nothing flashy, just dependable and well-priced. Easy to fold into a Vatican-area morning.",
       photos: [], menu: "https://www.instagram.com/pasticceria_parenti/" },
 
     { name: "F.lli Volpicelli", country: "Italy", city: "Rome", category: "cafes",
       rating: 4,
       coords: [41.8819, 12.4577],
-      writeup: "A historic Monteverde Vecchio bar-pasticceria run by the Volpicelli brothers, who bake their own viennoiserie in-house rather than buying in frozen. Come for cornetti and croissants in the morning and the house gelato in summer; locals pre-order their holiday cakes. Shaded tables along Viale dei Quattro Venti.",
+      address: "Viale dei Quattro Venti 14/16, 00152 Roma",
+      writeup: "A historic Monteverde Vecchio bar-pasticceria run by the Volpicelli brothers, who bake their own viennoiserie in-house rather than buying in frozen. Come for cornetti and croissants in the morning and the house gelato in summer; locals pre-order their cakes for Christmas and Easter. Shaded, dog-friendly tables line Viale dei Quattro Venti. A proper neighborhood institution.",
       photos: [], menu: "https://www.facebook.com/bargelateria.volpicelli/" },
 
     { name: "Giolitti", country: "Italy", city: "Rome", category: "desserts",
       rating: 4,
       coords: [41.901019, 12.477186],
-      writeup: "Rome's most famous historic gelateria, in business since 1890, a marble-and-mirrors institution a short walk from the Pantheon. Join the queue, pay first, then choose classics like pistachio, gianduia and zabaione, piled high and crowned with panna. Touristy but genuinely good and quintessentially Roman.",
+      address: "Via degli Uffici del Vicario 40, 00186 Roma",
+      writeup: "Rome's most famous historic gelateria, in business since 1890, a marble-and-mirrors institution a short walk from the Pantheon and Montecitorio. Join the queue, pay first, then choose classics like pistachio, gianduia and zabaione, piled high and crowned with panna. Touristy but genuinely good and quintessentially Roman. It stays open late, so it works as a post-dinner stop.",
       photos: [], menu: "https://www.giolitti.it/en/" },
 
     { name: "Old Bridge", country: "Italy", city: "Rome", category: "desserts",
       rating: 4,
       coords: [41.9075, 12.457],
-      writeup: "A beloved artisanal gelateria running since 1987 right by the Vatican walls, a couple of minutes from St. Peter's Square. Known for generous scoops at honest prices and house-made gelato using whole Italian milk and no artificial colors. Grab a cone after the Vatican Museums; expect a friendly line.",
+      address: "Viale dei Bastioni di Michelangelo 5, 00192 Roma",
+      writeup: "A beloved artisanal gelateria running since 1987 right by the Vatican walls, a couple of minutes from St. Peter's Square. Known for generous scoops at honest prices and house-made gelato using whole Italian milk and no artificial colors. The line moves quickly. Grab a cone after the Vatican Museums.",
       photos: [], menu: "https://gelateriaoldbridge.com/" },
 
     { name: "OTALEG! (Trastevere)", country: "Italy", city: "Rome", category: "desserts",
       rating: 4,
       coords: [41.8869, 12.4699],
-      writeup: "Marco Radicioni's gourmet gelateria ('gelato' spelled backwards), the Trastevere outpost between Piazza San Cosimato and Piazza San Calisto. Around 60 strictly seasonal flavors rotate daily, from impeccable pistachio and hazelnut to experimental savory scoops like cacio e pepe on a crisp waffle. One of the most respected gelaterie in the city.",
+      address: "Via di San Cosimato 14/A, 00153 Roma",
+      writeup: "Marco Radicioni's gourmet gelateria ('gelato' spelled backwards), the Trastevere outpost between Piazza San Cosimato and Piazza San Calisto. Around 60 strictly seasonal flavors rotate daily, from impeccable pistachio and hazelnut to experimental savory scoops like cacio e pepe on a crisp waffle. One of the most respected gelaterie in the city. Ask what's freshest that day.",
       photos: [], menu: "https://www.instagram.com/otaleg.radicioni/" },
 
     { name: "OTALEG! (Monteverde)", country: "Italy", city: "Rome", category: "desserts",
       rating: 4,
       coords: [41.8795, 12.4595],
-      writeup: "The second OTALEG, in the Monteverde/Gianicolense area on Viale dei Quattro Venti, from the same Marco Radicioni. Same philosophy as Trastevere: a rotating seasonal lineup spanning refined classics and creative, sometimes savory, experiments. A quieter, more local-feeling alternative to the Trastevere crowds.",
+      address: "Viale dei Quattro Venti 70, 00152 Roma",
+      writeup: "The second OTALEG, in the Monteverde and Gianicolense area on Viale dei Quattro Venti, from the same Marco Radicioni. Same philosophy as Trastevere: a rotating seasonal lineup spanning refined classics and creative, sometimes savory, experiments. A quieter, more local-feeling alternative to the Trastevere crowds, and worth the detour for serious gelato fans.",
       photos: [], menu: "https://www.instagram.com/otaleg.radicioni/" },
 
     { name: "Creperia Michelangelo", country: "Italy", city: "Rome", category: "desserts",
       rating: 4,
       coords: [41.9076, 12.4568],
-      writeup: "A long-running spot near Castel Sant'Angelo and St. Peter's offering 90-plus sweet and savory crepe fillings made to order, plus gelato. Sweet runs from Nutella to ricotta; the savory side has prosciutto and cheese. A casual, customizable bite in the Vatican area.",
+      address: "Viale dei Bastioni di Michelangelo 3, 00192 Roma",
+      writeup: "A long-running spot near Castel Sant'Angelo and St. Peter's offering 90-plus sweet and savory crepe fillings made to order, plus gelato. Sweet runs from Nutella to ricotta; the savory side has prosciutto and cheese. Cheap, filling and customizable, it's a handy bite in the busy Vatican area, good for a late-night sugar fix too.",
       photos: [], menu: "https://www.instagram.com/creperiamichelangelo/" },
 ];
 
@@ -1090,6 +1128,7 @@ function popupHTML(r) {
             <span class="popup-cat">${catLabel}</span>
             <div class="popup-name">${r.name}</div>
             <div class="popup-stars" aria-label="${Math.max(3, Math.min(5, r.rating || 3))} out of 5 stars">${starHTML(r.rating)}</div>
+            ${r.address ? `<div class="popup-address">${r.address}</div>` : ''}
             ${writeupHTML(r.writeup)}
             ${r.menu ? `<a class="popup-menu" href="${r.menu}" target="_blank" rel="noopener">View menu &amp; site ↗</a>` : ''}
         </div>
