@@ -1197,10 +1197,21 @@ const map = L.map('map', {
 });
 L.control.zoom({ position: 'topright' }).addTo(map);
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" style="color:#c43a2d">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" style="color:#c43a2d">CARTO</a>',
-    subdomains: 'abcd',
+// Basemap: Esri Light Gray Canvas (keyless). CARTO's free tiles now return
+// "API KEY REQUIRED" images. Native tiles stop at z16; Leaflet upscales beyond.
+const ESRI_CANVAS = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
+L.tileLayer(ESRI_CANVAS + 'World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; <a href="https://www.esri.com/" style="color:#c43a2d">Esri</a> &mdash; Esri, HERE, Garmin, &copy; <a href="https://www.openstreetmap.org/copyright" style="color:#c43a2d">OpenStreetMap</a> contributors',
+    maxNativeZoom: 16,
     maxZoom: 19
+}).addTo(map);
+map.createPane('labels');
+map.getPane('labels').style.zIndex = 250;          // above base tiles, below vectors & markers
+map.getPane('labels').style.pointerEvents = 'none';
+L.tileLayer(ESRI_CANVAS + 'World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+    maxNativeZoom: 16,
+    maxZoom: 19,
+    pane: 'labels'
 }).addTo(map);
 
 const attribution = document.querySelector('.leaflet-control-attribution');
