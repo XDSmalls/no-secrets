@@ -21,6 +21,11 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://xdsmalls.github.io/no-secrets/recipe-zucchini-gialli.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://xdsmalls.github.io/no-secrets/writing.html</loc>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
