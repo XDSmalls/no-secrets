@@ -387,6 +387,90 @@
             line-height: 1.1;
         }
 
+        /* BOOKS & FILMS — side-by-side top fives */
+        .about-shelf {
+            background: var(--bg-tint);
+            padding: 0 2rem 4.5rem;
+        }
+        .about-shelf .section-header { text-align: center; margin-bottom: 2.6rem; }
+        .about-shelf .section-header h2 {
+            font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+            font-size: clamp(2rem, 4.5vw, 2.8rem);
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.03em;
+            text-transform: lowercase;
+        }
+        .about-shelf .section-header .eyebrow { margin-top: 0.7rem; }
+        .shelf-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2.5rem;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+        .shelf-head {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--accent);
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--line-strong);
+        }
+        .shelf-list { list-style: none; }
+        .shelf-item {
+            display: grid;
+            grid-template-columns: 1.6rem 56px 1fr;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--line);
+        }
+        .shelf-num {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+        }
+        .shelf-cover {
+            width: 56px;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            border-radius: 2px;
+            box-shadow: 0 6px 16px rgba(13,10,8,0.16);
+            transition: transform 0.25s ease;
+        }
+        .shelf-item:hover .shelf-cover { transform: translateY(-2px) rotate(-1.5deg); }
+        .shelf-text { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+        .shelf-title {
+            font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+            font-size: 1.12rem;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+        .shelf-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-style: italic;
+            color: var(--ink-2);
+            line-height: 1.35;
+        }
+        .shelf-meta {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.74rem;
+            color: var(--muted);
+            letter-spacing: 0.02em;
+        }
+        @media (max-width: 760px) {
+            .about-shelf { padding: 0 1.5rem 3.5rem; }
+            .shelf-grid { grid-template-columns: 1fr; gap: 2.2rem; max-width: 480px; }
+        }
+
         /* RED LINE DIVIDER */
         .section-divider {
             max-width: 260px;
@@ -659,6 +743,123 @@
             </div>
         </article>
 
+        <article class="influence-card fade-up">
+            <div class="influence-photo" style="background-image: url('goulding.jpg'); background-position: 28% center;"></div>
+            <div class="influence-scrim"></div>
+            <div class="influence-body">
+                <div class="influence-number">03</div>
+                <div class="influence-bottom">
+                    <div class="influence-name">Matt Goulding</div>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+
+<!-- BOOKS & FILMS — top five of each, side by side -->
+<section class="about-shelf" id="books-films">
+    <div class="section-header fade-up">
+        <h2>books &amp; films</h2>
+        <span class="eyebrow">My top five food reads and watches</span>
+    </div>
+    <div class="shelf-grid">
+        <div class="shelf-col fade-up">
+            <h3 class="shelf-head">Books</h3>
+            <ol class="shelf-list">
+                <li class="shelf-item">
+                    <span class="shelf-num">01</span>
+                    <img class="shelf-cover" src="shelf/delizia.jpg" alt="Cover of Delizia! by John Dickie" loading="lazy">
+                    <div class="shelf-text">
+                        <span class="shelf-title">Delizia!</span>
+                        <span class="shelf-sub">The Epic History of the Italians and Their Food</span>
+                        <span class="shelf-meta">John Dickie · 2007</span>
+                    </div>
+                </li>
+                <li class="shelf-item">
+                    <span class="shelf-num">02</span>
+                    <img class="shelf-cover" src="shelf/taste.jpg" alt="Cover of Taste by Stanley Tucci" loading="lazy">
+                    <div class="shelf-text">
+                        <span class="shelf-title">Taste</span>
+                        <span class="shelf-sub">My Life Through Food</span>
+                        <span class="shelf-meta">Stanley Tucci · 2021</span>
+                    </div>
+                </li>
+                <li class="shelf-item">
+                    <span class="shelf-num">03</span>
+                    <img class="shelf-cover" src="shelf/rice-noodle-fish.jpg" alt="Cover of Rice, Noodle, Fish by Matt Goulding" loading="lazy">
+                    <div class="shelf-text">
+                        <span class="shelf-title">Rice, Noodle, Fish</span>
+                        <span class="shelf-sub">Deep Travels Through Japan’s Food Culture</span>
+                        <span class="shelf-meta">Matt Goulding · 2015</span>
+                    </div>
+                </li>
+                <li class="shelf-item">
+                    <span class="shelf-num">04</span>
+                    <img class="shelf-cover" src="shelf/medium-raw.jpg" alt="Cover of Medium Raw by Anthony Bourdain" loading="lazy">
+                    <div class="shelf-text">
+                        <span class="shelf-title">Medium Raw</span>
+                        <span class="shelf-sub">A Bloody Valentine to the World of Food and the People Who Cook</span>
+                        <span class="shelf-meta">Anthony Bourdain · 2010</span>
+                    </div>
+                </li>
+                <li class="shelf-item">
+                    <span class="shelf-num">05</span>
+                    <img class="shelf-cover" src="shelf/garlic-and-sapphires.jpg" alt="Cover of Garlic and Sapphires by Ruth Reichl" loading="lazy">
+                    <div class="shelf-text">
+                        <span class="shelf-title">Garlic and Sapphires</span>
+                        <span class="shelf-sub">The Secret Life of a Critic in Disguise</span>
+                        <span class="shelf-meta">Ruth Reichl · 2005</span>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div class="shelf-col fade-up">
+            <h3 class="shelf-head">Films</h3>
+            <ol class="shelf-list">
+                <li class="shelf-item">
+                    <span class="shelf-num">01</span>
+                    <img class="shelf-cover" src="shelf/tampopo.jpg" alt="Poster for Tampopo" loading="lazy">
+                    <div class="shelf-text">
+                        <span class="shelf-title">Tampopo</span>
+                        <span class="shelf-meta">Dir. Juzo Itami · 1985</span>
+                    </div>
+                </li>
+                <li class="shelf-item">
+                    <span class="shelf-num">02</span>
+                    <img class="shelf-cover" src="shelf/eat-drink-man-woman.jpg" alt="Poster for Eat Drink Man Woman" loading="lazy">
+                    <div class="shelf-text">
+                        <span class="shelf-title">Eat Drink Man Woman</span>
+                        <span class="shelf-meta">Dir. Ang Lee · 1994</span>
+                    </div>
+                </li>
+                <li class="shelf-item">
+                    <span class="shelf-num">03</span>
+                    <img class="shelf-cover" src="shelf/big-night.jpg" alt="Poster for Big Night" loading="lazy">
+                    <div class="shelf-text">
+                        <span class="shelf-title">Big Night</span>
+                        <span class="shelf-meta">Dir. Campbell Scott &amp; Stanley Tucci · 1996</span>
+                    </div>
+                </li>
+                <li class="shelf-item">
+                    <span class="shelf-num">04</span>
+                    <img class="shelf-cover" src="shelf/super-size-me.jpg" alt="Poster for Super Size Me" loading="lazy">
+                    <div class="shelf-text">
+                        <span class="shelf-title">Super Size Me</span>
+                        <span class="shelf-meta">Dir. Morgan Spurlock · 2004</span>
+                    </div>
+                </li>
+                <li class="shelf-item">
+                    <span class="shelf-num">05</span>
+                    <img class="shelf-cover" src="shelf/no-reservations.jpg" alt="Poster for No Reservations" loading="lazy">
+                    <div class="shelf-text">
+                        <span class="shelf-title">No Reservations</span>
+                        <span class="shelf-meta">Dir. Scott Hicks · 2007</span>
+                    </div>
+                </li>
+            </ol>
+        </div>
     </div>
 </section>
 
