@@ -13,13 +13,25 @@
     <meta property="og:site_name" content="No Secrets — Samuele Nusca-Dagon">
     <link rel="stylesheet" href="off-menu.css">
     <style>
-        /* P4 key art behind the top logo area only */
+        /* Zelda: BotW key art, full-bleed across the whole top area.
+           The wrapper spans the viewport; padding keeps content aligned
+           with the 1280px column used by the rest of the page. */
         .sb-hub-wrap {
             position: relative;
+            max-width: none;
+            padding-left:  max(2.4rem, calc((100vw - 1280px) / 2 + 2.4rem));
+            padding-right: max(2.4rem, calc((100vw - 1280px) / 2 + 2.4rem));
+            min-height: calc(72vh - 54px);
             background:
-                linear-gradient(to bottom, rgba(7,7,13,0.62) 0%, rgba(7,7,13,0.74) 60%, rgba(7,7,13,0.96) 100%),
-                url('../p4r.jpg') center 30% / cover no-repeat;
+                linear-gradient(to right, rgba(7,7,13,0.72) 0%, rgba(7,7,13,0.35) 45%, rgba(7,7,13,0) 75%),
+                linear-gradient(to bottom, rgba(7,7,13,0.15) 0%, rgba(7,7,13,0) 40%, rgba(7,7,13,0.55) 82%, rgba(7,7,13,1) 100%),
+                url('../botw.jpg') 55% 60% / cover no-repeat;
             border-bottom: 1px solid var(--border);
+        }
+        /* Wide screens: zoom slightly and anchor left so Link stands to the
+           right of the logo and text instead of behind them. */
+        @media (min-width: 900px) {
+            .sb-hub-wrap { background-size: auto, auto, 140% auto; background-position: 0 0, 0 0, 0% 68%; }
         }
 
         /* HUB MARK (OFF MENU image as the headline) */
@@ -96,7 +108,7 @@
 <a href="hall-of-fame.html" class="sb-hof-banner">
     <div>
         <h2 class="sb-hof-title">My Hall of Fame</h2>
-        <p class="sb-hof-desc">My favorite games, anime, films, and series.</p>
+        <p class="sb-hof-desc">My favorite game series, anime series, and anime movies.</p>
     </div>
     <span class="sb-hof-arrow" aria-hidden="true">→</span>
 </a>

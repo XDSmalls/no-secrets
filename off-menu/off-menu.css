@@ -906,3 +906,21 @@ img { max-width: 100%; display: block; }
     color: rgba(200,255,0,0.5);
     text-shadow: none;
 }
+
+/* HoF cover thumbnails + three-column layout */
+.sb-hof-inner--three { grid-template-columns: repeat(3, 1fr); }
+.sb-hof-list li:has(.hof-cover) { align-items: center; }
+.hof-cover {
+    width: 46px;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: 2px;
+    border: 1px solid rgba(200,255,0,0.25);
+    box-shadow: 0 0 10px rgba(200,255,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.sb-hof-list li:hover .hof-cover { transform: translateY(-2px); box-shadow: 0 0 14px rgba(200,255,0,0.3); }
+@media (max-width: 960px) {
+    .sb-hof-inner--three { grid-template-columns: 1fr; }
+}
